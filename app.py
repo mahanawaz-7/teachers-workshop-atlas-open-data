@@ -26,7 +26,7 @@ def reset_language():
 
 # Main page (landing page with language selection)
 if not st.session_state["language_selected"]:
-    st.title("Welcome to the Teachers Guide to ATLAS Open Data")
+    st.title("Welcome to the ATLAS Open Data Teachers Workshop")
     
     st.write("Please select your language to continue:")
     
@@ -39,7 +39,7 @@ if not st.session_state["language_selected"]:
 # # Check if English is selected
 # elif st.session_state["language"] == "English":
 else:
-    st.sidebar.title("Teachers guide to ATLAS Open Data")
+    st.sidebar.title("ATLAS Open Data Teachers Workshop")
     sidebar_top = st.sidebar.container()  # Create a container for the top part of the sidebar
     sidebar_bottom = st.sidebar.container()  # Create a container for the bottom part of the sidebar
     # Use the top container for the main menu
@@ -58,18 +58,22 @@ else:
 
     # Dynamically import and display the content of the selected tab
     if selected_tab == tabs[0]:
-        module = importlib.import_module("01_intro")
+        module = importlib.import_module("00_welcome")
         module.run(selected_tab)
 
     elif selected_tab == tabs[1]:
-        module = importlib.import_module("02_experimental")
-        module.run(selected_tab)
-
-    elif selected_tab == tabs[2]:
         module = importlib.import_module("03_python")
         module.run(selected_tab)
 
+    elif selected_tab == tabs[2]:
+        module = importlib.import_module("01_intro")
+        module.run(selected_tab)
+
     elif selected_tab == tabs[3]:
+        module = importlib.import_module("02_experimental")
+        module.run(selected_tab)
+
+    elif selected_tab == tabs[4]:
         module = importlib.import_module("04_analyses")
         module.run(selected_tab)
 

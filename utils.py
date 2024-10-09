@@ -204,7 +204,7 @@ def load_markdown_file_with_images_and_code(filename, folder, global_namespace, 
             content = f.read()
 
         insert_toc(content)
-
+        
         markdown_buffer = []
         in_code_block = False
         code_buffer = []
@@ -281,7 +281,6 @@ def load_markdown_file_with_images_and_code(filename, folder, global_namespace, 
 
     else:
         st.error(f"File not found for language: {language}. Check the file path.")
-
 
 def load_markdown_preview(filename, folder, language, lines=3):
     # Load the markdown file
