@@ -66,7 +66,7 @@ else:
         module.run(selected_tab)
 
     elif selected_tab == tabs[2]:
-        module = importlib.import_module("01_intro")
+        module = importlib.import_module("01_foundations")
         module.run(selected_tab)
 
     elif selected_tab == tabs[3]:

@@ -1,4 +1,4 @@
-# Intro to histogramming
+# Introduction to histogramming
 In particle physics, we use so many events to make our measurements that looking at the events by hand would be very impractical - instead, we use computer code to do the looking for us.
 
 This resource will walk you through some basic computing techniques commonly used in high energy physics (HEP) analyses. You will learn how to:

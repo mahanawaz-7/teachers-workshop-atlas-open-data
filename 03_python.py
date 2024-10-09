@@ -25,7 +25,7 @@ def run(selected_tab=None):
     tabs_path = ['01_intro.md', '02_histograms.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
-    load_markdown_file_with_images(general_info, folder, selected_language)
+    load_markdown_file_with_images_and_code(general_info, folder, {}, selected_language)
      
     # Create the tabs
     tabs = st.tabs(tab_titles)
