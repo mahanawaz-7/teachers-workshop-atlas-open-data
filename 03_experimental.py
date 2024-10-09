@@ -13,12 +13,14 @@ def run(selected_tab=None):
     # Get the selected language from session state
     selected_language = st.session_state.get("language", "english").lower()
 
+    # The intro to the module
+    general_info = '00_intro.md'
     # Create paths and titles for each section
     tabs_path = ['01_accelerators.md', '02_detectors.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
-    st.title("Detectors")
-    st.markdown("Some info about the thing that they will do here.")
+    # Print the intro to the module
+    load_markdown_file_with_images(general_info, folder, selected_language)
 
     # Create the tabs
     tabs = st.tabs(tab_titles)

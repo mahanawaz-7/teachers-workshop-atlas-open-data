@@ -62,15 +62,15 @@ else:
         module.run(selected_tab)
 
     elif selected_tab == tabs[1]:
-        module = importlib.import_module("03_python")
+        module = importlib.import_module("01_beforeclass")
         module.run(selected_tab)
 
     elif selected_tab == tabs[2]:
-        module = importlib.import_module("01_foundations")
+        module = importlib.import_module("02_foundations")
         module.run(selected_tab)
 
     elif selected_tab == tabs[3]:
-        module = importlib.import_module("02_experimental")
+        module = importlib.import_module("03_experimental")
         module.run(selected_tab)
 
     elif selected_tab == tabs[4]:
