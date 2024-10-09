@@ -1,91 +1,8 @@
-# # import streamlit as st
-# # import io
-# # import sys
-# # import json
-# # from utils import load_markdown_file_with_images_and_code,get_first_level_headers
-
-# # # Define backend variables and functions that will be available to the user's code
-
-# # selected_language = st.session_state.get("language", "english").lower()
-
-# # def run(selected_tab=None):
-# #     global_namespace = {}
-# #     #load_markdown_file_with_images_and_code('01_intro.md', 'python', global_namespace, selected_language)
-
-# #     folder = "python"
-# #     # Initialize session state for selected tab
-# #     if "selected_tab" not in st.session_state:
-# #         st.session_state["selected_tab"] = selected_tab
-
-# #     # Get the selected language from session state
-# #     selected_language = st.session_state.get("language", "english").lower()
-# #     # Create tabs for each section
-# #     tabs_path = ['01_intro.md', '02_histograms.md']
-# #     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
-# #     tabs = st.tabs(tab_titles)
-
-# #     # Map tab titles to tab objects
-# #     tab_dict = dict(zip(tab_titles, tabs))
-
-# #     # Display content based on selected tab
-# #     for tab_title in tab_titles:
-# #         with tab_dict[tab_title]:
-# #             # Update the session state when the tab is selected
-# #             if tab_title != st.session_state["selected_tab"]:
-# #                 st.session_state["selected_tab"] = tab_title
-# #             if tab_title == tab_titles[0]:
-# #                 # Pass the selected language to the function
-# #                 load_markdown_file_with_images_and_code(tabs_path[0], folder, global_namespace, selected_language)
-# #             elif tab_title == tab_titles[1]:
-# #                 # Pass the selected language to the function
-# #                 load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
-
-# import streamlit as st
-# import io
-# import sys
-# import json
-# from utils import load_markdown_file_with_images_and_code, get_first_level_headers
-
-# # Define backend variables and functions that will be available to the user's code
-# selected_language = st.session_state.get("language", "english").lower()
-
-# def run(selected_tab=None):
-#     # Shared global namespace across all cells
-#     global_namespace = {}
-
-#     # Folder where markdown files are stored
-#     folder = "python"
-
-#     # Initialize session state for selected tab
-#     if "selected_tab" not in st.session_state:
-#         st.session_state["selected_tab"] = selected_tab
-
-#     # Create tabs for each section
-#     tabs_path = ['01_intro.md', '02_histograms.md']  # List of markdown file names
-#     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)  # Get tab titles from the headers of markdown files
-#     tabs = st.tabs(tab_titles)
-
-#     # Map tab titles to their corresponding tab objects
-#     tab_dict = dict(zip(tab_titles, tabs))
-
-#     # Display content based on selected tab
-#     for tab_title in tab_titles:
-#         with tab_dict[tab_title]:
-#             # Update the session state when the tab is selected
-#             if tab_title != st.session_state["selected_tab"]:
-#                 st.session_state["selected_tab"] = tab_title
-
-#             # Load the appropriate markdown file based on the selected tab
-#             if tab_title == tab_titles[0]:
-#                 load_markdown_file_with_images_and_code(tabs_path[0], folder, global_namespace, selected_language)
-#             elif tab_title == tab_titles[1]:
-#                 load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
-
 import streamlit as st
 import io
 import sys
 import json
-from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview
+from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview, load_markdown_file_with_images
 
 # Define backend variables and functions that will be available to the user's code
 selected_language = st.session_state.get("language", "english").lower()
@@ -104,11 +21,11 @@ def run(selected_tab=None):
         st.session_state["expanded_histograms"] = False
 
     # Create paths and titles for each section
+    general_info = '00_before_class.md'
     tabs_path = ['01_intro.md', '02_histograms.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
-    st.title("Introduction to coding in Python")
-    st.markdown("Some info about the thing that they will do here.")
+    load_markdown_file_with_images(general_info, folder, selected_language)
      
     # Create the tabs
     tabs = st.tabs(tab_titles)

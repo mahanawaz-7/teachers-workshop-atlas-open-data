@@ -21,7 +21,7 @@ def run(selected_tab=None):
     intro_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
     standard_model_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
 
-    st.title("Welcome")
+    st.title("Intro to particle physics")
     st.markdown("Some info about the thing that they will do here.")
 
     # Create the tabs
