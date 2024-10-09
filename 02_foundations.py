@@ -15,11 +15,13 @@ def run(selected_tab=None):
     # Get the selected language from session state
     selected_language = st.session_state.get("language", "english").lower()
 
-    # Create paths and titles for each section
+    # Get the intro to the module
     general_info = '00_intro.md'
+    # Create paths and titles for each section
     tabs_path = ['01_fermions.md', '02_bosons.md', '03_unknown.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
+    # Print the intro to the module
     load_markdown_file_with_images(general_info, folder, selected_language)
 
     # Load previews (first few lines of the markdown files)

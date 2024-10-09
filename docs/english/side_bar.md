@@ -1,5 +1,5 @@
 Welcome
-Before the class (optional)
+Before class (*optional)
 Foundations of Particle Physics
 Experimental Particle Physics
 Hands-on Analyses
