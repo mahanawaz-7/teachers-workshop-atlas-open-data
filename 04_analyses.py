@@ -241,13 +241,13 @@ def run(selected_tab=None):
     folder = "analyses"
 
     # Initialize session state for expanded state of sections
-    if "expanded_intro" not in st.session_state:
-        st.session_state["expanded_intro"] = False
-    if "expanded_histograms" not in st.session_state:
-        st.session_state["expanded_histograms"] = False
+    if "expanded_Zpeak" not in st.session_state:
+        st.session_state["expanded_Zpeak"] = False
+    if "expanded_HtoZZ" not in st.session_state:
+        st.session_state["expanded_HtoZZ"] = False
 
     # Create paths and titles for each section
-    tabs_path = ['01_Zpeak.md']
+    tabs_path = ['01_Zpeak.md','02_HtoZZ.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
     st.title("Physics Analyses")
@@ -259,39 +259,40 @@ def run(selected_tab=None):
     # Tab 1: Introduction
     with tabs[0]:
         # Load preview for intro
-        intro_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
+        Zpeak_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
+        HtoZZ_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
 
-        if not st.session_state["expanded_intro"]:
+        if not st.session_state["expanded_Zpeak"]:
             # Show preview
-            preview_lines = intro_preview.splitlines()
+            preview_lines = Zpeak_preview.splitlines()
             st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
             st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-            if st.button("Read more", key="intro_read"):
-                st.session_state["expanded_intro"] = True
+            if st.button("Read more", key="Zpeak_read"):
+                st.session_state["expanded_Zpeak"] = True
                 st.rerun()  # Refresh the app to display the full content
         else:
             # Show full content
             load_markdown_file_with_images_and_code(tabs_path[0], folder, global_namespace, selected_language)
-            if st.button("Done!", key="intro_done"):
-                st.session_state["expanded_intro"] = False
+            if st.button("Done!", key="Zpeak_done"):
+                st.session_state["expanded_Zpeak"] = False
                 st.rerun()  # Refresh the app to show the preview again
 
-    # # Tab 2: Histograms
-    # with tabs[1]:
-    #     # Load preview for histograms
-    #     histograms_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
+    # Tab 2: H to ZZ
+    with tabs[1]:
+        # Load preview for histograms
+        histograms_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
 
-    #     if not st.session_state["expanded_histograms"]:
-    #         # Show preview
-    #         preview_lines = histograms_preview.splitlines()
-    #         st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
-    #         st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-    #         if st.button("Read more", key="histograms_read"):
-    #             st.session_state["expanded_histograms"] = True
-    #             st.rerun()  # Refresh the app to display the full content
-    #     else:
-    #         # Show full content
-    #         load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
-    #         if st.button("Done!", key="histograms_done"):
-    #             st.session_state["expanded_histograms"] = False
-    #             st.rerun()  # Refresh the app to show the preview again
+        if not st.session_state["expanded_HtoZZ"]:
+            # Show preview
+            preview_lines = HtoZZ_preview.splitlines()
+            st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
+            st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
+            if st.button("Read more", key="HtoZZ_read"):
+                st.session_state["expanded_HtoZZ"] = True
+                st.rerun()  # Refresh the app to display the full content
+        else:
+            # Show full content
+            load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
+            if st.button("Done!", key="HtoZZ_done"):
+                st.session_state["expanded_HtoZZ"] = False
+                st.rerun()  # Refresh the app to show the preview again
