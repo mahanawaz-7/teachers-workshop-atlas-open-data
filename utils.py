@@ -100,7 +100,7 @@ def load_markdown_file_with_images(filename, folder, language):
             content = f.read()
 
         # Insert Table of Contents (TOC) only if there are second or third level headers
-        insert_toc(content)
+        #insert_toc(content)
 
         # Parse the content and replace image references
         markdown_buffer = []
@@ -158,7 +158,132 @@ def load_sidebar_tabs(language, folder="docs"):
         st.error(f"Sidebar file not found for language: {language}. Check the file path.")
         return []  # Return an empty list if file not found
 
-def run_code_editor(default_code, global_namespace, height=[2,6]):
+# def run_code_editor(default_code, global_namespace, height=[2,6]):
+#     """
+#     Run the code editor in Streamlit with a shared global namespace.
+#     """
+#     with open('custom/buttons_code_cells.json') as json_button_file:
+#         custom_buttons = json.load(json_button_file)
+
+#     response_dict = code_editor(
+#         default_code,
+#         lang="python",
+#         height=height,
+#         theme="monokai",
+#         buttons=custom_buttons
+#     )
+
+#     if response_dict['type'] == "submit" and len(response_dict['text']) != 0:
+#         code = response_dict['text']
+#         old_stdout = sys.stdout
+#         sys.stdout = buffer = io.StringIO()
+
+#         try:
+#             exec(code, global_namespace)
+#         except IndentationError as e:
+#             st.error(f"Indentation Error: {e}")
+#         except Exception as e:
+#             st.error(f"Error: {e}")
+
+#         output = buffer.getvalue()
+#         if output:
+#             st.code(output, language="python")
+
+#         sys.stdout = old_stdout
+
+#         if plt.get_fignums():
+#             st.pyplot(plt.gcf())
+#             plt.close('all')
+
+# def load_markdown_file_with_images_and_code(filename, folder, global_namespace, language):
+#     """Load markdown content, display images, code, and alerts in the correct order."""
+#     base_path = f"docs/{language.lower()}/{folder}/{filename}"
+
+#     if os.path.exists(base_path):
+#         with open(base_path, 'r', encoding='utf-8') as f:
+#             content = f.read()
+
+#         #insert_toc(content)
+        
+#         markdown_buffer = []
+#         in_code_block = False
+#         code_buffer = []
+#         in_alert_block = False
+#         alert_type = None
+#         alert_buffer = []
+
+#         alert_start_re = re.compile(r'> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]')
+#         alert_end_re = re.compile(r'> \[!END\]')
+
+#         for line in content.splitlines():
+#             if line.startswith("```"):
+#                 if not in_code_block:
+#                     in_code_block = True
+#                     # Render any accumulated markdown content before the code block
+#                     if markdown_buffer:
+#                         st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
+#                         markdown_buffer = []
+#                 else:
+#                     in_code_block = False
+#                     code = '\n'.join(code_buffer)
+#                     run_code_editor(code, global_namespace)
+#                     code_buffer = []
+#             elif in_code_block:
+#                 code_buffer.append(line)
+#             elif in_alert_block:
+#                 # Check if it's the end of an alert block
+#                 if alert_end_re.match(line):
+#                     in_alert_block = False
+#                     alert_text = '\n'.join(alert_buffer).strip()
+
+#                     # Render the alert using Streamlit components
+#                     if alert_type == "NOTE":
+#                         st.info(alert_text)
+#                     elif alert_type == "TIP":
+#                         st.success(alert_text)
+#                     elif alert_type == "IMPORTANT":
+#                         st.warning(alert_text)
+#                     elif alert_type == "WARNING":
+#                         st.error(alert_text)
+#                     elif alert_type == "CAUTION":
+#                         st.warning(alert_text)
+                    
+#                     alert_buffer = []  # Clear the buffer for the next alert
+#                 else:
+#                     alert_buffer.append(line)
+#             else:
+#                 # Check if the line contains an alert start
+#                 if alert_start_re.match(line):
+#                     # Render any accumulated markdown content before starting the alert
+#                     if markdown_buffer:
+#                         st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
+#                         markdown_buffer = []
+
+#                     alert_type = alert_start_re.match(line).group(1)
+#                     in_alert_block = True
+#                 else:
+#                     image_match = re.match(r'!\[(.*?)\]\((.*?)\)', line)
+#                     if image_match:
+#                         # Render any accumulated markdown content before the image
+#                         if markdown_buffer:
+#                             st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
+#                             markdown_buffer = []
+
+#                         caption, img_path = image_match.groups()
+#                         st.image(img_path, caption=caption, width=650)
+#                     else:
+#                         # Add the line to the markdown buffer if it's not an image or code block
+#                         markdown_buffer.append(line)
+
+#         # Render any remaining markdown content
+#         if markdown_buffer:
+#             st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
+
+#     else:
+#         st.error(f"File not found for language: {language}. Check the file path.")
+
+
+def run_code_editor(default_code, global_namespace, height=[2,6], key=None):
     """
     Run the code editor in Streamlit with a shared global namespace.
     """
@@ -170,7 +295,8 @@ def run_code_editor(default_code, global_namespace, height=[2,6]):
         lang="python",
         height=height,
         theme="monokai",
-        buttons=custom_buttons
+        buttons=custom_buttons,
+        key=key  # Add a unique key here
     )
 
     if response_dict['type'] == "submit" and len(response_dict['text']) != 0:
@@ -203,19 +329,20 @@ def load_markdown_file_with_images_and_code(filename, folder, global_namespace, 
         with open(base_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        insert_toc(content)
-        
         markdown_buffer = []
         in_code_block = False
         code_buffer = []
         in_alert_block = False
         alert_type = None
         alert_buffer = []
+        line_number = 0  # Add a counter for unique keys
 
         alert_start_re = re.compile(r'> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]')
         alert_end_re = re.compile(r'> \[!END\]')
 
         for line in content.splitlines():
+            line_number += 1  # Increment line number for unique key generation
+
             if line.startswith("```"):
                 if not in_code_block:
                     in_code_block = True
@@ -226,17 +353,15 @@ def load_markdown_file_with_images_and_code(filename, folder, global_namespace, 
                 else:
                     in_code_block = False
                     code = '\n'.join(code_buffer)
-                    run_code_editor(code, global_namespace)
+                    # Pass a unique key to each code editor block
+                    run_code_editor(code, global_namespace, key=f"{filename}_line_{line_number}")
                     code_buffer = []
             elif in_code_block:
                 code_buffer.append(line)
             elif in_alert_block:
-                # Check if it's the end of an alert block
                 if alert_end_re.match(line):
                     in_alert_block = False
                     alert_text = '\n'.join(alert_buffer).strip()
-
-                    # Render the alert using Streamlit components
                     if alert_type == "NOTE":
                         st.info(alert_text)
                     elif alert_type == "TIP":
@@ -247,40 +372,33 @@ def load_markdown_file_with_images_and_code(filename, folder, global_namespace, 
                         st.error(alert_text)
                     elif alert_type == "CAUTION":
                         st.warning(alert_text)
-                    
-                    alert_buffer = []  # Clear the buffer for the next alert
+                    alert_buffer = []
                 else:
                     alert_buffer.append(line)
             else:
-                # Check if the line contains an alert start
                 if alert_start_re.match(line):
-                    # Render any accumulated markdown content before starting the alert
                     if markdown_buffer:
                         st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
                         markdown_buffer = []
-
                     alert_type = alert_start_re.match(line).group(1)
                     in_alert_block = True
                 else:
                     image_match = re.match(r'!\[(.*?)\]\((.*?)\)', line)
                     if image_match:
-                        # Render any accumulated markdown content before the image
                         if markdown_buffer:
                             st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
                             markdown_buffer = []
-
                         caption, img_path = image_match.groups()
                         st.image(img_path, caption=caption, width=650)
                     else:
-                        # Add the line to the markdown buffer if it's not an image or code block
                         markdown_buffer.append(line)
 
-        # Render any remaining markdown content
         if markdown_buffer:
             st.markdown('\n'.join(markdown_buffer), unsafe_allow_html=True)
 
     else:
         st.error(f"File not found for language: {language}. Check the file path.")
+
 
 def load_markdown_preview(filename, folder, language, lines=3):
     # Load the markdown file

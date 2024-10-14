@@ -1,32 +1,12 @@
-# How to rediscover the Higgs boson yourself!
-
-This notebook uses ATLAS Open Data https://opendata.atlas.cern to show you the steps to rediscover the Higgs boson yourself!
-
-ATLAS Open Data provides open access to proton-proton collision data at the LHC for educational purposes. ATLAS Open Data resources are ideal for high-school, undergraduate and postgraduate students.
+# Discover the Higgs boson yourself!
 
 ### What is the Higgs boson? 
-The Higgs boson is a fundamental particle predicted by the Standard Model. 
-It is a manifestation of the Higgs field,
-    which gives mass to the fundamental particles.
-However,
-    it is incredibly hard to produce.
-At the LHC, 
-    a Higgs particle is produced about once every 10 billion collisions!
-This tiny fraction makes it very difficult to detect.
-Nevertheless, 
-    after years of data collection, 
-    the Higgs boson was finally discovered in 2012 by CMS and ATLAS experiments at CERN.
-In this tutorial, 
-    we shall be following their example. 
+The Higgs boson is a fundamental particle predicted by the Standard Model. It is a manifestation of the Higgs field, which gives mass to the fundamental particles. However, it is incredibly hard to produce. At the LHC, a Higgs particle is produced about once every 10 billion collisions! This tiny fraction makes it very difficult to detect. Nevertheless, after years of data collection, the Higgs boson was finally discovered in 2012 by CMS and ATLAS experiments at CERN. In this tutorial, we shall be following their example. 
 
 ### Detecting the Higgs
 This analysis loosely follows the paper on the [discovery of the Higgs boson by ATLAS](https://www.sciencedirect.com/science/article/pii/S037026931200857X) (mostly Section 4 and 4.1).
 
-The Higgs boson can be produced in many different ways. 
-In particle physics, 
-    we describe these production modes using Feynman diagrams.
-These diagrams allow us to visualise particle processes while also acting as powerful tools for calculations.
-See [here](https://cds.cern.ch/record/2759490/files/Feynman%20Diagrams%20-%20ATLAS%20Cheat%20Sheet.pdf) for more information on Feynman diagrams.
+The Higgs boson can be produced in many different ways. In particle physics, we describe these production modes using Feynman diagrams. These diagrams allow us to visualise particle processes while also acting as powerful tools for calculations. See [here](https://cds.cern.ch/record/2759490/files/Feynman%20Diagrams%20-%20ATLAS%20Cheat%20Sheet.pdf) for more information on Feynman diagrams.
 
 There are four main production modes of the Higgs boson, and their respective Feynman diagrams:
 1. Gluon-gluon fusion (top left)
@@ -37,19 +17,14 @@ There are four main production modes of the Higgs boson, and their respective Fe
 <CENTER><img src="images/ImagesHiggs/ggH.png" style="width:40%"> <img src="images/ImagesHiggs/VBFH.png" style="width:35%"></CENTER>
 <CENTER><img src="images/ImagesHiggs/WH.png" style="width:40%"> <img src="images/ImagesHiggs/ttbarfusion.png" style="width:35%"></CENTER>
 
-The Higgs has a very short lifetime, on the order of $10^{-22} \,\text{s}$.
-It decays extremely quickly after production, so there is no hope of directly detecting the particle.
-Nevertheless, we can use the Standard Model to predict its decay products: photons, Z bosons, quarks, etc.,all with different probabilities.
-These **decay channels** can be used to identify the Higgs boson.
-In this notebook, we'll be looking at one particular decay channel:
+The Higgs has a very short lifetime, on the order of $10^{-22} \,\text{s}$. It decays extremely quickly after production, so there is no hope of directly detecting the particle. Nevertheless, we can use the Standard Model to predict its decay products: photons, Z bosons, quarks, etc.,all with different probabilities. These **decay channels** can be used to identify the Higgs boson. In this exercise, we'll be looking at one particular decay channel:
 $$H \rightarrow ZZ^* \rightarrow \ell\ell\ell\ell$$
 
 <CENTER><img src="images/ImagesHiggs/HZZ_feynman.png" style="width:40%"></CENTER>
 
 
 
-We refer to this as our desired **signal**.
-Ideally, we would search for collisions which yield four leptons as products and this would tell us that a Higgs boson is present. Unfortunately, in addition to our signal, there are many other **background** processes that lead to four reconstructed leptons in the final state. The main background is $ZZ^* \to \ell\ell\ell\ell$ where decay products have the same properties as those in the Higgs decay.  This is known as an irreducible background. 
+We refer to this as our desired **signal**. Ideally, we would search for collisions which yield four leptons as products and this would tell us that a Higgs boson is present. Unfortunately, in addition to our signal, there are many other **background** processes that lead to four reconstructed leptons in the final state. The main background is $ZZ^* \to \ell\ell\ell\ell$ where decay products have the same properties as those in the Higgs decay.  This is known as an irreducible background. 
 <CENTER><img src="images/ImagesHiggs/ZZllll.png" style="width:40%"></CENTER>
 
 We can get around this by accounting for the total invariant mass of the lepton products. We know through conservation of energy and momentum that the invariant mass of the products must be equal to the Higgs mass, while other background processes will have different invariant masses. Our last step would be to plot the invariant mass of each event and spot the peak in mass around $125\, \text{GeV}$ , which corresponds to the mass of the Higgs boson. 
@@ -72,42 +47,12 @@ See [here](https://cds.cern.ch/record/2800577/files/Signal%20and%20Background%20
 
 ## ATLAS Open Data Initialisation
 
-### First time package installation on your computer (not needed on mybinder)
-This first cell installs the required python packages.
-It only needs to be run the first time you open this notebook on your computer. 
-If you close Jupyter and re-open on the same computer, you won't need to run this first cell again.
-
-If this is opened on mybinder, you don't need to run this cell.
-
-```python
-import sys
-# # update the pip package installer
-!{sys.executable} -m pip install --upgrade --user pip
-# # install required packages
-!{sys.executable} -m pip install --upgrade --user uproot awkward vector numpy matplotlib
-```
-
-We're going to import a number of packages to help us:
+We're going to use a number of packages to help us:
 * `numpy`: provides numerical calculations such as histogramming
 * `matplotlib`: common tool for making plots, figures, images, visualisations
 * `uproot`: processes `.root` files typically used in particle physics into data formats used in python
 * `awkward`: introduces `awkward` arrays, a format that generalizes `numpy` to nested data with possibly variable length lists
 * `vector`: to allow vectorized 4-momentum calculations
-
-We also import the file `infofile`, which contains all relevant information of our dataset.
-
-```python
-import infofile # local file containing cross-sections, sums of weights, dataset IDs
-import numpy as np # for numerical calculations such as histogramming
-import matplotlib.pyplot as plt # for plotting
-import matplotlib_inline # to edit the inline plot format
-matplotlib_inline.backend_inline.set_matplotlib_formats('pdf', 'svg') # to make plots in pdf (vector) format
-from matplotlib.ticker import AutoMinorLocator # for minor ticks
-import uproot # for reading .root files
-import awkward as ak # to represent nested data in columnar format
-import vector # for 4-momentum calculations
-import time
-```
 
 Unit definitions, as stored in the data files
 
@@ -115,7 +60,6 @@ Unit definitions, as stored in the data files
 MeV = 0.001
 GeV = 1.0
 ```
-
 ## Example 1: Reading data 
 
 We would like to read some of the data from the open dataset.
@@ -125,8 +69,7 @@ We would like to read some of the data from the open dataset.
 path = "https://atlas-opendata.web.cern.ch/atlas-opendata/samples/2020/4lep/" 
 ```
 
-For convenient naming and identification purposes,
-    we define a dictionary which stores all the important names of the samples we want to pull from the directory.
+For convenient naming and identification purposes, we define a dictionary which stores all the important names of the samples we want to pull from the directory.
 
 ```python
 # For identification and naming
@@ -154,9 +97,7 @@ samples = {
 }
 ```
 
-The key named `data` refers to the event information collected from real experiments,
-    while the `Background` and `Signal` keys refer to Monte-Carlo (MC) simulations of the ATLAS experiments.
-Both real data and MC data will then be analysed and compared together to discover the Higgs! 
+The key named `data` refers to the event information collected from real experiments, while the `Background` and `Signal` keys refer to Monte-Carlo (MC) simulations of the ATLAS experiments. Both real data and MC data will then be analysed and compared together to discover the Higgs! 
 
 Let's try accessing `data_A` in the Open Data URL as an example.
 
@@ -172,13 +113,7 @@ print(f"{value=}")
 data_A_path = path + "Data/" + value + ".4lep.root"
 ```
 
-Next, we shall try opening the `data_A` file to see what is inside.
-In the file (called a `tree`),
-    there are 39 entries, 
-    one for each event.
-In each event,
-    a dictionary stores the all relevant information as keys, such as the event number (`eventNumber`), lepton transverse momentum (`lep_pt`), etc.  
-Details on the variables in the dictionary can be viewed [here](https://cds.cern.ch/record/2707171/files/ANA-OTRC-2019-01-PUB-updated.pdf) in Appendix A.
+Next, we shall try opening the `data_A` file to see what is inside. In the file (called a `tree`), there are 39 entries, one for each event. In each event, a dictionary stores the all relevant information as keys, such as the event number (`eventNumber`), lepton transverse momentum (`lep_pt`), etc. Details on the variables in the dictionary can be viewed [here](https://cds.cern.ch/record/2707171/files/ANA-OTRC-2019-01-PUB-updated.pdf) in Appendix A.
 
 More information on trees can be viewed [here](https://masonproffitt.github.io/uproot-tutorial/03-trees/index.html).
 
@@ -198,23 +133,13 @@ print(tree.keys())
 print(tree.arrays()) 
 ```
 
-Perhaps we'd like to see the lepton energies. 
-We can access this from our tree using the key `lep_E`. 
-Also, 
-    from this point on we shall be manipulating our tree arrays using the `awkward` library.
-We can use `library="ak"` in the argument of the `.arrays()` method to use this library.
-If you ever see `library="ak"` in the code,
-    it means that the array is output as an `awkward` array.
+Perhaps we'd like to see the lepton energies. We can access this from our tree using the key `lep_E`. Also, from this point on we shall be manipulating our tree arrays using the `awkward` library. We can use `library="ak"` in the argument of the `.arrays()` method to use this library. If you ever see `library="ak"` in the code, it means that the array is output as an `awkward` array.
 
 ```python
 tree["lep_E"].arrays(library="ak")
 ```
 
-In our analysis, 
-    not all the information in the tree is important.
-We can store the important variables in a list and retrieve them from the tree later on.
-As it turns out, 
-    we will need the following set of variables:
+In our analysis, not all the information in the tree is important. We can store the important variables in a list and retrieve them from the tree later on. As it turns out, we will need the following set of variables:
 
 ```python
 # Define what variables are important to our analysis
@@ -225,26 +150,12 @@ variables = ['lep_pt','lep_eta','lep_phi','lep_E','lep_charge','lep_type']
 #     print(data)
 ```
 
-Now that we understand how to access the information in the `data_A` tree,
-    we can begin analysis.
-As mentioned in the introduction,
-    there are two key steps to be completed for each event entry:
-1. **Cuts** - we need to account for lepton selection rules in the event. 
-In the [paper](https://www.sciencedirect.com/science/article/pii/S037026931200857X), 
-    it is stated that we must
-"[select] two pairs of isolated leptons, each of which is comprised of two leptons with the **same flavour** and **opposite charge**".
-The datasets used in this notebook have already been filtered to include at least 4 leptons per event.
-We need to filter the data such that in each event, there are pairs of leptons of the **same lepton type** (`lep_type`) and summing to **zero lepton charge** (`lep_charge`).
+Now that we understand how to access the information in the `data_A` tree, we can begin analysis. As mentioned in the introduction, there are two key steps to be completed for each event entry:
+1. **Cuts** - we need to account for lepton selection rules in the event. In the [paper](https://www.sciencedirect.com/science/article/pii/S037026931200857X), it is stated that we must "[select] two pairs of isolated leptons, each of which is comprised of two leptons with the **same flavour** and **opposite charge**". The datasets used in this notebook have already been filtered to include at least 4 leptons per event. We need to filter the data such that in each event, there are pairs of leptons of the **same lepton type** (`lep_type`) and summing to **zero lepton charge** (`lep_charge`).
 
-2. **Mass calculation** - the data to be plotted is the 4-lepton invariant mass, which can be found using the equation: $$m_\text{4l} = \sqrt{E^2_\text{tot}-\mathbf{p}_\text{tot}\cdot\mathbf{p}_\text{tot}}$$
-in units where $c=1$.
-$E_\text{tot}$ is the total energy and $\mathbf{p}_\text{tot}$ is the total momentum.
-This calculation is performed using the vector array method `.M` on the sum of lepton 4-momenta (`lep_pt`,`lep_eta`,`lep_phi`,`lep_E`).
+2. **Mass calculation** - the data to be plotted is the 4-lepton invariant mass, which can be found using the equation: $$m_\text{4l} = \sqrt{E^2_\text{tot}-\mathbf{p}_\text{tot}\cdot\mathbf{p}_\text{tot}}$$ in units where $c=1$. $E_\text{tot}$ is the total energy and $\mathbf{p}_\text{tot}$ is the total momentum. This calculation is performed using the vector array method `.M` on the sum of lepton 4-momenta (`lep_pt`,`lep_eta`,`lep_phi`,`lep_E`).
 
-From this,
-    we can see why we chose those six important variables earlier. 
-The physical reasoning for why we perform these steps is encapsulated in the idea of **conservation laws**.
-You may read more [here](https://cds.cern.ch/record/2759491/files/Conservation%20Laws%20-%20ATLAS%20Physics%20Cheat%20Sheet.pdf).
+From this, we can see why we chose those six important variables earlier. The physical reasoning for why we perform these steps is encapsulated in the idea of **conservation laws**. You may read more [here](https://cds.cern.ch/record/2759491/files/Conservation%20Laws%20-%20ATLAS%20Physics%20Cheat%20Sheet.pdf).
 
 Let's try to perform this two-step analysis for one event in `data_A`.
 
@@ -271,8 +182,7 @@ invariant_mass = (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]).M * MeV # .M calcul
 print(f"Invariant mass: {invariant_mass}")
 ```
 
-Based on our analysis, this entry should be removed because the lepton type does not match our requirements.
-We can turn these checks and calculations into a set of functions.
+Based on our analysis, this entry should be removed because the lepton type does not match our requirements. We can turn these checks and calculations into a set of functions.
 
 ```python
 # Cut lepton type (electron type is 11,  muon type is 13)
@@ -295,9 +205,7 @@ def calc_mass(lep_pt, lep_eta, lep_phi, lep_E):
     return invariant_mass
 ```
 
-You may verify on your own that these functions give the same outputs as the previous code block.
-Now, 
-    we shall apply these functions over the entire data tree using a `for` loop.
+You may verify on your own that these functions give the same outputs as the previous code block. Now, we shall apply these functions over the entire data tree using a `for` loop.
 
 ```python
 # Define empty list to hold all data for this sample
@@ -320,10 +228,7 @@ for data in tree.iterate(variables, library="ak", step_size = 1000000): # the da
 data_A = ak.concatenate(sample_data)
 ```
 
-We can now plot the data using Matplotlib. 
-The data will be turned into a histogram,
-    with bins of width $5 \,\text{GeV}$.
-Note that much of the code written here is meant for the aesthetics of the plot.
+We can now plot the data using Matplotlib. The data will be turned into a histogram, with bins of width $5 \,\text{GeV}$. Note that much of the code written here is meant for the aesthetics of the plot.
 
 ```python
 # x-axis range of the plot
@@ -384,26 +289,12 @@ main_axes.yaxis.set_minor_locator( AutoMinorLocator() )
 main_axes.legend( frameon=False ); # no box around the legend
 ```
 
-Great,
-    we managed to plot `data_A`! 
-Now, 
-    we have not discussed how to deal with the Monte-Carlo simulation data,
-    or even what they are for. 
-Let us explain.
-
+Great, we managed to plot `data_A`! 
+Now, we have not discussed how to deal with the Monte-Carlo simulation data, or even what they are for. Let us explain.
 
 ## Example 2: Reading Monte-Carlo data
-
-
-
-Using the Standard Model, 
-    we can do a set of randomised simulations to produce a set of theoretical data points to compare to our ATLAS data.
-These are known as Monte-Carlo(MC) simulations.
-There is one important change to be made to the MC data before we can compare them with our ATLAS data:
- - **Weights** - The MC data was computed in ideal circumstances. 
-    The real ATLAS detector has some inefficiencies,
-        which we can account for by attributing the appropriate weight to each data point.
-    The weight of a data point affects how it contributes to the histogram count for its bin.
+Using the Standard Model, we can do a set of randomised simulations to produce a set of theoretical data points to compare to our ATLAS data. These are known as Monte-Carlo(MC) simulations. There is one important change to be made to the MC data before we can compare them with our ATLAS data:
+ - **Weights** - The MC data was computed in ideal circumstances. The real ATLAS detector has some inefficiencies, which we can account for by attributing the appropriate weight to each data point. The weight of a data point affects how it contributes to the histogram count for its bin.
 
 Let's open an MC file.
 
@@ -420,10 +311,7 @@ with uproot.open(background_Zee_path + ":mini") as t:
     tree = t
 ```
 
-Again, 
-    not all weights are important to our analysis. 
-In our case, 
-    these are:
+Again, not all weights are important to our analysis. In our case, these are:
 - `mcWeight` - specific Monte-Carlo weight associated with each event
 - `scaleFactor_PILEUP` - scale factor for pileup reweighting
 - `scaleFactor_ELE` - scale factor for electron efficiency
@@ -439,23 +327,13 @@ weight_variables = ["mcWeight", "scaleFactor_PILEUP", "scaleFactor_ELE", "scaleF
 tree["scaleFactor_MUON"].arrays(library = "ak")
 ```
 
-Additionally,
-    there is a cross-section weight $w_\sigma$ associated with each MC file.
-We define this variable `xsec_weight` below. 
-This weight is meant to normalise the entire Monte-Carlo distribution based on the number of events in the data.
-This is its definition:
-$$ w_\sigma = \frac{\int L \text{d}t ~ \sigma }{\eta \sum_i w_i } $$
-where $\int L \text{d}t$ is the integrated luminosity (`lumi`),
-    $\sigma$ is the cross section (`info["xsec"]`),
-    $\eta$ is the filter efficiency of the MC generator,
-    and $\sum_i w_i$ gives the sum of all weights (`info["sumw"]`).
-When the integrated luminosity is multiplied by the cross section,
-    it gives a measure of the total number of events during a period of data taking.
-For `data_A`,
-    the integrated luminosity has a value of $0.5 \,\text{fb}^{-1}$.
+Additionally, there is a cross-section weight $w_\sigma$ associated with each MC file. We define this variable `xsec_weight` below.  This weight is meant to normalise the entire Monte-Carlo distribution based on the number of events in the data. This is its definition:
 
-For more on cross sections and luminosities, 
-    [see this cheatsheet](https://cds.cern.ch/record/2800578/files/Cross%20Section%20and%20Luminosity%20Physics%20Cheat%20Sheet.pdf).
+$$ w_\sigma = \frac{\int L \text{d}t ~ \sigma }{\eta \sum_i w_i } $$
+
+where $\int L \text{d}t$ is the integrated luminosity (`lumi`), $\sigma$ is the cross section (`info["xsec"]`), $\eta$ is the filter efficiency of the MC generator, and $\sum_i w_i$ gives the sum of all weights (`info["sumw"]`). When the integrated luminosity is multiplied by the cross section, it gives a measure of the total number of events during a period of data taking. For `data_A`, the integrated luminosity has a value of $0.5 \,\text{fb}^{-1}$.
+
+For more on cross sections and luminosities, [see this cheatsheet](https://cds.cern.ch/record/2800578/files/Cross%20Section%20and%20Luminosity%20Physics%20Cheat%20Sheet.pdf).
 
 ```python
 lumi = 0.5 # fb-1 # data_A only
@@ -484,9 +362,7 @@ for variable in weight_variables:
 print(f"{total_weight = :.4f}")
 ```
 
-This calculation means that in our final histogram, 
-    this event will be represented with ~0.0178 of a single count in the bin.
-We can encapsulate these calculations in a single function `calc_weight`.
+This calculation means that in our final histogram, this event will be represented with ~0.0178 of a single count in the bin. We can encapsulate these calculations in a single function `calc_weight`.
 
 ```python
 def calc_weight(weight_variables, sample, events):
@@ -501,10 +377,7 @@ def calc_weight(weight_variables, sample, events):
 print(calc_weight(weight_variables, value, event))
 ```
 
-Now, we can apply the cuts as before to plot the MC data.
-The code is the same as before,
-    but we make sure to add in `weight_variables` to our `tree.iterate()`,
-    and we store the weights in each event using a new dictionary key.
+Now, we can apply the cuts as before to plot the MC data. The code is the same as before, but we make sure to add in `weight_variables` to our `tree.iterate()`, and we store the weights in each event using a new dictionary key.
 
 ```python
 sample_data = []
@@ -594,21 +467,9 @@ main_axes.legend( frameon=False ); # no box around the legend
 ```
 
 ## Final Analysis
+Now that we understand all the steps of our analysis, all that's left is to import the entire ATLAS data and implement it. The `samples` dictionary and `infofile.py` will be useful for this.
 
-
-Now that we understand all the steps of our analysis,
-    all that's left is to import the entire ATLAS data and implement it.
-The `samples` dictionary and `infofile.py` will be useful for this.
-
-We will loop over all values in the `samples` dictionary.
-Depending on whether it is a data sample or MC sample, 
-    `fileString` will change,
-    which opens the correct file on the open data folder.
-As before, 
-    the cuts, 
-    mass calculations and MC weight calculations will be performed for each sample value,
-    and then stored in the array.
-The data will all be concatenated into `all_data` for plotting.
+We will loop over all values in the `samples` dictionary. Depending on whether it is a data sample or MC sample, `fileString` will change, which opens the correct file on the open data folder. As before, the cuts, mass calculations and MC weight calculations will be performed for each sample value, and then stored in the array. The data will all be concatenated into `all_data` for plotting.
 
 ```python
 # Set luminosity to 10 fb-1 for all data
@@ -799,37 +660,18 @@ plt.text(0.05, # x
 main_axes.legend( frameon=False ) # no box around the legend
 ```
 
-And there we have it. 
-We have a nice peak in the invariant mass spectrum somewhere around $125 \, \text{GeV}$,
-    the signature of the Higgs boson!
+And there we have it. We have a nice peak in the invariant mass spectrum somewhere around $125 \, \text{GeV}$, the signature of the Higgs boson!
 
-In addition to the Higgs peak, 
-    we can see another peak around $91 \, \text{GeV}$, 
-    corresponding to the Z boson from our background.
-
-
+In addition to the Higgs peak, we can see another peak around $91 \, \text{GeV}$, corresponding to the Z boson from our background.
 
 ### Signal Significance
+We can do some analysis to study how significant the signal is compared to the background. One method is to check a quantity known as the signal significance $S$,which is defined by 
 
+$ S = \frac{N_\text{sig}}{\sqrt{N_\text{bg}}}  $
 
-We can do some analysis to study how significant the signal is compared to the background. 
-One method is to check a quantity known as the signal significance $S$,
-    which is defined by 
-$$ S = \frac{N_\text{sig}}{\sqrt{N_\text{bg}}}  $$
-where $ N_\text{sig} $ and $N_\text{bg}$ are the number of signal and background points respectively.
-A larger $S$ represents a better signal-to-background ratio,
-    and a more significant signal peak.
-To calculate $N_\text{sig}$, 
-    we can look at the plot and sum over the number of events of our Monte-Carlo signal.
-The signal range roughly corresponds to the bins from $115 \,\text{GeV}$ to $130 \, \text{GeV}$.
-$N_\text{bg}$ then corresponds to the number of background events in those same bins.
+where $ N_\text{sig} $ and $N_\text{bg}$ are the number of signal and background points respectively. A larger $S$ represents a better signal-to-background ratio,and a more significant signal peak. To calculate $N_\text{sig}$, we can look at the plot and sum over the number of events of our Monte-Carlo signal. The signal range roughly corresponds to the bins from $115 \,\text{GeV}$ to $130 \, \text{GeV}$. $N_\text{bg}$ then corresponds to the number of background events in those same bins.
 
-
-However, 
-    we must note that there are various systematic and experimental uncertainties in the operation of the experiment, 
-    which we have not accounted for. 
-Since our analysis is not completely accounting for these errors,
-    we can add approximate these errors by adding in a factor of $0.3N_\text{bg}^2$ to the square root in the denominator.
+However, we must note that there are various systematic and experimental uncertainties in the operation of the experiment, which we have not accounted for. Since our analysis is not completely accounting for these errors, we can add approximate these errors by adding in a factor of $0.3N_\text{bg}^2$ to the square root in the denominator.
 
 ```python
 # Signal stacked height
@@ -850,9 +692,7 @@ signal_significance = N_sig/np.sqrt(N_bg + 0.3 * N_bg**2)
 print(f"\nResults:\n{N_sig = :.3f}\n{N_bg = :.3f}\n{signal_significance = :.3f}")
 ```
 
-There we go - we have a significance of $2.208$.
-Our work is done here... or so you may think!
-Here are some additional things you can do to play with this notebook:
+There we go - we have a significance of $2.208$. Our work is done here... or so you may think! Here are some additional things you can do to play with this notebook:
 
 * Check how many events are being thrown away by each cut 
 * Add more cuts from the [Higgs discovery paper](https://www.sciencedirect.com/science/article/pii/S037026931200857X#se0040) to see how it affects the signal-to-background ratio
@@ -864,19 +704,10 @@ Here are some additional things you can do to play with this notebook:
 
 
 ## Bonus activity: Transverse momentum cuts
-
-
 Can we do better than a significance of $2.208$?
-Well, 
-    there are many other kinematic variables in our data that can help us discriminate between signal and background.
-One possible variable to look at is the transverse momentum $p_t$, 
-stored as `lep_pt` in the tree.
-In our final analysis code block,
-    we recorded the transverse momenta of the leading, sub-leading, third-leading and last leptons 
-    (the data had already been arranged in descending order of $p_t$).
+Well, there are many other kinematic variables in our data that can help us discriminate between signal and background. One possible variable to look at is the transverse momentum $p_t$, stored as `lep_pt` in the tree. In our final analysis code block, we recorded the transverse momenta of the leading, sub-leading, third-leading and last leptons (the data had already been arranged in descending order of $p_t$).
 
-To get a feel of the lepton momenta, 
-    let's plot the various MC signal and backgrounds to see if we can make any cuts. 
+To get a feel of the lepton momenta, let's plot the various MC signal and backgrounds to see if we can make any cuts. 
 
 ```python
 # x-axis range of the plot
@@ -973,19 +804,9 @@ We can see from these plots that we could improve the signal-to-background by cu
 cutoffs = [30, 20, 10]
 ```
 
-Why don't we add an upper bound cut? 
-This is because the high energy tails of our distribution are often important parts of the data.
-For one, 
-    if we cut away the high energy parts of the data,
-    we could potentially be removing a portion that reveals new physics.
-Such new physics could lie beyond the standard model,
-    only appearing at higher energies!
-Thus, 
-    we should be careful not to purposefully exclude such data from our analysis.
+Why don't we add an upper bound cut? This is because the high energy tails of our distribution are often important parts of the data. For one, if we cut away the high energy parts of the data, we could potentially be removing a portion that reveals new physics. Such new physics could lie beyond the standard model, only appearing at higher energies! Thus, we should be careful not to purposefully exclude such data from our analysis.
 
-Now that we have our cutoffs,
-    we should implement them in our analysis.
-Note the addition of the lines in the form
+Now that we have our cutoffs, we should implement them in our analysis. Note the addition of the lines in the form
 
 `data = data[data['leading_lep_pt'] * MeV > cutoffs[0]]`
 
@@ -1196,7 +1017,6 @@ main_axes.legend( frameon=False ) # no box around the legend
 
 ### Signal Significance (post $p_t$ cuts)
 
-
 We can now check our signal significance to see if it has improved after our cuts.
 
 ```python
@@ -1218,9 +1038,7 @@ signal_significance = N_sig/np.sqrt(N_bg + 0.3 * N_bg**2)
 print(f"\nResults:\n{N_sig = :.3f}\n{N_bg = :.3f}\n{signal_significance = :.3f}")
 ```
 
-Amazing! 
-With the addition of those cuts,
-    our significance increased from $2.108$ to $2.416$!
+Amazing! With the addition of those cuts, our significance increased from $2.108$ to $2.416$!
 
 
 ## Frequently Asked Questions (FAQ)
@@ -1229,26 +1047,9 @@ With the addition of those cuts,
 
 **Q**: How do we know the mass of the Higgs boson is $125 \,\text{GeV}$?
 
-**A**: The mass of the Higgs boson is not predicted by the Standard Model. 
-It is a free parameter of the theory.
-To determine its value,
-    multiple analyses must be performed,
-    similar to this one,
-    but for different decay channels.
-In doing this, 
-    we spot a consistent peak in mass at $125 \,\text{GeV}$ across the different decays,
-    which is strong evidence for it being the mass of the Higgs. 
+**A**: The mass of the Higgs boson is not predicted by the Standard Model. It is a free parameter of the theory. To determine its value, multiple analyses must be performed, similar to this one, but for different decay channels.In doing this, we spot a consistent peak in mass at $125 \,\text{GeV}$ across the different decays, which is strong evidence for it being the mass of the Higgs. 
 
 **Q**: Why do we filter for more than four leptons, and not exactly four leptons?
 
-**A**: The lepton recognition algorithms are not always perfect. 
-Sometimes,
-    there may be additional particles in the process which are misidentified as leptons.
-This leads to five or even six "leptons" in a four-lepton process.
-However, 
-    since the leptons are sorted in order of their energies, 
-    we always look at the four most energetic leptons,
-    which are most likely to be part of the process of interest.
-Nevertheless,
-    you are welcome to add a cut to the number of leptons. 
-See if it improves the signal significance!
+**A**: The lepton recognition algorithms are not always perfect. Sometimes, there may be additional particles in the process which are misidentified as leptons. This leads to five or even six "leptons" in a four-lepton process.
+However, since the leptons are sorted in order of their energies, we always look at the four most energetic leptons, which are most likely to be part of the process of interest. Nevertheless, you are welcome to add a cut to the number of leptons. See if it improves the signal significance!
