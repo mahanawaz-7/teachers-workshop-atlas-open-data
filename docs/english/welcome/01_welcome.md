@@ -16,7 +16,7 @@ After the theoretical foundations are set, it’s time to apply what you’ve le
     - Higgs to ZZ – Delve into the decay of the Higgs boson into two Z bosons.
     - Higgs to Two Photons (Bonus) – Explore a further analysis on this important Higgs decay channel.
 
-This part is where you get to use the public data collected by the ATLAS detector!
+    This part is where you get to use the public data collected by the ATLAS detector!
 
 4. **After Class (Optional)**
 If you're new to coding, we've prepared a brief introduction to Python and how to plot histograms. This material is here to help you get comfortable with the basics, but don’t worry—this isn't mandatory!

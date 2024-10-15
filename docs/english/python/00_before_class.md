@@ -1,4 +1,4 @@
-# Before Class: Getting Ready
+# Learn Python basics for HEP
 
 This section is designed to help you get familiar with some basic tools that will make the hands-on part of the workshop easier to follow. If you’re new to coding or need a refresher, we’ve included two key topics:
 
