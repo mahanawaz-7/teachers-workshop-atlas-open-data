@@ -1,4 +1,4 @@
-# $Z^0$ decays: finding the $Z^0$ boson mass!
+# Finding the $Z$ boson mass!
 
 > The following analysis is searching for events where one (or two) [$Z^0$ bosons](https://en.wikipedia.org/wiki/W_and_Z_bosons) decay to two (or four) leptons of same flavour and opposite charge.
 
