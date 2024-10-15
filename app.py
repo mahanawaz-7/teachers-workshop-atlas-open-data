@@ -62,19 +62,19 @@ else:
         module.run(selected_tab)
 
     elif selected_tab == tabs[1]:
-        module = importlib.import_module("01_beforeclass")
+        module = importlib.import_module("01_foundations")
         module.run(selected_tab)
 
     elif selected_tab == tabs[2]:
-        module = importlib.import_module("02_foundations")
+        module = importlib.import_module("02_experimental")
         module.run(selected_tab)
 
     elif selected_tab == tabs[3]:
-        module = importlib.import_module("03_experimental")
+        module = importlib.import_module("03_analyses")
         module.run(selected_tab)
 
     elif selected_tab == tabs[4]:
-        module = importlib.import_module("04_analyses")
+        module = importlib.import_module("04_extrapython")
         module.run(selected_tab)
 
     # Use the bottom container to place the language section at the bottom

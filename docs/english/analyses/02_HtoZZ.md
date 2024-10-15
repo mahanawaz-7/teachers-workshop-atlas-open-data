@@ -22,8 +22,6 @@ $$H \rightarrow ZZ^* \rightarrow \ell\ell\ell\ell$$
 
 <CENTER><img src="images/ImagesHiggs/HZZ_feynman.png" style="width:40%"></CENTER>
 
-
-
 We refer to this as our desired **signal**. Ideally, we would search for collisions which yield four leptons as products and this would tell us that a Higgs boson is present. Unfortunately, in addition to our signal, there are many other **background** processes that lead to four reconstructed leptons in the final state. The main background is $ZZ^* \to \ell\ell\ell\ell$ where decay products have the same properties as those in the Higgs decay.  This is known as an irreducible background. 
 <CENTER><img src="images/ImagesHiggs/ZZllll.png" style="width:40%"></CENTER>
 
