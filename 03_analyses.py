@@ -1,664 +1,289 @@
-# import streamlit as st
-
-# import uproot  # for reading .root files
-# import awkward as ak  # for handling complex and nested data structures efficiently
-# import numpy as np  # for numerical calculations such as histogramming
-# import matplotlib.pyplot as plt  # for plotting
-# import plotly.graph_objects as go
-# from lmfit.models import PolynomialModel, GaussianModel  # for signal and background fits
-# import vector  # for handling 4-vectors
-# from matplotlib.ticker import MaxNLocator, AutoMinorLocator  # for customizing plot ticks
-
-# def run(selected_tab=None):
-#     st.title("Analyses")
-#     st.write("This tab focuses on the Higgs boson decay to two Z bosons (H->ZZ).")
-#     # ATLAS Open Data directory
-#     path = "https://atlas-opendata.web.cern.ch/atlas-opendata/13TeV/GamGam/Data/"
-#     samples_list = ['data15_periodD', 'data15_periodE', 'data15_periodF', 'data15_periodG',
-#                     'data15_periodH', 'data15_periodJ', 'data16_periodA', 'data16_periodB',
-#                     'data16_periodC', 'data16_periodD', 'data16_periodE', 'data16_periodF',
-#                     'data16_periodG', 'data16_periodK', 'data16_periodL']
-
-#     variables = ["photon_pt", "photon_eta", "photon_phi", "photon_e", 
-#                 "photon_isTightID", "photon_ptcone20"]
-
-#     # Add Streamlit controls
-#     st.write("This application allows you to rediscover the Higgs boson using ATLAS Open Data.")
-
-#     # User input for the lower cut on photon transverse momentum (pt)
-#     pt_lower_cut = st.slider("Set lower cut for photon transverse momentum (pt) in GeV", 0, 100, 40)
-
-#     # Define cuts on photon transverse momentum using Streamlit input
-#     def cut_photon_pt(photon_pt):
-#         # Only the events where photon_pt[0] > pt_lower_cut and photon_pt[1] > 30 GeV are kept
-#         return (photon_pt[:, 0] < pt_lower_cut) | (photon_pt[:, 1] < 30)
-
-#     # Cut on the photon reconstruction quality
-#     def cut_photon_reconstruction(photon_isTightID):
-#         return (photon_isTightID[:, 0] == False) | (photon_isTightID[:, 1] == False)
-
-#     # Cut on the energy isolation
-#     def cut_isolation_pt(photon_ptcone20):
-#         return (photon_ptcone20[:, 0] > 4) | (photon_ptcone20[:, 1] > 4)
-
-#     # Cut on the pseudorapidity in barrel/end-cap transition region
-#     def cut_photon_eta_transition(photon_eta):
-#         condition_0 = (np.abs(photon_eta[:, 0]) < 1.52) & (np.abs(photon_eta[:, 0]) > 1.37)
-#         condition_1 = (np.abs(photon_eta[:, 1]) < 1.52) & (np.abs(photon_eta[:, 1]) > 1.37)
-#         return condition_0 | condition_1
-
-#     # Calculate the invariant mass of the 2-photon state
-#     def calc_mass(photon_pt, photon_eta, photon_phi, photon_e):
-#         p4 = vector.zip({"pt": photon_pt, "eta": photon_eta, "phi": photon_phi, "e": photon_e})
-#         invariant_mass = (p4[:, 0] + p4[:, 1]).M  # .M calculates the invariant mass
-#         return invariant_mass
-
-#     # Placeholder for data analysis
-#     all_data = []
-#     sample_data = []
-
-#     # Loop over each sample in samples_list
-#     st.write("Processing data samples...")
-#     for val in samples_list:
-#         fileString = path + val + ".root"
-
-#         with uproot.open(fileString + ":analysis") as t:
-#             tree = t
-
-#         for data in tree.iterate(variables, library="ak"):
-#             photon_isTightID = data['photon_isTightID']
-#             data = data[~cut_photon_reconstruction(photon_isTightID)]
-            
-#             photon_pt = data['photon_pt']
-#             data = data[~cut_photon_pt(photon_pt)]
-
-#             photon_ptcone20 = data['photon_ptcone20']
-#             data = data[~cut_isolation_pt(photon_ptcone20)]
-
-#             photon_eta = data['photon_eta']
-#             data = data[~cut_photon_eta_transition(photon_eta)]
-
-#             data['mass'] = calc_mass(data['photon_pt'], data['photon_eta'], data['photon_phi'], data['photon_e'])
-#             sample_data.append(data)
-
-#     # Concatenate the data into a final dataset
-#     if sample_data:
-#         all_data = ak.concatenate(sample_data)
-#         st.write("Data processed successfully!")
-#     else:
-#         st.write("No data available after applying cuts.")
-
-#     # x-axis range of the plot
-#     xmin = 100 #GeV
-#     xmax = 160 #GeV
-
-#     # Histogram bin setup
-#     step_size = 3 #GeV
-#     bin_edges = np.arange(start=xmin, # The interval includes this value
-#                         stop=xmax+step_size, # The interval doesn't include this value
-#                         step=step_size ) # Spacing between values
-#     bin_centres = np.arange(start=xmin+step_size/2, # The interval includes this value
-#                             stop=xmax+step_size/2, # The interval doesn't include this value
-#                             step=step_size ) # Spacing between values
-
-#     # Plot the invariant mass histogram with signal + background fit
-#     if len(all_data) > 0:
-#         st.write("Plotting the invariant mass and performing fits...")
-        
-#         data_x,_ = np.histogram(ak.to_numpy(all_data['mass']), 
-#                                     bins=bin_edges ) # histogram the data
-#         data_x_errors = np.sqrt( data_x ) # statistical error on the data
-
-#         # data fit
-#         polynomial_mod = PolynomialModel( 4 ) # 4th order polynomial
-#         gaussian_mod = GaussianModel() # Gaussian
-
-#         # set initial guesses for the parameters of the polynomial model
-#         # c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-#         pars = polynomial_mod.guess(data_x, # data to use to guess parameter values
-#                                     x=bin_centres, c0=data_x.max(), c1=0,
-#                                     c2=0, c3=0, c4=0 )
-
-#         # set initial guesses for the parameters of the Gaussian model
-#         pars += gaussian_mod.guess(data_x, # data to use to guess parameter values
-#                                 x=bin_centres, amplitude=100, 
-#                                 center=125, sigma=2 )
-
-#         model = polynomial_mod + gaussian_mod # combined model
-
-#         # fit the model to the data
-#         out = model.fit(data_x, # data to be fit
-#                         pars, # guesses for the parameters
-#                         x=bin_centres, weights=1/data_x_errors ) #ASK
-
-#         # background part of fit
-#         params_dict = out.params.valuesdict() # get the parameters from the fit to data
-#         c0 = params_dict['c0'] # c0 of c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-#         c1 = params_dict['c1'] # c1 of c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-#         c2 = params_dict['c2'] # c2 of c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-#         c3 = params_dict['c3'] # c3 of c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-#         c4 = params_dict['c4'] # c4 of c0 + c1*x + c2*x^2 + c3*x^3 + c4*x^4
-
-#         # get the background only part of the fit to data
-#         background = c0 + c1*bin_centres + c2*bin_centres**2 + c3*bin_centres**3 + c4*bin_centres**4
-
-#         # data fit - background fit = signal fit
-#         signal_x = data_x - background 
-
-#         # Main plot (Signal + Background Fit)
-#         main_trace_data = go.Scatter(
-#             x=bin_centres, y=data_x, mode='markers',
-#             error_y=dict(type='data', array=data_x_errors, visible=True),
-#             name='Data', marker=dict(color='black')
-#         )
-
-#         # Signal + Background Fit (best fit from your lmfit output)
-#         main_trace_fit = go.Scatter(
-#             x=bin_centres, y=out.best_fit, mode='lines',
-#             name='Sig+Bkg Fit ($m_H=125$ GeV)', line=dict(color='red')
-#         )
-
-#         # Background-only fit
-#         main_trace_background = go.Scatter(
-#             x=bin_centres, y=background, mode='lines',
-#             name='Bkg (4th order polynomial)', line=dict(dash='dash', color='red')
-#         )
-
-#         # Residual plot (Data - Background)
-#         residual_trace = go.Scatter(
-#             x=bin_centres, y=data_x - background, mode='markers',
-#             error_y=dict(type='data', array=data_x_errors, visible=True),
-#             name='Data - Background', marker=dict(color='black')
-#         )
-
-#         # Create subplots: main plot and residual plot
-#         from plotly.subplots import make_subplots
-
-#         fig = make_subplots(
-#             rows=2, cols=1, shared_xaxes=True, 
-#             vertical_spacing=0.15, subplot_titles=('Main Plot', 'Residual Plot'),
-#             row_heights=[0.7, 0.3]
-#         )
-
-#         # Add main plot traces
-#         fig.add_trace(main_trace_data, row=1, col=1)
-#         fig.add_trace(main_trace_fit, row=1, col=1)
-#         fig.add_trace(main_trace_background, row=1, col=1)
-
-#         # Add residual plot trace
-#         fig.add_trace(residual_trace, row=2, col=1)
-
-#         # Update axis labels and layout
-#         fig.update_xaxes(title_text="di-photon invariant mass $m_{\gamma\gamma}$ [GeV]", row=2, col=1)
-#         fig.update_yaxes(title_text=f"Events / {int(np.diff(bin_centres).mean())} GeV", row=1, col=1)
-#         fig.update_yaxes(title_text="Events - Bkg", row=2, col=1)
-
-#         # Add annotations (optional, based on your original plot)
-#         fig.add_annotation(
-#             x=0.2, y=0.92, xref="paper", yref="paper", showarrow=False,
-#             text="ATLAS Open Data", font=dict(size=13), row=1, col=1
-#         )
-#         fig.add_annotation(
-#             x=0.2, y=0.86, xref="paper", yref="paper", showarrow=False,
-#             text="for education", font=dict(size=10), row=1, col=1  # Removed style='italic'
-#         )
-#         fig.add_annotation(
-#             x=0.2, y=0.80, xref="paper", yref="paper", showarrow=False,
-#             text=r'$\sqrt{s}$=13 TeV, $\int$L dt = 36.1 fb$^{-1}$', font=dict(size=10), row=1, col=1
-#         )
-#         fig.add_annotation(
-#             x=0.2, y=0.74, xref="paper", yref="paper", showarrow=False,
-#             text=r'$H \rightarrow \gamma\gamma$', font=dict(size=12), row=1, col=1
-#         )
-
-#         # Update layout to improve spacing and titles
-#         fig.update_layout(
-#             height=700, width=800,
-#             title_text="Invariant Mass of di-photon System with Signal + Background Fit",
-#             hovermode="x unified"
-#         )
-
-#         # Show the figure in Streamlit
-#         st.plotly_chart(fig, use_container_width=True)
-
-#     else:
-#         st.write("No events to plot after applying cuts.")
-
-################################################################################################################################################
 import streamlit as st
-import io
-import sys
-import json
-from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview
-
-# For the analyses
-import infofile # local file containing cross-sections, sums of weights, dataset IDs
-import numpy as np # for numerical calculations such as histogramming
-import matplotlib.pyplot as plt # for plotting
-from matplotlib.ticker import AutoMinorLocator # for minor ticks
+from streamlit_theme import st_theme
+import numpy as np
 import uproot # for reading .root files
-import awkward as ak # to represent nested data in columnar format
-import vector # for 4-momentum calculations
-import time
-
-# Define backend variables and functions that will be available to the user's code
-selected_language = st.session_state.get("language", "english").lower()
+import awkward as ak # for handling complex and nested data structures efficiently
+import pandas as pd
+from utils_analysis import *
 
 def run(selected_tab=None):
-    # Shared global namespace across all cells
-    global_namespace = {
-        'st': st,  # Provide Streamlit functionalities to users
-        'np': np,  # For numerical calculations
-        'plt': plt,  # For plotting
-        'AutoMinorLocator': AutoMinorLocator,  # For minor ticks
-        'uproot': uproot,  # For reading .root files
-        'ak': ak,  # For handling nested data in columnar format
-        'vector': vector,  # For 4-momentum calculations
-        'time': time,  # Time module
-        'infofile': infofile,  # Local file containing cross-sections, sums of weights, dataset IDs
-    }
+    # Initialize everything needed
+    # Define paths and samples
+    path = "https://atlas-opendata.web.cern.ch/13TeV/2J2LMET30/"
+    sample_data = ['data15_periodD.root',
+                'data15_periodE.root',
+                'data15_periodF.root',
+                'data15_periodG.root',
+                'data15_periodH.root',
+                'data15_periodJ.root',
+                'data16_PeriodI.root',
+                'data16_periodA.root',
+                'data16_periodB.root',
+                'data16_periodC.root',
+                'data16_periodD.root',
+                'data16_periodE.root',
+                'data16_periodF.root',
+                'data16_periodG.root',
+                'data16_periodK.root',
+                'data16_periodL.root' ] 
+       
+    # Initialize ALL_DATA in session_state
+    if 'ALL_DATA' not in st.session_state:
+        st.session_state.ALL_DATA = {}
+        st.session_state.ALL_DATA['original_data'] = None
+        st.session_state.ALL_DATA['data'] = None
+        st.session_state.ALL_DATA['MC_data'] = None
 
-    # Folder where markdown files are stored
-    folder = "analyses"
+    # Initialize variables for keeping track of the cutted events.
+    if 'cut_log' not in st.session_state:
+        st.session_state.cut_log = []
 
-    # Initialize session state for expanded state of sections
-    if "expanded_Zpeak" not in st.session_state:
-        st.session_state["expanded_Zpeak"] = False
-    if "expanded_HtoZZ" not in st.session_state:
-        st.session_state["expanded_HtoZZ"] = False
+    # Initialize flags for each step
+    if 'data_loaded' not in st.session_state:
+        st.session_state.data_loaded = False
 
-    # Create paths and titles for each section
-    tabs_path = ['01_Zpeak.md','02_HtoZZ.md']
-    tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
+    if 'nlepton_cut_applied' not in st.session_state:
+        st.session_state.nlepton_cut_applied = False
 
-    st.title("Physics Analyses")
-    st.markdown("Some info about the thing that they will do here.")
-     
-    # Create the tabs
-    tabs = st.tabs(tab_titles)
+    if 'leptontype_cut_applied' not in st.session_state:
+        st.session_state.leptontype_cut_applied = False
 
-    # Tab 1: Introduction
-    with tabs[0]:
-        # Load preview for intro
-        Zpeak_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
-        HtoZZ_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
+    if 'leptoncharge_cut_applied' not in st.session_state:
+        st.session_state.leptoncharge_cut_applied = False
 
-        if not st.session_state["expanded_Zpeak"]:
-            # Show preview
-            preview_lines = Zpeak_preview.splitlines()
-            st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
-            st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-            if st.button("Read more", key="Zpeak_read"):
-                st.session_state["expanded_Zpeak"] = True
-                st.rerun()  # Refresh the app to display the full content
-        else:
-            # Show full content
-            load_markdown_file_with_images_and_code(tabs_path[0], folder, global_namespace, selected_language)
-            if st.button("Done!", key="Zpeak_done"):
-                st.session_state["expanded_Zpeak"] = False
-                st.rerun()  # Refresh the app to show the preview again
-
-    # Tab 2: H to ZZ
-    with tabs[1]:
-        # Load preview for histograms
-        histograms_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
-
-        if not st.session_state["expanded_HtoZZ"]:
-            # Show preview
-            preview_lines = HtoZZ_preview.splitlines()
-            st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
-            st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-            if st.button("Read more", key="HtoZZ_read"):
-                st.session_state["expanded_HtoZZ"] = True
-                st.rerun()  # Refresh the app to display the full content
-        else:
-            # Show full content
-            load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
-            if st.button("Done!", key="HtoZZ_done"):
-                st.session_state["expanded_HtoZZ"] = False
-                st.rerun()  # Refresh the app to show the preview again
-
-####################################################################################################################################################
-################################## CURRENT (sorry for the mess) #######################################################
-# import streamlit as st
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import uproot
-# import awkward as ak
-# import vector
-# import pandas as pd
-# import infofile
-# from matplotlib.ticker import AutoMinorLocator
-
-# def run(selected_tab=None):
-#     st.title("Discover Bosons Yourself!")
-
-#     # Introduction
-#     st.markdown("""
-#     This app visualizes the final analysis of both data and Monte Carlo simulations in the Higgs boson search.
-#     You can adjust lepton transverse momentum cuts using the sliders below.
-#     """)
-
-#     # Define paths and samples
-#     path = "https://atlas-opendata.web.cern.ch/atlas-opendata/samples/2020/4lep/"
-
-#     samples = {
-
-#     'data': {
-#         'list' : ['data_A','data_B','data_C','data_D'], # data is from 2016, first four periods of data taking (ABCD)
-#     },
-
-#     r'Background $Z,t\bar{t}$' : { # Z + ttbar
-#         'list' : ['Zee','Zmumu','ttbar_lep'],
-#         'color' : "#6b59d3" # purple
-#     },
-
-#     r'Background $ZZ^*$' : { # ZZ
-#         'list' : ['llll'],
-#         'color' : "#ff0000" # red
-#     },
-
-#     r'Signal ($m_H$ = 125 GeV)' : { # H -> ZZ -> llll
-#         'list' : ['ggH125_ZZ4lep','VBFH125_ZZ4lep','WH125_ZZ4lep','ZH125_ZZ4lep'],
-#         'color' : "#00cdff" # light blue
-#     },
-
-# }
-
-#     # data = {
-#     #     'data': {
-#     #         'list': ['data_A', 'data_B', 'data_C', 'data_D'],  # 2016 data
-#     #     },
-#     # }
-
-#     # bkg_H = {
-#     #     r'Background $Z,t\bar{t}$': {
-#     #         'list': ['Zee', 'Zmumu', 'ttbar_lep'],
-#     #         'color': "#6b59d3"
-#     #     },
-#     #     r'Background $ZZ^*$': {
-#     #         'list': ['llll'],
-#     #         'color': "#ff0000"
-#     #     },
-#     #     r'Signal ($m_H$ = 125 GeV)': {
-#     #         'list': ['ggH125_ZZ4lep', 'VBFH125_ZZ4lep', 'WH125_ZZ4lep', 'ZH125_ZZ4lep'],
-#     #         'color': "#00cdff"
-#     #     }
-#     # }
-
-#     # bkg_Z = {}
-
-#     # Function to calculate Monte Carlo weights
-#     def calc_weight(weight_variables, sample, events):
-#         info = infofile.infos[sample]
-#         xsec_weight = (lumi*1000*info["xsec"])/(info["sumw"]*info["red_eff"]) #*1000 to go from fb-1 to pb-1
-#         total_weight = xsec_weight 
-#         for variable in weight_variables:
-#             total_weight = total_weight * events[variable]
-#         return total_weight
-
-#     def cut_lep_type_2(lep_type):
-#         sum_lep_type = lep_type[:, 0] + lep_type[:, 1] 
-#         lep_type_cut_bool = (sum_lep_type == 22) | (sum_lep_type == 26)
-#         return lep_type_cut_bool # True means we should remove this entry (lepton type does not match)
+    if 'invariant_mass_calculated' not in st.session_state:
+        st.session_state.invariant_mass_calculated = False
     
-#     def cut_lep_charge_2(lep_charge):
-#         # first lepton in each event is [:, 0], 2nd lepton is [:, 1] etc
-#         sum_lep_charge = lep_charge[:, 0] + lep_charge[:, 1] == 0
-#         return sum_lep_charge # True means we should remove this entry (sum of lepton charges is not equal to 0)
+    if 'mc_loaded' not in st.session_state:
+        st.session_state.mc_loaded = False
 
-#     # Cut lepton type (electron type is 11,  muon type is 13)
-#     def cut_lep_type(lep_type):
-#         sum_lep_type = lep_type[:, 0] + lep_type[:, 1] + lep_type[:, 2] + lep_type[:, 3]
-#         lep_type_cut_bool = (sum_lep_type == 44) | (sum_lep_type == 48) | (sum_lep_type == 52)
-#         return lep_type_cut_bool # True means we should remove this entry (lepton type does not match)
+    # Initialize a special session state variable for the selectbox
+    # This is for prettyness when using the reset analysis buttons
+    if 'n_leptons_selection' not in st.session_state:
+        st.session_state['n_leptons_selection'] = "--"
 
-#     # Cut lepton charge
-#     def cut_lep_charge(lep_charge):
-#         # first lepton in each event is [:, 0], 2nd lepton is [:, 1] etc
-#         sum_lep_charge = lep_charge[:, 0] + lep_charge[:, 1] + lep_charge[:, 2] + lep_charge[:, 3] == 0
-#         return sum_lep_charge # True means we should remove this entry (sum of lepton charges is not equal to 0)
+    # Get the current theme using st_theme
+    theme = st_theme()
 
-#     # Function to apply cuts based on sliders
-#     def apply_cuts(data, pt_cut1, pt_cut2):
-#         # Cuts
-#         cut_leading_pt = data['lep_pt'][:, 0] > pt_cut1 * 0.001
-#         cut_subleading_pt = data['lep_pt'][:, 1] > pt_cut2 * 0.001
-#         return data[cut_leading_pt & cut_subleading_pt]
+    # These are the variables that we will be using for the data
+    variables = ['lep_pt', 'lep_eta', 'lep_phi', 'lep_e', 'lep_charge', 'lep_type']
 
-#     def calc_mass_2(pt, eta, phi, E):
-#         p4 = vector.zip({"pt": pt, "eta": eta, "phi": phi, "E": E})
-#         return (p4[:, 0] + p4[:, 1]).M * 0.001  # Convert MeV to GeV
+    ################ HERE IS WERE THE APP STARTS ################
+    st.title("Discover the Z and the Higgs Bosons Yourself!")
+
+    # Introduction
+    st.markdown("""
+    With this interactive app you can discover the Z and the Higgs bosons. 
+    By understanding and applying appropiate cuts to the data you will discover the particles yourself!
+    """)
+
+    st.markdown("## How much data do you want to use?")
+    st.markdown("""Begin your analysis by choosing how much data you'd like to work with. Use the slider below to select the **integrated luminosity**, which is a measure of how much data the ATLAS detector has collected.
+
+The more data you analyze, the better chance you have of spotting rare events like the Higgs boson! But keep in mind, *more data can also mean more processing time*.""")
     
-#     # Function to calculate invariant mass
-#     def calc_mass(pt, eta, phi, E):
-#         p4 = vector.zip({"pt": pt, "eta": eta, "phi": phi, "E": E})
-#         return (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]).M * 0.001  # Convert MeV to GeV
+    # Create a slider for luminosity
+    lumi = st.slider(
+        'Select luminosity (fb-1):', 
+        min_value=6, 
+        max_value=36, 
+        step=6, 
+        value=6
+    )
 
-#     def do_plot(bin_centres, bin_edges, data_x, data_x_errors, mc_x, mc_weights, mc_labels, lep='Four'):
-#         # Main plot
-#         fig, main_axes = plt.subplots()
+    # Display the selected luminosity and corresponding data periods
+    st.write(f"Selected Luminosity: {lumi} fb-1")
+    fraction = lumi / 36
 
-#         # Plot the data points with larger bins and better spacing
-#         main_axes.errorbar(x=bin_centres, y=data_x, yerr=data_x_errors, fmt='ko', label='Data')
+    if st.button("Open the data"):
+        open_data(path, sample_data, variables, lumi)
 
-#         if lep == "Four":
-#             # Plot the Monte Carlo bars with adjusted bins
-#             mc_heights = main_axes.hist(mc_x, bins=bin_edges, weights=mc_weights, stacked=True, color=mc_colors, label=mc_labels)
-#             mc_x_tot = mc_heights[0][-1]
+    if st.session_state.data_loaded:
+        st.write("Data loaded successfully.")
+        st.write(f"Initial number of events: {st.session_state.total_event_count}")
 
-#             # Calculate MC statistical uncertainty: sqrt(sum w^2)
-#             mc_x_err = np.sqrt(np.histogram(np.hstack(mc_x), bins=bin_edges, weights=np.hstack(mc_weights)**2)[0])
+        # Using a selectbox to let users choose between amounts of leptons
+        st.markdown("## Choose the number of leptons in the final state")
+        st.markdown("In particle physics, the final state refers to the particles that emerge from a collision, which are detected and analyzed. By identifying the final state, we can infer what happened during the collision. One important aspect is the number of leptons in the final state, as different processes produce different numbers of leptons.")
 
-#             # Plot the signal on top of the backgrounds
-#             signal_heights = main_axes.hist(signal_x, bins=bin_edges, bottom=mc_x_tot, weights=signal_weights, color=signal_color, label=r'Signal ($m_H$ = 125 GeV)')
-
-#             # Plot the statistical uncertainty with a better approach
-#             main_axes.bar(bin_centres, 2 * mc_x_err, alpha=0.5, bottom=mc_x_tot - mc_x_err, color='none', hatch="////", width=step_size, label='Stat. Unc.')
-
-#         # Set plot limits, labels, and legend
-#         main_axes.set_xlim(left=xmin, right=xmax)
-#         main_axes.set_xlabel(r'4-lepton invariant mass $\mathrm{m_{4l}}$ [GeV]', fontsize=13)
-#         main_axes.set_ylabel(f'Events / {step_size} GeV')
-
-#         # Add minor ticks
-#         main_axes.xaxis.set_minor_locator(AutoMinorLocator())
-#         main_axes.yaxis.set_minor_locator(AutoMinorLocator())
-
-#         # Add text annotations
-#         main_axes.text(0.05, 0.93, 'ATLAS Open Data', transform=main_axes.transAxes, fontsize=13)
-#         main_axes.text(0.05, 0.88, 'for education', transform=main_axes.transAxes, style='italic', fontsize=8)
-#         lumi_used = str(lumi * fraction)
-#         main_axes.text(0.05, 0.82, f'$\sqrt{{s}}$=13 TeV,$\\int$L dt = {lumi_used} fb$^{{-1}}$', transform=main_axes.transAxes)
-#         if lep== "Four":
-#             main_axes.text(0.05, 0.76, r'$H \rightarrow ZZ^* \rightarrow 4\ell$', transform=main_axes.transAxes)
-#         elif lep =='Two':
-#             main_axes.text(0.05, 0.76, r'$H \rightarrow ZZ^*$', transform=main_axes.transAxes)
-
-#         # Draw the legend
-#         main_axes.legend(frameon=False)
-
-#         # Display the plot
-#         st.pyplot(fig)
-
-#     # Create a slider for luminosity
-#     lumi = st.slider(
-#         'Select luminosity (fb-1):', 
-#         min_value=3, 
-#         max_value=10, 
-#         step=1, 
-#         value=7
-#     )
-
-#     # Display the selected luminosity and corresponding data periods
-#     st.write(f"Selected Luminosity: {lumi} fb-1")
-#     fraction = lumi/10  # Fraction of events to 
-    
-#     variables = ['lep_pt', 'lep_eta', 'lep_phi', 'lep_E', 'lep_charge', 'lep_type']
-#     weight_variables = ["mcWeight", "scaleFactor_PILEUP", "scaleFactor_ELE", "scaleFactor_MUON", "scaleFactor_LepTRIGGER"]
-
-#     # Create a varible that will hold all the data
-#     ALL_DATA = {}
-
-#     # Using a selectbox to let users choose between amounts of leptons
-#     st.markdown("### Select the number of leptons")
-#     n_leptons = st.selectbox(
-#         'How many leptons do you want to look for?',
-#         (2, 3, 4, 5)
-#     )
-#     st.write(f"We are keeping only the samples with {n_leptons} leptons")
-
-#     if st.button("Run the cut"):
-#         # Loop over the data to make the cuts
-#         for s in samples: 
-#             st.write('Processing ' + s + ' samples')
-
-#             frames = [] # Define empty list to hold data
-#             for val in samples[s]['list']: 
-#                 prefix = "Data/" if s == 'data' else "MC/mc_" + str(infofile.infos[val]["DSID"]) + "."
-
-#                 fileString = path + prefix + val + ".4lep.root"
-
-#                 # Open the selected root file
-#                 with uproot.open(fileString + ":mini") as t:
-#                     tree = t
-                
-#                 # We are going to look at every event in that dataset
-#                 sample_data = []
-                
-#                 for data in tree.iterate(variables + weight_variables, library="ak", entry_stop=tree.num_entries * fraction):
-#                     # Apply n_leptons cut
-#                     num_particles = ak.num(data['lep_type'])  # Get the number of particles in each event
-#                     mask = num_particles >= n_leptons  # Create a mask for events with exactly 4 particles
-#                     data = data[mask]  # Filter the events using the mask
-
-#                     sample_data.append(data)
-
-#                 frames.append(ak.concatenate(sample_data))
-
-#             ALL_DATA[s] = ak.concatenate(frames)
-
-#         st.write("Cut applied and data processed.")
-
-#     st.write(f"You have selected {n_leptons} leptons.")
-
-#     # Step 2: Dynamically generate selection for lepton flavors
-#     st.markdown("### Select the flavor of each lepton")
-#     flavor_options = ['electron', 'muon']
-#     flavors = []
-#     for i in range(n_leptons):
-#         flavor = st.selectbox(f'Lepton {i+1} flavor', flavor_options, key=f"flavor_{i}")
-#         flavors.append(flavor)
-
-#     # Step 3: Dynamically generate selection for lepton charges
-#     st.markdown("### Select the charge of each lepton")
-#     charge_options = [1, -1]
-#     charges = []
-#     for i in range(n_leptons):
-#         charge = st.selectbox(f'Lepton {i+1} charge', charge_options, key=f"charge_{i}")
-#         charges.append(charge)
-
-#     # Step 4: Display the selected flavors and charges
-#     st.write("### Selected leptons:")
-#     for i in range(n_leptons):
-#         st.write(f"Lepton {i+1}: {flavors[i]}, Charge: {charges[i]}")
+        st.markdown("Below is a Feynman diagram showing a typical process that results in a final state with two leptons:")
+        # Diagram for Z decay
+        st.markdown("Some processes may result in more leptons in the final state:")
+        # Diagram for H decay
         
+        st.markdown("Below you can see the count of number of leptons in the whole dataset. You can see that, in general, is more common to have fewer leptons in an event.")
+        # Get the appropriate plot file based on the theme
+        plot_nleptons = get_darklight_plot('plot',theme)
+        # Display the pre-generated plot based on the theme
+        with open(plot_nleptons, "r") as f:
+            html_string_nleptons = f.read()
+       
+        # Use streamlit's HTML component to display the interactive Plotly plot
+        st.components.v1.html(html_string_nleptons, height=450, width=800)
 
-# ###############################################################################################################################################
+        st.markdown("Study the diagrams and the data, and select how many leptons you expect to observe in your final state depending on the analysis you are doing.")
 
-#     # Sliders for cuts
-#     # st.markdown("### Adjust lepton $p_T$ cuts")
-#     # leading_pt_cut = st.slider('Leading Lepton $p_T$ Cut (GeV)', 0, 100, 0, 10)
-#     # subleading_pt_cut = st.slider('Sub-leading Lepton $p_T$ Cut (GeV)', 0, 100, 0, 10)
+        # Define the options
+        n_leptons_options = ("--", 2, 3, 4, 5)
 
-#     # # Assign value based on the option chosen
-#     # if many_leptons == 'Two':
-#     #     lepton_type_cut = cut_lep_type_2
-#     #     lepton_charge_cut = cut_lep_charge_2
-#     # elif many_leptons == 'Four':
-#     #     lepton_type_cut = cut_lep_type
-#     #     lepton_charge_cut = cut_lep_charge
-#     # else:
-#     #     st.write("Invalid option")
+        # Create the selectbox
+        n_leptons = st.selectbox(
+            'How many leptons do you expect in the final state?',
+            n_leptons_options,
+            index=0,  # Default index for "--"
+            key='n_leptons_selection'
+        )
 
+        # Access the selected value from session_state
+        n_leptons = st.session_state['n_leptons_selection']
 
-#     # Loop through samples and process the data
-#     all_data = {}
-#     for s in samples: 
-#         st.write('Processing ' + s + ' samples')
+        if n_leptons == 2:
+            st.success("""You’ve chosen a final state with **2 leptons**.
+                    This suggests you're interested in a process where a single intermediate particle decays into a pair of leptons. 
+                    Lepton pairs are common in many particle interactions, especially when considering neutral intermediates""")
+        elif n_leptons == 4:
+            st.success("""You’re looking at **4 leptons** in the final state. 
+                    This often indicates a chain of decays, where multiple intermediate particles decay into pairs of leptons. 
+                    Such scenarios are interesting for studying complex interactions""")
+        elif n_leptons != '--':
+            st.warning("""Having an odd number of leptons is unusual in simple decay processes, as leptons are usually produced in pairs due to conservation laws. 
+                    However, this might suggest you're exploring more exotic decay modes. Are you looking for dark matter?
+                    """)
 
-#         # Define empty list to hold data
-#         frames = [] 
-#         for val in samples[s]['list']: 
-#             prefix = "Data/" if s == 'data' else "MC/mc_" + str(infofile.infos[val]["DSID"]) + "."
-#             fileString = path + prefix + val + ".4lep.root"
+        # Number of leptons button
+        if st.button("Apply number-of-leptons cut"):
+            if n_leptons != '--':
+                apply_nleptons_cut(int(n_leptons))  # Pass the number of leptons to the function
+            else:
+                st.error("Please select a valid number of leptons.")
 
-#             with uproot.open(fileString + ":mini") as t:
-#                 tree = t
+    # Step 2: Dynamically generate selection for lepton flavors
+    if st.session_state.nlepton_cut_applied:
+        st.write("Cut applied successfully.")
+        st.write(st.session_state.cut_log[-1])
 
-#             sample_data = []
-#             for data in tree.iterate(variables + weight_variables, library="ak", entry_stop=tree.num_entries * fraction):
-#                 # Apply cuts and calculate invariant mass
-#                 # Lepton type and charge
-#                 lep_type = data['lep_type']
-#                 data = data[lepton_type_cut(lep_type)]
-#                 lep_charge = data['lep_charge']
-#                 data = data[lepton_charge_cut(lep_charge)]
-#                 # Cuts on pt of jets
-#                 data = apply_cuts(data, leading_pt_cut, subleading_pt_cut)
-#                 if many_leptons == 'Two':
-#                     data['mass'] = calc_mass_2(data['lep_pt'], data['lep_eta'], data['lep_phi'], data['lep_E'])
-#                 elif many_leptons == 'Four':
-#                     data['mass'] = calc_mass(data['lep_pt'], data['lep_eta'], data['lep_phi'], data['lep_E'])
+        st.markdown("## Let's ensure conservation")
+        st.markdown("n particle interactions, certain properties are always conserved, such as *charge* and lepton *flavor*. Understanding these conservation laws helps narrow down the possibilities for what particles are involved in the final state.")
+        st.markdown("In your analysis, you can look at the *flavor* of the leptons (whether they are electrons or muons) and their *charge* (positive or negative). The plot below shows the distribution of lepton flavors, with one bar for positively charged and one for negatively charged leptons. This helps identify whether the final state obeys conservation laws.")
+        # Get the appropriate plot file based on the theme
+        plot_chargeflavor = get_darklight_plot('barplot',theme)
 
-#                 # Store Monte Carlo weights if not data
-#                 if 'data' not in val:
-#                     data['totalWeight'] = calc_weight(weight_variables, val, data)
-#                 sample_data.append(data)
+        # Display the pre-generated plot based on the theme
+        with open(plot_chargeflavor, "r") as f:
+            html_string_chargeflavor = f.read()
 
-#             frames.append(ak.concatenate(sample_data))
-#         all_data[s] = ak.concatenate(frames)
-#         if many_leptons=='Two':
-#             break
+        # Use streamlit's HTML component to display the interactive Plotly plot
+        st.components.v1.html(html_string_chargeflavor, height=450, width=800) 
+        
+        st.markdown("With this in mind, let's select our next cuts:")
+        st.info("If unsure, scroll up to the Feynmann diagrams above. You may find helpful information there.")
 
-#     # Prepare the bins for plotting
-#     if many_leptons == 'Two':
-#         xmin, xmax = 50, 150  # GeV
-#         step_size = 3  # GeV      
-#     elif many_leptons == 'Four':
-#         xmin, xmax = 80, 250  # GeV
-#         step_size = 5  # GeV
+        flavor_options = ["--", 'Yes', 'No']
+        flavor = st.selectbox(f'Should the lepton pairs have the same flavor?', flavor_options, key=f"flavor_selection")
 
-#     bin_edges = np.arange(start=xmin, stop=xmax + step_size, step=step_size)
-#     bin_centres = np.arange(start=xmin + step_size / 2, stop=xmax + step_size / 2, step=step_size)
+        if flavor == 'Yes':
+            st.success("""
+                    Selecting leptons of the same flavor means you're considering a scenario where the properties of the leptons are identical, 
+                    such as two electrons or two muons. Same-flavor pairs often arise in decays where the particle interaction respects flavor conservation.
+                    """)
+            
+        elif flavor!= '--':
+            st.warning("""
+                    Choosing leptons of different flavors indicates you're examining a situation where the leptons are not identical, such as one electron and one muon. 
+                    While this might occur in some processes, it’s less common in simple decays due to flavor conservation laws.
+                    """)
+            
+        # Apply lepton type cut based on flavor selection
+        if st.button("Apply lepton type cut"):
+            if flavor != '--':
+                apply_lepton_type_cut(n_leptons, flavor)  # Call the function and pass the selected flavor
+            else:
+                st.error("Please select an option for the flavor of leptons.")
 
-#     # Prepare the histogram data
-#     data_x, _ = np.histogram(ak.to_numpy(all_data['data']['mass']), bins=bin_edges)
-#     data_x_errors = np.sqrt(data_x)
+    # Step 3: Dynamically generate selection for lepton charges
+    if st.session_state.leptontype_cut_applied:
+        st.write("Cut applied and data processed.")
+        st.write(st.session_state.cut_log[-1])
 
-#     if many_leptons == 'Four':
-#         signal_x = ak.to_numpy(all_data[r'Signal ($m_H$ = 125 GeV)']['mass'])
-#         signal_weights = ak.to_numpy(all_data[r'Signal ($m_H$ = 125 GeV)'].totalWeight)
-#         signal_color = samples[r'Signal ($m_H$ = 125 GeV)']['color']
+        # Offer options for charge pairing: Same charge or Opposite charge
+        charge_pair_options = ["--",'Same', 'Opposite']
+        charge_pair = st.selectbox('Should the lepton pairs have the same or opposite charge', charge_pair_options)
 
-#         mc_x = []
-#         mc_weights = []
-#         mc_colors = []
-#         mc_labels = []
+        # Define the condition for the charge mask based on the selection
+        if charge_pair == 'Same':
+            st.warning("""Lepton pairs with the same charge are unusual because charge is typically conserved in interactions. 
+                    However, some more exotic processes or misidentifications could result in same-charge pairs.
+                    """)
+        elif charge_pair != '--':
+            st.success("""You've chosen opposite-charge leptons. Many interactions conserve charge, 
+                    so it's typical to see a lepton and its antiparticle produced together, resulting in opposite charges.
+                    """)
 
-#         # Loop over background samples and append their values
-#         for s in samples:
-#             if s not in ['data', r'Signal ($m_H$ = 125 GeV)']:
-#                 mc_x.append(ak.to_numpy(all_data[s]['mass']))
-#                 mc_weights.append(ak.to_numpy(all_data[s].totalWeight))
-#                 mc_colors.append(samples[s]['color'])
-#                 mc_labels.append(s)
+            # Apply lepton type cut based on flavor selection
+        if st.button("Apply lepton charge cut"):
+            if charge_pair != '--':
+                apply_lepton_charge_cut(n_leptons, charge_pair)  # Call the function with selected charge pairing
+            else:
+                st.error("Please select an option for the lepton charge.")
 
-#     st.markdown("### Invariant Mass of 4 Leptons")
-#     if many_leptons == 'Two':    
-#         do_plot(bin_centres, bin_edges, data_x, data_x_errors, mc_x=None, mc_weights=None, mc_labels=None,lep=many_leptons)
-#     elif many_leptons == 'Four':
-#         do_plot(bin_centres, bin_edges, data_x, data_x_errors, mc_x, mc_weights, mc_labels)
+        if st.session_state.leptoncharge_cut_applied:
+            st.write("Cut applied and data processed.")
+            st.write(st.session_state.cut_log[-1])
 
+    # Step 4: Weights and cuts for the Higgs only
+    if st.session_state.leptontype_cut_applied and n_leptons==4 and flavor=='Yes' and charge_pair=='Opposite':
+        if st.button("Load MC data"):
+            st.session_state.ALL_DATA['MC_data'] = load_mc_data()
+            st.session_state.mc_loaded = True
+        
+        if st.session_state.mc_loaded:
+            st.write("Monte Carlo data loaded successfully")
 
-# ################################################################################################################################################
+    # Steep 5: invariant mass calculation and plot
+    if st.session_state.leptoncharge_cut_applied:
+        st.markdown("## Unveiling Particles with Invariant Mass")
+        st.markdown("The *invariant mass* is a key tool in particle physics. It allows us to reconstruct the mass of particles that are produced in collisions, even if we don't observe them directly. By analyzing the energy and momentum of the leptons in the final state, we can calculate their combined *invariant mass*.")
+        st.markdown('This quantity is particularly useful because it is the same in all reference frames—it "remembers" the mass of the particle that decayed into the leptons.')
+        st.markdown("When plotted, the invariant mass distribution often shows peaks where particles like the Z boson or Higgs boson appear. These peaks reveal the characteristic mass of the particle, allowing us to \"see\" it even though it's long gone by the time we're analyzing the data.")
+        st.markdown("By calculating and plotting the invariant mass, you will be able to observe these peaks and potentially discover particles for yourself!")
+
+        if st.button("Calculate and plot invariant mass"):
+            calculate_invariant_mass(n_leptons)
+            # if (n_leptons==4)&(flavor=='Yes')&(charge_pair=='Opposite'):
+            #     process_and_plot_higgs_data(st.session_state.ALL_DATA['MC_data'],lumi)
+            # else:
+            process_and_plot_data(lumi)
+    
+    # Step 6: Discussion
+    if st.session_state.invariant_mass_calculated:
+        st.markdown("### Discussion")
+        st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion.")
+
+    # Reset button to start the analysis again
+    st.markdown('---')
+    st.write("""If you want to reaply cuts click the `Reset analysis` button. 
+             Don't worry, you won't need to load the data again!""")
+    if st.button("Reset analysis"):
+        if st.session_state.data_loaded and st.session_state.ALL_DATA['original_data'] is not None:
+            # Reset 'data' to the original data
+            st.session_state.ALL_DATA['data'] = st.session_state.ALL_DATA['original_data']
+
+            # Reset cut logs
+            st.session_state.cut_log = []
+
+            # Reset flags
+            st.session_state.nlepton_cut_applied = False
+            st.session_state.leptontype_cut_applied = False
+            st.session_state.leptoncharge_cut_applied = False
+            st.session_state.invariant_mass_calculated = False
+            st.session_state.mc_loaded = False
+
+            # Delete the widget keys from session_state
+            for key in ['n_leptons_selection', 'flavor_selection', 'charge_pair_selection']:
+                if key in st.session_state:
+                    del st.session_state[key]
+
+            st.write("Analysis has been reset.")
+            st.rerun()
+        else:
+            st.write("No data loaded to reset.")
