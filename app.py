@@ -58,7 +58,7 @@ else:
 
     # Dynamically import and display the content of the selected tab
     if selected_tab == tabs[0]:
-        module = importlib.import_module("00_welcome")
+        module = importlib.import_module("00_getting_started")
         module.run(selected_tab)
 
     elif selected_tab == tabs[1]:
