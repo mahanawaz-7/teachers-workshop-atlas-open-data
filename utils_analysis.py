@@ -51,7 +51,6 @@ def load_mc_data():
     return mc_samples
 
 ### Functions data processing ###
-
 def lepton_type_cut(lep_type, n_leptons, cut):
     """
     Apply a cut based on the lepton type.
@@ -70,11 +69,6 @@ def lepton_type_cut(lep_type, n_leptons, cut):
             # For 2 or 3 leptons, we apply the same-flavor cut to the first two leptons
             sum_lep_type = lep_type[:, 0] + lep_type[:, 1]
             mask = (sum_lep_type == 22) | (sum_lep_type == 26)  # Same-flavor: e+e- or mu+mu-
-            
-            # Ensure that if there is a third lepton, it is an electron or muon
-            if n_leptons == 3:
-                third_lepton_mask = (lep_type[:, 2] == 11) | (lep_type[:, 2] == 13)  # Allow electron or muon for the third lepton
-                mask = mask & third_lepton_mask  # Combine both conditions
 
         elif n_leptons == 4 or n_leptons == 5:
             # For 4 or 5 leptons, check combinations of four leptons
@@ -153,7 +147,7 @@ def invariant_mass(pt, eta, phi, E, n_leptons):
     return mass
 
 ### Functions for buttons ###
-
+@st.cache_data(show_spinner=False)
 def open_data(path, sample_data, variables, lumi):
     """
     Function to open ROOT files and load the data into session_state.
@@ -198,150 +192,96 @@ def open_data(path, sample_data, variables, lumi):
     else:
         full_data = ak.Array([])  # Empty array if no data
 
-    # Store the original data
-    st.session_state.ALL_DATA['original_data'] = full_data
-    # Store the loaded data in session_state
-    st.session_state.ALL_DATA['data'] = full_data
+    return full_data, total_event_count
 
-    # Mark that data has been successfully loaded
-    st.session_state.data_loaded = True
-    st.session_state.total_event_count = len(full_data)
-
-def apply_nleptons_cut(n_leptons):
+def apply_nleptons_cut(data, n_leptons):
     """
     Apply a cut based on the selected number of leptons and ensure that all events have exactly n_leptons.
-    
+
     Parameters:
+    data (ak.Array): The input data to be filtered.
     n_leptons (int): The number of leptons expected in the final state.
-    
+
     Returns:
-    None
+    filtered_data (ak.Array): The filtered data after applying the cut.
+    initial_event_count (int): Number of events before the cut.
+    filtered_event_count (int): Number of events after the cut.
+    cut_result (str): A log string summarizing the cut.
     """
+    initial_event_count = len(data)  # Total number of events before cut
 
-    if 'data' in st.session_state.ALL_DATA:
-        st.session_state.initial_event_count = len(st.session_state.ALL_DATA['data'])  # Total number of events before cut
-        st.session_state.filtered_event_count = 0
+    # Apply n_leptons cut
+    num_particles = ak.num(data['lep_type'])  # Number of leptons in each event
+    mask = num_particles == n_leptons  # Create a mask for the correct number of leptons
 
-        # Get the data
-        data = st.session_state.ALL_DATA['data']
+    # Filter the data based on the number of leptons
+    filtered_data = data[mask]
 
-        # Apply n_leptons cut
-        num_particles = ak.num(data['lep_type'])  # Number of leptons in each event
-        mask = num_particles == n_leptons  # Create a mask for the correct number of leptons
+    # Count the number of events after the cut
+    filtered_event_count = len(filtered_data)
 
-        # Filter the data based on the number of leptons
-        filtered_data = data[mask]
+    # Log the results of the current cut
+    cut_result = f"Events after the cut: {filtered_event_count}"
 
-        # Check if any event has a different number of leptons
-        num_particles_after_cut = ak.num(filtered_data['lep_type'])  # Number of leptons after the cut
-        if not ak.all(num_particles_after_cut == n_leptons):
-            st.error(f"Error: Some events do not have exactly {n_leptons} leptons after the cut.")
+    return filtered_data, cut_result
 
-        # Count the number of events after the cut
-        st.session_state.filtered_event_count = len(filtered_data)
-
-        # Update the data in session_state with the filtered data
-        st.session_state.ALL_DATA['data'] = filtered_data
-
-        # Log the results of the current cut
-        cut_result = f"Number of leptons = {n_leptons}: Events before = {st.session_state.initial_event_count}, Events after = {st.session_state.filtered_event_count}"
-        st.session_state.cut_log.append(cut_result)
-
-        # Set flag to indicate the cut has been applied
-        st.session_state.nlepton_cut_applied = True
-    else:
-        st.error("No data available. Please load the data first.")
-
-def apply_lepton_type_cut(n_leptons, flavor):
+def apply_lepton_type_cut(data, n_leptons, flavor):
     """
-    Apply a cut based on the selected lepton flavor type and print debugging information.
-    
+    Apply a cut based on the selected lepton flavor type.
+
     Parameters:
+    data (ak.Array): The input data to be filtered.
     n_leptons (int): The number of leptons in the final state.
     flavor (str): Selected flavor cut ('Yes' for same flavor, 'No' for different flavor).
-    
+
     Returns:
-    None
+    filtered_data (ak.Array): The filtered data after applying the cut.
+    cut_result (str): A log string summarizing the cut.
     """
-    
-    if 'data' in st.session_state.ALL_DATA:
-        st.write("Applying lepton type cut on existing data...")
+    # Get the lepton type data
+    lep_type = data['lep_type']
 
-        # Retrieve the already filtered data
-        data = st.session_state.ALL_DATA['data']
+    # Apply the lepton type cut using the custom function `lepton_type_cut`
+    try:
+        mask = lepton_type_cut(lep_type, n_leptons, flavor)
+        filtered_data = data[mask]  # Filter the data
+    except Exception as e:
+        # Handle error appropriately by raising an exception
+        raise RuntimeError(f"Error applying lepton type cut: {e}")
 
-        # Get the lepton type data
-        lep_type = data['lep_type']
+    # Log the results of the current cut
+    cut_result = f"Events after the cut: {len(filtered_data)}"
 
-        # Apply the lepton type cut using the custom function `lepton_type_cut`
-        try:
-            filtered_data = data[lepton_type_cut(lep_type, n_leptons, flavor)]  # Filter the data
-        except Exception as e:
-            st.error(f"Error applying lepton type cut: {e}")
-            
-            # Print the problematic event for debugging
-            st.write(f"Lepton type values before the error: {lep_type}")
-            st.write(f"Number of leptons expected: {n_leptons}")
-            st.write(f"Flavor selection: {flavor}")
-            
-            # Return early to avoid further errors
-            return
+    return filtered_data, cut_result
 
-        # Check if the filtered data still has the correct number of leptons
-        num_leptons_after_cut = ak.num(filtered_data['lep_type'])
-        if not ak.all(num_leptons_after_cut >= n_leptons):
-            st.warning(f"Some events have fewer than {n_leptons} leptons after the lepton type cut.")
-            st.write(f"Number of leptons in events after the cut: {num_leptons_after_cut}")
-        
-        # Update st.session_state.ALL_DATA with the newly filtered data
-        st.session_state.ALL_DATA['data'] = filtered_data
-
-        # Log the results of the current cut and display immediately
-        cut_result = f"Lepton type cut (flavor: {flavor}): Events before = {len(data)}, Events after = {len(filtered_data)}"
-        st.session_state.cut_log.append(cut_result)
-
-        # Set flag to indicate the cut has been applied
-        st.session_state.leptontype_cut_applied = True
-
-    else:
-        st.error("No data available. Please run the initial cut first.")
-
-def apply_lepton_charge_cut(n_leptons, charge_pair):
+def apply_lepton_charge_cut(data, n_leptons, charge_pair):
     """
     Apply a cut based on the selected lepton charge pairing.
-    
+
     Parameters:
+    data (ak.Array): The input data to be filtered.
     n_leptons (int): The number of leptons in the final state.
     charge_pair (str): Selected charge pairing ('Same' or 'Opposite').
-    
+
     Returns:
-    None
+    filtered_data (ak.Array): The filtered data after applying the cut.
+    cut_result (str): A log string summarizing the cut.
     """
+    # Get the lepton charge data
+    lep_charge = data['lep_charge']
 
-    if 'data' in st.session_state.ALL_DATA:
-        st.write("Applying lepton charge cut on existing data...")
+    # Apply the lepton charge cut using the custom function `lepton_charge_cut`
+    try:
+        mask = lepton_charge_cut(lep_charge, n_leptons, charge_pair)
+        filtered_data = data[mask]  # Filter the data
+    except Exception as e:
+        # Handle error appropriately by raising an exception
+        raise RuntimeError(f"Error applying lepton charge cut: {e}")
 
-        # Retrieve the already filtered data
-        data = st.session_state.ALL_DATA['data']
+    # Log the results of the current cut
+    cut_result = f"Events after the cut: {len(filtered_data)}"
 
-        # Get the lepton charge data
-        lep_charge = data['lep_charge']
-
-        # Apply the lepton charge cut using the custom function `lepton_charge_cut`
-        filtered_data = data[lepton_charge_cut(lep_charge, n_leptons, charge_pair)]  # Filter the data
-
-        # Update st.session_state.ALL_DATA with the newly filtered data
-        st.session_state.ALL_DATA['data'] = filtered_data
-
-        # Log the results of the current cut and display immediately
-        cut_result = f"Lepton charge cut (charge: {charge_pair}): Events before = {len(data)}, Events after = {len(filtered_data)}"
-        st.session_state.cut_log.append(cut_result)
-
-        # Set flag to indicate the cut has been applied
-        st.session_state.leptoncharge_cut_applied = True
-
-    else:
-        st.error("No data available. Please run the initial cut first.")
+    return filtered_data, cut_result
 
 def calculate_invariant_mass(n_leptons):
     """
