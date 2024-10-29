@@ -1,5 +1,4 @@
 # What are Particles?
-
 We’ll start with something that might sound familiar: the atom. Picture it initially as a tiny solar system, with a dense nucleus of protons and neutrons at the center, and electrons moving around this nucleus. 
 
 ![Image 1: Illustration of an atom, showing its components. The nucleus consists of protons and neutrons, while electrons orbit around this central structure.](images/atom-structure-diagram.png)
