@@ -1,5 +1,6 @@
-Welcome
+Getting Started
 Foundations of Particle Physics
 Experimental Particle Physics
 Hands-on Analyses
-Extra material: Python
+Intro to Python
+Classroom Toolkit

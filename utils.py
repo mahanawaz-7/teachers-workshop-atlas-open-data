@@ -90,6 +90,17 @@ def insert_toc(content):
         </style>
         """, unsafe_allow_html=True)
 
+def start_done_buttons(language):
+    base_path = f"docs/{language.lower()}/start_done.md"
+    with open(base_path, "r") as file:
+        lines = file.readlines()
+
+    # Read each line
+    start_text = lines[0].strip()
+    done_text = lines[1].strip() 
+    
+    return start_text, done_text
+
 def load_markdown_file_with_images(filename, folder, language):
     """Load markdown content, display images with captions, and render text."""
     # Construct the file path based on the selected language

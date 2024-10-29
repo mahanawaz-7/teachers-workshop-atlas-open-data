@@ -1,10 +1,13 @@
 # Foundations of Particle Physics
 
-Welcome to the Foundations of Particle Physics section! This is where we introduce you to the fundamental ideas behind particle physics, focusing on the Standard Model (SM), which describes how everything in the universe is built from a few elementary particles. These particles fall into two main categories: fermions, which make up matter, and bosons, which mediate forces between particles.
+This section introduces key ideas in particle physics, centering on the Standard Model (SM), which explains how fundamental particles and forces shape our universe. The SM organizes particles into fermions (building blocks of matter) and bosons (force carriers).
 
 #### Tabs:
-1. **The Building Blocks of Matter (Fermions)**: In this tab, we’ll explore fermions—particles that form all matter in the universe. These include quarks and leptons, the particles that combine to form protons, neutrons, electrons, and other fundamental building blocks of matter.
 
-2. **The Forces of Nature (Bosons)**: Here, we’ll look at bosons, the particles responsible for mediating forces between fermions. These include the photon (responsible for electromagnetism), the W and Z bosons (weak force), and the gluon (strong force), as well as the famous Higgs boson, which gives mass to particles.
+1. **What are particles?**:  Here, we clarify what physicists mean by “particles” in particle physics, setting the stage for understanding the fundamental components of matter and forces.
 
-3. **What We Don’t Know Yet**: While the Standard Model explains a lot, there are still many unanswered questions. This tab will discuss some of the big mysteries, such as dark matter, dark energy, and why gravity doesn’t fit into the Standard Model. We’ll also touch on what scientists are currently doing to expand our understanding of these unknowns.
+2. **The Standard Model**: arranges fermions and bosons, which mediate forces like electromagnetism, the weak force, and the strong force. This tab covers how fundamental particles are classified and how they interact.
+
+3. **Higgs boson**: Essential to the SM, the Higgs boson provides mass to particles via the Higgs field. Here, we’ll explore why its discovery was groundbreaking.
+
+4. **What We Don’t Know**: While powerful, the Standard Model doesn’t explain everything. This tab touches on open questions like dark matter, dark energy, and gravity, and ongoing research that aims to answer these questions.
