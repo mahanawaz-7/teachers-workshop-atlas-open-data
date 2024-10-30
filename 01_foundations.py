@@ -26,12 +26,6 @@ def run(selected_tab=None):
     # Print the intro to the module
     load_markdown_file_with_images(general_info, folder, selected_language)
 
-    # Load previews (first few lines of the markdown files)
-    intro_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
-    standard_model_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
-    higgs_preview = load_markdown_preview(tabs_path[2], folder, selected_language, lines=3)
-    uknown_preview = load_markdown_preview(tabs_path[3], folder, selected_language, lines=3)
-
     # Create the tabs
     tabs = st.tabs(tab_titles)
     # Get the start/done buttons
@@ -39,6 +33,9 @@ def run(selected_tab=None):
 
     # Tab 1: What are particles
     with tabs[0]:
+        # Load preview
+        intro_preview = load_markdown_preview(tabs_path[0], folder, selected_language, lines=3)
+
         if not st.session_state["expanded_intro"]:
             # Show preview
             preview_lines = intro_preview.splitlines()
@@ -56,6 +53,7 @@ def run(selected_tab=None):
 
     # Tab 2: The standard model
     with tabs[1]:
+        standard_model_preview = load_markdown_preview(tabs_path[1], folder, selected_language, lines=3)
         if not st.session_state["expanded_standard_model"]:
             # Show preview
             preview_lines = standard_model_preview.splitlines()
@@ -73,6 +71,7 @@ def run(selected_tab=None):
 
     # Tab 3: The Higgs boson
     with tabs[2]:
+        higgs_preview = load_markdown_preview(tabs_path[2], folder, selected_language, lines=3)
         if not st.session_state["expanded_higgs"]:
             # Show preview
             preview_lines = higgs_preview.splitlines()
@@ -91,6 +90,7 @@ def run(selected_tab=None):
 
     # Tab 4: The Unknown
     with tabs[3]:
+        uknown_preview = load_markdown_preview(tabs_path[3], folder, selected_language, lines=3)
         if not st.session_state["expanded_unknown"]:
             # Show preview
             preview_lines = uknown_preview.splitlines()
