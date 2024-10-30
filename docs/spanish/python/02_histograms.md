@@ -36,7 +36,7 @@ print("✅ File opened")
 ```
 
 > [!NOTE]  
-Si tiene curiosidad sobre el origen de los archivos anteriores, consulte las instrucciones para encontrar los datos abiertos de ATLAS [aquí](https://opendata.atlas.cern/docs/data)
+Si tienes curiosidad sobre el origen de los archivos anteriores, consulta las instrucciones para encontrar los datos abiertos de ATLAS [aquí](https://opendata.atlas.cern/docs/data)
 > [!END]
 
 Para ver qué hay dentro, usa `.keys()` y `.classnames()`:
