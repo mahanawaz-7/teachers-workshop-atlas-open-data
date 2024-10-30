@@ -1,14 +1,14 @@
 # Conceptos Básicos de Python
 Ser capaz de programas es una habilidad esencial para un físico de partículas (o cualquier científico, de hecho). ¡Nuestros conjuntos de datos son simplemente demasiado grandes para procesarlos sin la ayuda de computadoras! Un físico de ATLAS generalmente usa una combinación de los lenguajes de programación C++ y Python para lograr todo, desde simular colisiones de protones hasta buscar bosones de Higgs.
 
-Aquí revisamos algunos de los conceptos básicos de codificación en Python. Lo haremos presentando una versión diluida e interactiva del tutorial de la [documentación oficial de Python](https://docs.python.org/3/tutorial/index.html). Para obtener más información sobre cualquier tema, deje que la documentación oficial de Python sea su primer punto de contacto. Le proporcionaremos enlaces a partes específicas del tutorial a medida que avancemos.
+Aquí revisamos algunos de los conceptos básicos de programación en Python. Lo haremos presentando una versión diluida e interactiva del tutorial de la [documentación oficial de Python](https://docs.python.org/3/tutorial/index.html). Para obtener más información sobre cualquier tema, deje que la documentación oficial de Python sea su primer punto de contacto. Le proporcionaremos enlaces a partes específicas del tutorial a medida que avancemos.
 
 Python es ampliamente utilizado por principiantes e ingenieros de software por igual, tanto por negocios como por placer. ¡Puede ser divertido! Su nombre deriva de la serie de la BBC "Monty Python's Flying Circus" y se refiere a su fundador como un dictador benévolo vitalicio ([BDFL](https://docs.python.org/3/glossary.html)).
 
 ---
 
 ## Hola, mundo 
-El programa ["¡Hola, mundo!"](https://es.wikipedia.org/wiki/Hola_mundo) es una tradición consagrada en Ciencias de la Computación que se respetará aquí. La idea de Hola Mundo es ilustrar los conceptos básicos de un lenguaje y verificar que el entorno de codificación se haya instalado y configurado correctamente. Por lo tanto, para probar Python en esta app, intenta ejecutar el código de la siguiente celda ((el botón "run" en la esquina inferior derecha de la celda o `control + Enter` / `comando + Enter`))... si hace lo que esperas, ¡entonces estás listo!
+El programa ["¡Hola, mundo!"](https://es.wikipedia.org/wiki/Hola_mundo) es una tradición consagrada en Ciencias de la Computación que se respetará aquí. La idea de Hola Mundo es ilustrar los conceptos básicos de un lenguaje y verificar que el entorno de programación se haya instalado y configurado correctamente. Por lo tanto, para probar Python en esta app, intenta ejecutar el código de la siguiente celda ((el botón "run" en la esquina inferior derecha de la celda o `control + Enter` / `comando + Enter`))... si hace lo que esperas, ¡entonces estás listo!
 
 ```python
 print("¡Hola, mundo!")
@@ -447,10 +447,10 @@ plt.show()
 
 En este cuaderno, hemos pasado muy rápidamente de cero a sesenta en la codificación en Python. Hemos estado trabajando en un cuaderno Jupyter donde podemos ejecutar código de forma interactiva y escribir texto para anotar lo que estamos haciendo. Después de decir "¡Hola, mundo!", aprendimos a hacer matemáticas con Python y a usar cadenas y tipos de datos compuestos. Al usar declaraciones de flujo de control, vimos que podemos escribir programas bastante complejos, que podemos organizar en funciones y módulos para mayor comodidad y capacidad de compartir.
 
-En todas estas características, fuimos breves para poder pasar rápidamente a temas más interesantes. Con ese fin, omitimos o pasamos por alto muchos detalles y tecnicismos: ¡hay mucho más que aprender! Pero aprender de forma independiente cómo hacer algo nuevo puede ser parte de la diversión y, sin duda, es parte del trabajo. Al codificar, es normal no saber inmediatamente cómo hacer algo.
+En todas estas características, fuimos breves para poder pasar rápidamente a temas más interesantes. Con ese fin, omitimos o pasamos por alto muchos detalles y tecnicismos: ¡hay mucho más que aprender! Pero aprender de forma independiente cómo hacer algo nuevo puede ser parte de la diversión y, sin duda, es parte del trabajo. Al programar, es normal no saber inmediatamente cómo hacer algo.
 
 > [!IMPORTANT]
-Al usar Python, eres parte de una gran comunidad global. Esto significa que Internet está lleno de consejos sobre cómo escribir bien el código Python. Si describe su problema a un motor de búsqueda, la mayoría de las veces obtendrá una solución de inmediato. ¡Aproveche lo que otros Pythonistas saben sobre Python!
+Al usar Python, eres parte de una gran comunidad global. Esto significa que el internet está lleno de consejos sobre cómo escribir bien el código Python. Si describes tu problema a un motor de búsqueda, la mayoría de las veces obtendrá una solución de inmediato. ¡Aprovecha lo que otros Pythonistas saben sobre Python!
 > [!END]
 
 ¡Buena suerte analizando los datos abiertos de ATLAS! Esperamos que esta introducción a la programación en Python le resulte útil.
