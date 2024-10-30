@@ -1,27 +1,17 @@
-# Python basics
+# Python Basics
+Being able to code is an essential skill for a Particle Physicist (or any scientist, for that matter). Our datasets are simply too large to process without the assistance of computers! An ATLAS Physicist typically uses some combination of the C++ and Python programming languages to accomplish everything from simulating proton-proton collisions to searching for Higgs bosons.
 
-Being able to code is an essential skill for a Particle Physicist (or any scientist, for that matter). 
-Our datasets are simply too large to process without the assistance of computers!  An ATLAS Physicist 
-typically uses some combination of the C++ and Python programming languages to accomplish everything 
-from simulating proton-proton collisions to searching for Higgs bosons.
+Here we review some of the basics of coding in Python.  We will do this by presenting a diluted and interactive version of the tutorial of the [official Python documentation](https://docs.python.org/3/tutorial/index.html). For more information on any topic, let the official Python documentation be your first port of call. We will link to specific parts of the tutorial as we go along.
 
-As being code-literate is a prerequisite to analysing ATLAS data, we will in this notebook review some 
-of the basics of coding in Python.  We will do this by presenting a diluted and interactive version of 
-the tutorial of the [official Python documentation](https://docs.python.org/3/tutorial/index.html).  For more information on any topic, let 
-the official Python documentation be your first port of call.  We will link to specific parts of the tutorial 
-as we go along.
-
-Python is extensively used by beginners and software engineers alike, for both business and pleasure.  
-It can be fun!  It is named after the BBC series "Monty Python's Flying Circus" and refers to its founder as 
-a Benevolent Dictator For Life ([BDFL](https://docs.python.org/3/glossary.html)).
+Python is extensively used by beginners and software engineers alike, for both business and pleasure.  It can be fun!  It is named after the BBC series "Monty Python's Flying Circus" and refers to its founder as a Benevolent Dictator For Life ([BDFL](https://docs.python.org/3/glossary.html)).
 
 ---
-## Hello, world
-                
+
+## Hello, world         
 The ["Hello, World!" programme](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) is a time-honoured tradition 
 in Computer Science which will be respected here.  The idea of Hello World is to illustrate the basics of a language and 
-to verify that the coding environment has been properly installed and set up.  So to test Python in this notebook, have a 
-go at running the code of the next cell (`Shift + Enter`)...if it does what you expect, then you are good to go!
+to verify that the coding environment has been properly installed and set up.  So to test Python in this app, have a 
+go at running the code of the next cell (the "run" button in the the lower right corner of the cell or `control + Enter` / `command + Enter`)...if it does what you expect, then you are good to go!
 
 ```python
 print("Hello, World!")
@@ -30,13 +20,10 @@ print("Hello, World!")
 ---
 
 ## Numbers, Strings, and Compound Data Types
-
-[Following [An Informal Introduction to Python](https://docs.python.org/3/tutorial/introduction.html)]  
+>Following [An Informal Introduction to Python](https://docs.python.org/3/tutorial/introduction.html)
                 
 ### Python as a calculator
-
-Python is good at maths! Run the examples of the following code cells to see what the operators `+`, `-`, `*` and `/` do, to 
-find that they have the effect of addition, subtraction, multiplication, and division.
+Python is good at maths! Run the examples of the following code cells to see what the operators `+`, `-`, `*` and `/` do, to find that they have the effect of addition, subtraction, multiplication, and division.
 
 ```python
 print(2+2)
@@ -45,8 +32,7 @@ print(2+2)
 ```python
 print((50 - 5*6) / 4)
 ```
-
-Python additionally povides a convenient power operator `**`.
+Python additionally provides a convenient power operator `**`.
 
 ```python
 print(2**7) # Power
@@ -56,14 +42,10 @@ print(2**7) # Power
 print(4**(1/2)) # Use fractional powers to calculate roots
 ```
 
-Notice the `#`'s above? This notation tells Python that everything after the hashtag in that same line should not be executed 
-as a command, but it is just a comment.
+Notice the `#`'s above? This notation tells Python that everything after the hashtag in that same line should not be executed as a command, but it is just a comment.
                 
-Why do some of the numbers produced by these operations have decimal points, while others do not?  It is because we have here two _types_ 
-of numbers: `int` types and `float` types.  The `float` type represents a [floating point number](https://en.wikipedia.org/wiki/Floating-point_arithmetic) 
-and is a computer's formulaic binary representation of a decimal number.  The `int` type represents integer values.
-> If you are lucky, you will never have to worry about 'floating point precision', but it can be a significant consideration, with errors here having in the 
-past caused [rockets to explode](http://www-users.math.umn.edu/~arnold/disasters/ariane.html)!
+Why do some of the numbers produced by these operations have decimal points, while others do not?  It is because we have here two _types_ of numbers: `int` types and `float` types.  The `float` type represents a [floating point number](https://en.wikipedia.org/wiki/Floating-point_arithmetic) and is a computer's formulaic binary representation of a decimal number.  The `int` type represents integer values.
+> If you are lucky, you will never have to worry about 'floating point precision', but it can be a significant consideration, with errors here having in the past caused [rockets to explode](http://www-users.math.umn.edu/~arnold/disasters/ariane.html)!
 
 It is possible to assign a value to a variable using the `=` operator.          
 
@@ -71,7 +53,6 @@ It is possible to assign a value to a variable using the `=` operator.
 x = 4
 print(x**2)
 ```
-
 
 We have also the handy in-place operators `+=`, `-=`, `*=` and `/=`. These perform an operation on the variable they are being applied to, 
 then reassigning that variable to the result of the operation.
@@ -83,7 +64,6 @@ print(y)
 ```
     
 ### Strings
-
 The Python `string` is a string of characters enclosed in quotation marks (`'...'` or `"..."`).  Strings may be operated upon by the above 
 mathematical operations and are indexed as if they were lists of characters!
 
@@ -107,11 +87,7 @@ print(word[1:5])
 ```
 
 ### Compound Data Types
-
-A Python list is a mutable (i.e. you can change it), compound (the list itself holds values of a certain type) data type 
-for grouping together a sequence of values, and have them ordered in a certain way so that we can find each entry in the array 
-by its "house number" or index.
-
+A Python list is a mutable (i.e. you can change it), compound (the list itself holds values of a certain type) data type for grouping together a sequence of values, and have them ordered in a certain way so that we can find each entry in the array by its "house number" or index.
 
 ```python
 # Here is an example list
@@ -144,17 +120,15 @@ print(len_llanfair / len_supercali)
 
 As compound data types, [_tuples_](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) and [_dictionaries_](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) are also frequently used.  Can you figure out what they do from the linked pages?  Feel free to make new code cells here to explore.
 
-## Control Flow <a name="3."></a>
-
-In the preceding example code snippets (the mathematical and string operations, and list manipulations), we programmed our commands to be executed line-by-line.  It would be fair to say that these top-to-bottom programmes are quite dull.  A programme may be made to exhibit a more complex [control flow](https://en.wikipedia.org/wiki/Control_flow>) by use of [_control flow statements_](https://docs.python.org/3/tutorial/controlflow.html).  
-
+## Control Flow 
+In the preceding example code snippets (the mathematical and string operations, and list manipulations), we programmed our commands to be executed line-by-line.  It would be fair to say that these top-to-bottom programmes are quite dull.  A programme may be made to exhibit a more complex [control flow](https://en.wikipedia.org/wiki/Control_flow) by use of [_control flow statements_](https://docs.python.org/3/tutorial/controlflow.html).  
 
 Python has two types of control flow statements - conditional statements and loop constructs.  Conditional statements (`if`, `elif`, `else`) are used to execute blocks of code only when certain conditions are met - Python only does the thing mentioned after the "if" statement if the "if" statement is correct, otherwise it doesn't do it.  Loop constructs are used to execute blocks of code some number of times (`for`) or while certain conditions are met (`while`).
 
 ### `if` Statements
 
 ```python
-x = # Write an integer here
+x = 12 #You can change the integer here
 # Example conditional 'if' block
 if x < 0: #Python checks if this is a true statement
     print('You entered a negative number!')
@@ -163,6 +137,7 @@ elif x == 0: #Short for 'else if', this condition is checked if the 'if' stateme
 else: #All other cases
     print('You entered a positive number')
 ```
+
 Notice the whitespace (specifically, 4 spaces) in front of the code blocks after `if`, `elif` and `else`? We call this _indentation_, and it tells Python which lines of code should only be executed if the control flow statement is true. This has the advantage that the code becomes easily readable for humans. So, remember, indent = 4 times space bar.|
 
 ### `for` Statements
@@ -186,8 +161,9 @@ for i in range(10):
     items.append(i) #.append() is another useful way to add something to the end of a python list
 print(items)
 ```
+
 ### `while` Statements
-A `while [condition]` loop executes for as long as `condition` is true. The cell below is an example of a `while` loop:
+A `while` loop executes for as long as `condition` is true. The cell below is an example of a `while` loop:
 
 ```python
 #An interesting use of the while loop: calculate the Fibonacci series!
@@ -196,13 +172,13 @@ while a < 1000:
     print(a, end=' ')
     a, b = b, a + b
 ```
-If the condition is always true, then you have an infinite loop - a loop that will never end. In Jupyter, you can interrupt a cell by clicking the stop button in the menu above, or double-tapping 'i' on your keyboard.
+
+If the condition is always true, then you have an infinite loop - a loop that will never end. In the apps, you can interrupt code running by clicking the stop button in the upper right corner.
 
 ## Functions
-
 What if we want to use some block of code multiple times and in different places?  We could simply copy-and-paste that block of code every time we want to use it, but there is a better way!  We can wrap the block of code in a [_function_](https://docs.python.org/3/tutorial/controlflow.html#defining-functions) and 'call' that function as many times as we like.
 
-To create function in Python, we don't need any brackets etc. to indicate where the beginning and end of the calculations inside the function is, we just use indentation (like for `if/else`, `for` and `while` above).
+To create function in Python we indicate where the beginning and end of the calculations inside the function is using indentation (like for `if/else`, `for` and `while` above).
 
 Here are the important parts of Python functions:
 
@@ -227,7 +203,8 @@ def fibonacci(n):
 # Print the terms of the Fibonacci series that are less than n = 10
 fibonacci(10)
 ```
-Did you notice the `return` statement in the definition of the `fibonacci` function?  It did nothing!  But we can in general use the `return` statement to return (i.e. to _pass_) information from inside a function to outside.  Consider the following update of the original `fibonacci` function.  It returns a list of the terms of the Fibonacci series, which may be more useful than printing them!
+
+Did you notice the `return` statement in the definition of the `fibonacci` function?  It did nothing!  But we can in general use the `return` statement to return (i.e. to _pass_) information from inside a function to outside.  Consider the following update of the original `fibonacci` function. It returns a list of the terms of the Fibonacci series, which may be more useful than printing them!
 
 ```python
 def return_fibonacci_series(n):
@@ -261,7 +238,8 @@ print(reversed_result)
 # Do anything you like with the Fibonacci series here!
 # . . .
 ```
-When we printed the Fibonacci series in a `for` loop, we ended up printing each new series many times.  By using the returned list of the updated Fibonacci function, we could now print the series only if it differs from the previous series!  The next example illustrates how to implement this, and is logically as complicated as it gets...
+
+When we printed the Fibonacci series in a `for` loop, we ended up printing each new series many times.  By using the returned list of the updated Fibonacci function, we could now print the series only if it differs from the previous series! The next example illustrates how to implement this:
 
 ```python
 # Variable to hold the currently-largest term
@@ -286,14 +264,13 @@ for n in range(10000):
             # Update the largest term
             largest_term = series_largest_term
 ```
-So you see in this last example that the coding techniques that we have learned in this notebook enable us to write some really quite complex programmes!
 
-You will meet functions repeatedly throughout the course of these notebooks. Whenever you execute code that has the signature `function(...)`, you are calling a function!  Furthermore, in the notebook on _'Searching for the Higgs boson'_, you will in fact get to write your own functions to help you along the way to observing the Higgs boson...
+So you see in this last example that the coding techniques that we have learned in this notebook enable us to write some really quite complex programmes!
 
 ---
 
 ## Modules
-In this notebook, we have been writing small snippets of disposable code and executing them, before moving on and forgetting about them.  When it comes to writing a more elaborate programme, it is more convenient to put your code in a file.  When a file is populated with Python definitions, it becomes a [_module_][module] which can be _imported_ from other Python-speaking files such that its content may be used.
+We have been writing small snippets of disposable code and executing them, before moving on and forgetting about them.  When it comes to writing a more elaborate programme, it is more convenient to put your code in a file.  When a file is populated with Python definitions, it becomes a [_module_][module] which can be _imported_ from other Python-speaking files such that its content may be used.
 
 The module-oriented approach to software development has the effect of keeping your code organsied, but more importantly facilitates code-sharing.  In the world of open-source and free software, much of the code you will ever need to write has already been written and is available to use!  One rarely has to code everything from scratch. 
 
@@ -306,15 +283,12 @@ Popular libraries include
 These libraries of modules are there to be used at no cost. Let's look at the first two in more detail.
 
 ### The `numpy` module
-
-If we want to do some more complicated mathematical operation (as we often do in physics), we can use a package called `"numpy"`, which is a very powerful and often-used library for numerical operations.
-
-
-As with `ROOT`, let's begin by importing it.
+If we want to do some more complicated mathematical operation (as we often do in physics), we can use a package called `"numpy"`, which is a very powerful and often-used library for numerical operations. Let's begin by importing it.
 
 ```python
 import numpy as np
 ```
+
 We could also just write "import numpy", but then we would have to type every time we want to use a function from numpy "numpy.name_of_function", whereas with the "as np" we save ourselves a bit of typing and just have to write "np.name_of_function".
 
 `numpy` provides us with alternative ways of performing operations, as well as its own version of lists called "arrays".
@@ -335,12 +309,13 @@ print(arr[4])
 print(arr[-1])
 print(arr[0:3])
 ```
+
 `numpy` arrays also have their own version of the `range()` function - `np.arange()`.
 
 ```python
 print(np.arange(2, 2.8, 0.1)) #(start, stop, [step])
 ```
-**But**, `numpy` also has some very useful commands which are not available in regular python.
+**But**, `numpy` also has some very useful commands which are not available by default in python.
 
 One example is `np.zeros` which creates an array filled with zeros (and it will have as many zeros as the numbers you give in brackets).
 
@@ -357,17 +332,20 @@ To create an array with, say, 5 linearly spaced numbers between the values 1 and
 ```python
 print(np.linspace(1, 100, 5))
 ```
+
 To create an array with 5 logarithmically spaced numbers between the values 10$^1$ and 10$^{10}$:
 
 ```python
 print(np.logspace(1, 10, 5))
 ```
-Unlike lists in regular Python, `numpy` arrays can be manipulated very easily!! Say, for example, you have an array with some numbers in it, and you want to multiply every number in the array by a factor of 2. First we create the array:
+
+Unlike lists in Python, `numpy` arrays can be manipulated very easily!! Say, for example, you have an array with some numbers in it, and you want to multiply every number in the array by a factor of 2. First we create the array:
 
 ```python
 arr = np.arange(2,12)
 print(arr)
 ```
+
 Then we make the new array with the multiplied values:
 
 ```python
@@ -444,7 +422,8 @@ And there are various line styles to use:
     '--' for a dashed line
     ':' for a dotted line
     '-.' for a dash-dotted line
-    and just the marker symbol, but no symbol for the line to have only the markers.
+
+and just the marker symbol, but no symbol for the line to have only the markers.
 
 Here is an example how to use that:
 
@@ -462,16 +441,17 @@ plt.ylabel('y axis') #Adds a y-axis label
 plt.title('Another plot') #Adds a title to your plot
 plt.show()
 ```
+
 ---
 
 ## Conclusion 
-
-In this notebook, we have very quickly gone from zero to sixty at coding in Python!  We have been working in a Jupyter notebook where we can run code interactively and write text to annotate what we are doing.  After saying `'Hello, World!'`, we learned how to do maths with Python and how to use strings and compound data types.  By using control flow statements, we saw that we can write quite complex programmes, which we can organise into functions and modules for convenience and shareability!
+We have very quickly gone from zero to sixty at coding in Python!  We have been working in a Jupyter notebook where we can run code interactively and write text to annotate what we are doing.  After saying `'Hello, World!'`, we learned how to do maths with Python and how to use strings and compound data types.  By using control flow statements, we saw that we can write quite complex programmes, which we can organise into functions and modules for convenience and shareability!
 
 On all of these features, we were brief so that we can get on to more interesting topics quickly.  To that end, we omitted or glossed over many details and many technicalities - there is much more to learn!  But independently learning how to do something new can be a part of the fun and is certainly a part of the job.  When coding, it is normal to not immediately know how to do something.
 
+> [!CAUTION]
+In using Python, you are a part of a large global community.  This means that the internet is full of advice on how to write Python code well.  Describing your problem toa search engine more often than not brings up a solution straight away.  Make use of what other Pythonistas know about Python!
+> [!END]
 
+Good luck analysing ATLAS Open Data! We hope that this introduction to coding in Python will serve you well.
 
-<div class="alert alert-info">In using Python, you are a part of a large global community.  This means that the internet is full of advice on how to write Python code well.  Describing your problem to a search engine more often than not brings up a solution straight away.  Make use of what other Pythonistas know about Python!
-
-Good luck analysing ATLAS Open Data!  We hope that this Introduction to coding in Python will serve you well.</div>
