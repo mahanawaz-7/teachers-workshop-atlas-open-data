@@ -9,6 +9,8 @@ def run(selected_tab=None):
         st.session_state["expanded_accelerators"] = False
     if "expanded_detectors" not in st.session_state:
         st.session_state["expanded_detectors"] = False
+    if "expanded_atlas" not in st.session_state:
+        st.session_state["expanded_atlas"] = False
 
     # Get the selected language from session state
     selected_language = st.session_state.get("language", "english").lower()
@@ -16,7 +18,7 @@ def run(selected_tab=None):
     # The intro to the module
     general_info = '00_intro.md'
     # Create paths and titles for each section
-    tabs_path = ['01_accelerators.md', '02_detectors.md']
+    tabs_path = ['01_accelerators.md', '02_detectors.md', '03_ATLAS.md']
     tab_titles = get_first_level_headers(selected_language, folder, tabs_path)
 
     # Print the intro to the module
@@ -64,4 +66,24 @@ def run(selected_tab=None):
             load_markdown_file_with_images(tabs_path[1], folder, selected_language)
             if st.button("Done!", key="detectors_done"):
                 st.session_state["expanded_detectors"] = False
+                st.rerun()  # Refresh the app to show the preview again
+
+    # Tab 3: ATLAS
+    with tabs[2]:
+        # Load preview for detectors
+        atlas_preview = load_markdown_preview(tabs_path[2], folder, selected_language, lines=3)
+
+        if not st.session_state["expanded_atlas"]:
+            # Show preview
+            preview_lines = atlas_preview.splitlines()
+            st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
+            st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
+            if st.button("Read more", key="atlas_read"):
+                st.session_state["expanded_atlas"] = True
+                st.rerun()  # Refresh the app to display the full content
+        else:
+            # Show full content
+            load_markdown_file_with_images(tabs_path[2], folder, selected_language)
+            if st.button("Done!", key="atlas_done"):
+                st.session_state["expanded_atlas"] = False
                 st.rerun()  # Refresh the app to show the preview again
