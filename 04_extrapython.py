@@ -26,6 +26,8 @@ def run(selected_language):
      
     # Create the tabs
     tabs = st.tabs(tab_titles)
+    # Get the start/done buttons
+    start, done = start_done_buttons(selected_language)
 
     # Tab 1: Introduction
     with tabs[0]:
@@ -37,13 +39,13 @@ def run(selected_language):
             preview_lines = intro_preview.splitlines()
             st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
             st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-            if st.button("Read more", key="intro_read"):
+            if st.button(start, key="intro_read"):
                 st.session_state["expanded_intro"] = True
                 st.rerun()  # Refresh the app to display the full content
         else:
             # Show full content
             load_markdown_file_with_images_and_code(tabs_path[0], folder, global_namespace, selected_language)
-            if st.button("Done!", key="intro_done"):
+            if st.button(done, key="intro_done"):
                 st.session_state["expanded_intro"] = False
                 st.rerun()  # Refresh the app to show the preview again
 
@@ -57,12 +59,12 @@ def run(selected_language):
             preview_lines = histograms_preview.splitlines()
             st.markdown(f"#{preview_lines[0]}")  # First line as title with larger font
             st.write("\n".join(preview_lines[1:]))  # Remaining lines as preview text
-            if st.button("Read more", key="histograms_read"):
+            if st.button(start, key="histograms_read"):
                 st.session_state["expanded_histograms"] = True
                 st.rerun()  # Refresh the app to display the full content
         else:
             # Show full content
             load_markdown_file_with_images_and_code(tabs_path[1], folder, global_namespace, selected_language)
-            if st.button("Done!", key="histograms_done"):
+            if st.button(done, key="histograms_done"):
                 st.session_state["expanded_histograms"] = False
                 st.rerun()  # Refresh the app to show the preview again
