@@ -1,4 +1,5 @@
 # ATLAS Open Data in the Classroom: A Hands-On Workshop for Educators
+
 Welcome to the ATLAS Open Data workshop for educators! We’re thrilled to have you join us in exploring the fascinating world of particle physics. Through this workshop, we’ll guide you on a journey to discover a particle – are you ready to find the Higgs boson? Along the way, you’ll gain a understanding of particle physics concepts, the "what," "why," and "how" of this field. This workshop also serves as an introduction to ATLAS Open Data, with resources available for further exploration if you’re eager to learn more.
 
 ### Workshop Roadmap
