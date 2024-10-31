@@ -81,6 +81,10 @@ else:
         module = importlib.import_module("04_extrapython")
         module.run(selected_tab)
 
+    elif selected_tab == tabs[5]:
+        module = importlib.import_module("05_class_toolkit")
+        module.run(selected_tab)
+
     # Use the bottom container to place the language section at the bottom
     with sidebar_bottom:
         st.sidebar.markdown("<br><br><br><br><br>", unsafe_allow_html=True)  # Add some space
