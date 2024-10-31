@@ -63,27 +63,27 @@ else:
     # Dynamically import and display the content of the selected tab
     if selected_tab == tabs[0]:
         module = importlib.import_module("00_getting_started")
-        module.run(selected_tab)
+        module.run(st.session_state['language'])
 
     elif selected_tab == tabs[1]:
         module = importlib.import_module("01_foundations")
-        module.run(selected_tab)
+        module.run(st.session_state['language'])
 
     elif selected_tab == tabs[2]:
         module = importlib.import_module("02_experimental")
-        module.run(selected_tab)
+        module.run(st.session_state['language'])
 
     elif selected_tab == tabs[3]:
             module = importlib.import_module("03_analyses")
-            module.run(selected_tab)
+            module.run(st.session_state['language'])
 
     elif selected_tab == tabs[4]:
         module = importlib.import_module("04_extrapython")
-        module.run(selected_tab)
+        module.run(st.session_state['language'])
 
     elif selected_tab == tabs[5]:
         module = importlib.import_module("05_class_toolkit")
-        module.run(selected_tab)
+        module.run(st.session_state['language'])
 
     # Use the bottom container to place the language section at the bottom
     with sidebar_bottom:

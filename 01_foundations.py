@@ -1,7 +1,7 @@
 import streamlit as st
 from utils import load_markdown_file_with_images, get_first_level_headers, load_markdown_preview, start_done_buttons
 
-def run(selected_tab=None):
+def run(selected_language):
     folder = "foundations"
 
     # Initialize session state for expanded state of sections
@@ -13,9 +13,6 @@ def run(selected_tab=None):
         st.session_state["expanded_higgs"] = False
     if "expanded_unknown" not in st.session_state:
         st.session_state["expanded_unknown"] = False
-
-    # Get the selected language from session state
-    selected_language = st.session_state.get("language", "english").lower()
 
     # Get the intro to the module
     general_info = '00_intro.md'

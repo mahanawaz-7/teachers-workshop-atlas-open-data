@@ -1,7 +1,7 @@
 import streamlit as st
 from utils import load_markdown_file_with_images, get_first_level_headers, load_markdown_preview, start_done_buttons, load_markdown_file_with_images_and_code
 
-def run(selected_tab=None):
+def run(selected_language):
     folder = "resources"
 
     # Initialize session state for expanded state of sections
@@ -11,9 +11,6 @@ def run(selected_tab=None):
         st.session_state["expanded_printables"] = False
     if "expanded_videos" not in st.session_state:
         st.session_state["expanded_videos"] = False
-
-    # Get the selected language from session state
-    selected_language = st.session_state.get("language", "english").lower()
 
     # The intro to the module
     general_info = '00_intro.md'
