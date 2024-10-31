@@ -8,6 +8,7 @@ Hemos reunido una colección de videos para ayudar a que las lecciones de físic
 ¡Mira el video para aprender cómo comenzar a utilizar ATLAS Open Data! Más de 65 TB de datos de colisiones están disponibles para uso educativo y científico. La física de ATLAS Mariana Vivas explica cómo puedes sumergirte en este recurso, con capítulos para principiantes, usuarios avanzados e investigadores.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/r83e1FJOxqg?si=ZzjONs931y8qut84" title="Reproductor de videos de YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ---
 
 #### Encuentra el bosón de Higgs con el mouse
