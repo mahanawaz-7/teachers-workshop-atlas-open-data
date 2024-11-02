@@ -75,3 +75,14 @@ def run(selected_language):
             if st.button(done, key="histograms_done"):
                 st.session_state["expanded_histograms"] = False
                 st.rerun()  # Refresh the app to show the preview again
+
+    # Making the tabs font bigger
+    css = '''
+    <style>
+        .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        font-size:1.08rem;
+        }
+    </style>
+    '''
+
+    st.markdown(css, unsafe_allow_html=True)
