@@ -1,6 +1,5 @@
 import streamlit as st
-import io
-import sys
+import os
 import json
 from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview, start_done_buttons
 
@@ -10,6 +9,14 @@ def run(selected_language):
 
     # Folder where markdown files are stored
     folder = "python"
+
+    # Get the directory of the current script
+    script_dir = os.path.dirname(__file__)
+    # Build the path to the JSON file
+    json_file_path = os.path.join(script_dir, f'docs/{selected_language}', 'extras.json')
+    # Open and load the JSON file
+    with open(json_file_path, 'r') as json_file:
+        extras = json.load(json_file)
 
     # Initialize session state for expanded state of sections
     if "expanded_intro" not in st.session_state:
@@ -27,7 +34,7 @@ def run(selected_language):
     # Create the tabs
     tabs = st.tabs(tab_titles)
     # Get the start/done buttons
-    start, done = start_done_buttons(selected_language)
+    start, done = extras["start_done"][0], extras["start_done"][1]
 
     # Tab 1: Introduction
     with tabs[0]:

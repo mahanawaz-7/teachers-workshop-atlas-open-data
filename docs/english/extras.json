@@ -1,0 +1,16 @@
+{
+    "side_bar_title": "ATLAS Open Data Teachers Workshop",
+    "side_bar":[
+      "Getting Started",
+      "Foundations of Particle Physics",
+      "Experimental Particle Physics",
+      "Hands-on Analyses",
+      "Intro to Python",
+      "Classroom Toolkit"
+    ],
+    "start_done": [
+        "Start!",
+        "Done"
+    ]
+
+}
