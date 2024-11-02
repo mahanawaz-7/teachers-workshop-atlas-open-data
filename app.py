@@ -2,6 +2,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import importlib
 from utils import load_sidebar_tabs
+import json
+import os
 
 # Initialize session state for language selection
 if "language_selected" not in st.session_state:
@@ -43,12 +45,22 @@ if not st.session_state["language_selected"]:
 # # Check if English is selected
 # elif st.session_state["language"] == "English":
 else:
-    st.sidebar.title("ATLAS Open Data Teachers Workshop")
+    # Get selected language
+    selected_language = st.session_state['language']
+    # Get the directory of the current script
+    script_dir = os.path.dirname(__file__)
+    # Build the path to the JSON file
+    json_file_path = os.path.join(script_dir, f'docs/{selected_language}', 'extras.json')
+    # Open and load the JSON file
+    with open(json_file_path, 'r') as json_file:
+        extras = json.load(json_file)
+
+    st.sidebar.title(extras['side_bar_title'])
     sidebar_top = st.sidebar.container()  # Create a container for the top part of the sidebar
     sidebar_bottom = st.sidebar.container()  # Create a container for the bottom part of the sidebar
     # Use the top container for the main menu
     with sidebar_top:
-        tabs = load_sidebar_tabs(st.session_state['language'])
+        tabs = extras['side_bar']
         selected_tab = option_menu(
             "",
             tabs,
@@ -63,30 +75,30 @@ else:
     # Dynamically import and display the content of the selected tab
     if selected_tab == tabs[0]:
         module = importlib.import_module("00_getting_started")
-        module.run(st.session_state['language'])
+        module.run(selected_language)
 
     elif selected_tab == tabs[1]:
         module = importlib.import_module("01_foundations")
-        module.run(st.session_state['language'])
+        module.run(selected_language)
 
     elif selected_tab == tabs[2]:
         module = importlib.import_module("02_experimental")
-        module.run(st.session_state['language'])
+        module.run(selected_language)
 
     elif selected_tab == tabs[3]:
             module = importlib.import_module("03_analyses")
-            module.run(st.session_state['language'])
+            module.run(selected_language)
 
     elif selected_tab == tabs[4]:
         module = importlib.import_module("04_extrapython")
-        module.run(st.session_state['language'])
+        module.run(selected_language)
 
     elif selected_tab == tabs[5]:
         module = importlib.import_module("05_class_toolkit")
-        module.run(st.session_state['language'])
+        module.run(selected_language)
 
     # Use the bottom container to place the language section at the bottom
     with sidebar_bottom:
         st.sidebar.markdown("<br><br><br><br><br>", unsafe_allow_html=True)  # Add some space
-        st.sidebar.text(f"Language: {st.session_state['language']}")
+        st.sidebar.text(f"Language: {selected_language}")
         st.sidebar.button("Change Language", on_click=reset_language)
