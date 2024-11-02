@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 import json
-from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview, start_done_buttons
+from utils import load_markdown_file_with_images_and_code, get_first_level_headers, load_markdown_preview
 
 def run(selected_language):
     # Shared global namespace across all cells
@@ -13,7 +13,7 @@ def run(selected_language):
     # Get the directory of the current script
     script_dir = os.path.dirname(__file__)
     # Build the path to the JSON file
-    json_file_path = os.path.join(script_dir, f'docs/{selected_language}', 'extras.json')
+    json_file_path = os.path.join(script_dir, f'docs/{selected_language.lower()}', 'extras.json')
     # Open and load the JSON file
     with open(json_file_path, 'r') as json_file:
         extras = json.load(json_file)
