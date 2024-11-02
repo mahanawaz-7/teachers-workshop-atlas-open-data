@@ -9,7 +9,7 @@ def run(selected_language):
     # Get the directory of the current script
     script_dir = os.path.dirname(__file__)
     # Build the path to the JSON file
-    json_file_path = os.path.join(script_dir, f'docs/{selected_language}', 'extras.json')
+    json_file_path = os.path.join(script_dir, f'docs/{selected_language.lower()}', 'extras.json')
     # Open and load the JSON file
     with open(json_file_path, 'r') as json_file:
         extras = json.load(json_file)
