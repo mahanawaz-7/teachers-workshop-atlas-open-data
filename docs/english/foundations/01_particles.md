@@ -14,6 +14,6 @@ As fundamental as atoms may seem, they’re actually made up of even smaller par
 
 ![Imagen 2: Estructura interna de los protones y neutrones. Los protones están formados por dos quarks up y un quark down, mientras que los neutrones están formados por dos quarks down y un quark up.](images/proton_neutron_comp.png)
     
-Electrons, however, are part of a group called **fundamental particles**, meaning they aren’t made of anything smaller.
+Electrons, however, as well as quarks and gluons, are part of a group called **fundamental particles**, meaning they aren’t made of anything smaller.
 
-These tiny particles and forces are at the center of particle physics, and understanding them brings us to the **Standard Model**, a theory that organizes and explains the particles and forces shaping the universe.
+These tiny particles and their interactions are at the center of particle physics, and understanding them brings us to the **Standard Model**, a theory that organizes and explains the particles and forces shaping the universe.

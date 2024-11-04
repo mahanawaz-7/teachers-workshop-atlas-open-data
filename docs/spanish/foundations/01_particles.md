@@ -15,6 +15,6 @@ A pesar de lo fundamentales que pueden parecer los átomos, en realidad están f
 
 ![Imagen 2: Estructura interna del protón y el neutrón.](images/proton_neutron_comp.png)
 
-Sin embargo, los electrones forman parte de un grupo llamado **partículas fundamentales**, lo que significa que no están compuesto por partículas más pequeño.
+Los electrones, quarks y gluones forman parte de un grupo llamado **partículas fundamentales**, lo que significa que no están compuesto por partículas más pequeño.
 
-Estas pequeñas partículas y fuerzas son el centro de la física de partículas, y comprenderlas nos lleva al **modelo estándar**, una teoría que organiza y explica las partículas y fuerzas que dan forma al universo.
+Estas pequeñas partículas y sus interacciones son el centro de la física de partículas, y comprenderlas nos lleva al **modelo estándar**, una teoría que organiza y explica las partículas y fuerzas que dan forma al universo.
