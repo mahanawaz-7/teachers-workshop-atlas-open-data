@@ -202,6 +202,16 @@ The more data you analyze, the better chance you have of spotting rare events li
         st.image(f"images/lepton_plot_{theme['base']}.png")
 
         st.markdown("Study the diagrams and the data, and select how many leptons you expect to observe in your final state depending on the analysis you are doing.")
+        
+        st.warning("""
+        You are about to select the number of leptons you want in your data. However, it's important to note that we’ve added additional criteria to ensure the quality of these leptons:
+
+        - **Isolation:** Each lepton must be isolated, meaning it isn’t clustered with other particles. This ensures that we're focusing on leptons that likely originated directly from the particle we’re interested in, rather than from background interactions.
+        - **Identification Levels:** Leptons must meet specific identification criteria to confirm their type with high confidence. Particle reconstruction is complex, so we have different levels of identification for certainty. For example, muons must pass a medium ID level, while electrons only need to pass a loose ID level, as electrons are easier to detect.
+        - **Trigger Conditions:** Triggers are criteria set to capture events with certain characteristics, allowing only saving events that we want to analysis. Here, we use electron and muon triggers to select events with significant signals, refining the dataset to increase the chances of observing particles that decay to leptons or muons.
+
+        These criteria help "clean" the data, improving our chances of observing particles like the Z and Higgs bosons.
+        """)
 
         # Define the options
         n_leptons_options = ("--", 2, 3, 4)
@@ -236,7 +246,7 @@ The more data you analyze, the better chance you have of spotting rare events li
             if st.session_state.nlepton_cut_applied:
                 st.toast("You already applied a cut. To reset the analysis go to the end of the page.", icon='❌')
             elif n_leptons != '--':
-                random_sleep = random.randint(1, lumi/3)
+                random_sleep = random.randint(1, round(lumi/3))
                 # Display a spinner with the loading message
                 with st.spinner("Making cut... Please wait."):
                     # Simulate a time-consuming process with a random sleep
@@ -297,7 +307,7 @@ The more data you analyze, the better chance you have of spotting rare events li
                 st.toast("You already applied a cut. To reset the analysis go to the end of the page.", icon='❌')
             elif flavor != '--':    
                 # Display a spinner with the loading message
-                random_sleep = random.randint(1, lumi/3)
+                random_sleep = random.randint(1, round(lumi/3))
                 with st.spinner("Making cut... Please wait."):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
@@ -333,7 +343,7 @@ The more data you analyze, the better chance you have of spotting rare events li
                 st.toast("You already applied a cut. To reset the analysis go to the end of the page.", icon='❌')
             elif charge != '--':
                 # Display a spinner with the loading message
-                random_sleep = random.randint(1, lumi/3)
+                random_sleep = random.randint(1, round(lumi/3))
                 with st.spinner("Making cut... Please wait."):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
@@ -372,24 +382,24 @@ The more data you analyze, the better chance you have of spotting rare events li
 
                 # Step 4: Cuts on leptons pT only for Higgs
                 if n_leptons==4 and flavor=='Same' and charge=='Opposite':
-                    st.session_state['is_higgs'] = True
+                    st.session_state.is_higgs = True
 
-    if st.session_state.leptoncharge_cut_applied and st.session_state['is_higgs']:
+    if st.session_state.leptoncharge_cut_applied and st.session_state.is_higgs:
         st.markdown("## Cuts on Leptons p$_T$")
-        st.markdown("""In our search for the **Higgs boson**, we rely on applying **cuts** to help reveal its unique characteristics amidst a large amount of data. One of the ways we do this is by focusing on a variable called **transverse momentum** (p$_T$), which represents the momentum of particles perpendicular to the beamline.
+        st.markdown("""In our search for the **Higgs boson**, we rely on applying **cuts** to help finding it amidst a large amount of data. One of the ways we can do this is by focusing on a variable called **transverse momentum** (p$_T$), which represents the momentum of particles perpendicular to the beamline.
 
 Each lepton in our data has a p$_T$ value, which we’ve recorded in descending order as **leading** (highest p$_T$), **sub-leading**, and so forth. By examining these values, we can apply cuts to keep data that better resembles the Higgs boson's characteristics, while reducing data less likely to contain it.
 
-One approach to isolating the Higgs is to apply cuts that remove regions where the **background** (data not related to the Higgs) tends to dominate, leaving more events that match our Higgs-like signature. This means setting a lower limit on the p$_T$ for leptons, as higher p$_T$ values are more likely to capture the events we’re interested in.
+One approach to isolating the Higgs is to apply cuts that remove regions where the **background** (data not related to the Higgs, but similar) tends to dominate, leaving more events that match our Higgs-like signature. This means setting a lower limit on the p$_T$ for leptons, as higher p$_T$ values are more likely to capture the events we’re interested in.
 
-The plots below show the p$_T$ distributions for the first, second, and third leptons in both signal (Higgs) and background data. Applying cuts to the lower p$_T$ values could help reduce the background and improve the visibility of potential Higgs events.
+The plots below show the p$_T$ distributions for the first, second, and third leptons in both simulated signal (the Higgs that we are looking for) and background data. Applying cuts to the lower p$_T$ values could help reduce the background and improve the visibility of potential Higgs events.
 """)
 
         # Display initial image
         if not st.session_state['show_hint']:
-            st.image(f"images/lepton_pt_{theme['base']}.png", caption="Click for a hint")
+            st.image(f"images/lepton_pt_{theme['base']}.png", caption="pT distribution of the three most energetic leptons in each event.")
         else:
-            st.image(f"images/lepton_pt_{theme['base']}_lines.png", caption="Here's a hint")
+            st.image(f"images/lepton_pt_{theme['base']}_lines.png", caption="pT distribution of the three most energetic leptons in each event with possible cuts.")
 
         st.markdown("With this in mind, let's consider the best lower bound cuts on p$_T$ that would help in filtering out background events while retaining those that are likely Higgs candidates.")
         with st.expander("🔍 Quiz", expanded=True):
@@ -416,7 +426,7 @@ The plots below show the p$_T$ distributions for the first, second, and third le
                 st.error("Not quite. Focus on values that effectively reduce background while keeping the Higgs events.")
             
 
-        st.markdown("Now, let's make the cut")
+        st.markdown("Now, let's make the cut:")
 
         if st.button("Cut on leptons p$_T$"):
             if st.session_state.leptonpt_cut_applied:
@@ -424,7 +434,7 @@ The plots below show the p$_T$ distributions for the first, second, and third le
             else:
                 st.session_state.leptonpt_cut_applied = True
                 # Display a spinner with the loading message
-                random_sleep = random.randint(1, lumi/3)
+                random_sleep = random.randint(1, round(lumi/3))
                 with st.spinner("Making cut... Please wait."):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
@@ -437,7 +447,7 @@ The plots below show the p$_T$ distributions for the first, second, and third le
         st.info(f"Events after the cut: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons']['nEvents']}")
 
     # Steep 5: invariant mass plot
-    if (st.session_state.leptoncharge_cut_applied and not st.session_state['is_higgs']) or (st.session_state['is_higgs'] and st.session_state.leptoncharge_cut_applied):
+    if (st.session_state.leptoncharge_cut_applied and not st.session_state.is_higgs) or (st.session_state.is_higgs and st.session_state.leptonpt_cut_applied):
         st.markdown("## Unveiling Particles with Invariant Mass")
         st.markdown("The *invariant mass* is a key tool in particle physics. It allows us to reconstruct the mass of particles that are produced in collisions, even if we don't observe them directly. By analyzing the energy and momentum of the leptons in the final state, we can calculate their combined *invariant mass*.")
         st.markdown('This quantity is particularly useful because it is the same in all reference frames—it "remembers" the mass of the particle that decayed into the leptons.')
@@ -463,35 +473,104 @@ The plots below show the p$_T$ distributions for the first, second, and third le
             elif answer_mass:
                 st.error("Incorrect. Remember, invariant mass relates to the particle's rest mass.")
 
-        if st.button("Calculate and plot invariant mass"):
-            if (n_leptons==4) and (flavor=='Same') and (charge=='Opposite'):
-                #st.info(f"Events after the cut: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons']['nEvents']}")
-                st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_only_{theme['base']}"])
-            else:
-                st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}'][f"plot_data_only_{theme['base']}"])
-    
+        if st.button("Get invariant mass"):
+            st.session_state.invariant_mass_calculated = True
     # Step 6: Discussion
     if st.session_state.invariant_mass_calculated:
-        with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
-            st.markdown("##### ⁉️ Interpreting the Invariant Mass Plot")
+        if st.session_state.is_higgs:
+                #st.info(f"Events after the cut: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons']['nEvents']}")
+                st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_only_{theme['base']}"])
+        else:
+            st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}'][f"plot_data_only_{theme['base']}"])
+        
+        if not st.session_state.is_higgs:
+            with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
+                st.markdown("##### ⁉️ Interpreting the Invariant Mass Plot")
+                st.markdown("""
+                You generated an invariant mass plot. If a peak appears around 91 GeV, which particle might it correspond to?
+                """)
+
+                possible_final = ["Higgs boson", "Z boson", "Photon", "Top quark"]
+                answer_final = st.radio("Choose your answer:", 
+                                        possible_final, 
+                                        index=None, key="invariant_mass_quiz")
+
+                if answer_final == possible_final[1]:
+                    st.success("Correct! A peak around 91 GeV typically corresponds to the Z boson.")
+                elif answer_final:
+                    st.error("Incorrect. Peaks near 91 GeV usually indicate the presence of a Z boson, since 91 GeV is its mass")
+        
+            if answer_final == possible_final[1]:
+                st.balloons()
+                st.markdown("### Discussion")
+                st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion or reset the analysis to try a new one.")
+
+        else:
+            st.markdown("## How do we know we found the Higgs?")
+
             st.markdown("""
-            You generated an invariant mass plot. If a peak appears around 91 GeV, which particle might it correspond to?
+            To determine if we've observed the Higgs boson, we compare our real data with simulations of known background processes and simulated signals. This approach helps us see if a peak stands out in our data where we expect the Higgs boson to appear.
             """)
 
-            possible_final = ["Higgs boson", "Z boson", "Photon", "Top quark"]
-            answer_final = st.radio("Choose your answer:", 
-                                    possible_final, 
-                                    index=None, key="invariant_mass_quiz")
+            # Step 1: Show data only
+            st.markdown("### Step 1: Observing the Data")
+            st.markdown("Let's start by looking at the data alone. Look carefully: do you notice any specific features? Without additional information, it can be challenging to tell whether any peaks are due to background processes or signal events.")
+            higgs_data_only = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_only_{theme['base']}"]
+            st.image(higgs_data_only, caption="Observed data alone")
 
-            if answer_final == possible_final[1]:
-                st.success("Correct! A peak around 91 GeV typically corresponds to the Z boson.")
-            elif answer_final:
-                st.error("Incorrect. Peaks near 91 GeV usually indicate the presence of a Z boson, since 91 GeV is its mass")
-        
-        if answer_final:
-            st.balloons()
-            st.markdown("### Discussion")
-            st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion.")
+            # Quiz question for the data-only plot
+            quiz_data = st.radio(
+                "What do you observe in the data-only plot?",
+                options=["A clear peak", "Some fluctuations, but it's hard to tell", "No specific features"],
+                index=None
+            )
+            if quiz_data == "Some fluctuations, but it's hard to tell":
+                st.success("Exactly! Without context, it’s hard to tell which fluctuations might be a signal.")
+            if quiz_data == "A clear peak":
+                st.warning("Are you looking at the Higgs already? Let's continue to see if you got it.")
+            if quiz_data == "No specific features":
+                st.info("Let's make it clearer with some simulation!")
+            
+            if quiz_data:
+                # Step 2: Show data with background simulation
+                st.markdown("### Step 2: Adding Background Simulation")
+                st.markdown("Now, we add a simulation of the background processes (without any signal). This shows us what we’d expect to see from other particles and interactions in the absence of the Higgs boson. Look closely: do any peaks in the data appear in addition to the background?")
+                higgs_data_bkg = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_backgrounds_{theme['base']}"]
+                st.image(higgs_data_bkg, caption="Data with background simulation")
+
+                # Quiz question for data with background
+                quiz_background = st.radio(
+                    "With the background simulation, do you notice any additional peaks?",
+                    options=["Yes, there seems to be an extra peak", "No, it all looks like background", "Not sure"],
+                    index=None
+                )
+                if quiz_background == "Yes, there seems to be an extra peak":
+                    st.success("Good observation! We may be seeing something beyond the background alone.")
+            
+                if quiz_background:
+                    # Step 3: Show data with background and simulated Higgs signal
+                    st.markdown("### Step 3: Adding the Simulated Higgs Signal")
+                    st.markdown("""
+                    Finally, we add the simulation of the Higgs signal to see how well it matches with the data. If the data aligns with the background plus the Higgs signal simulation, we have strong evidence of the Higgs boson. Can you spot a clear peak where we expect the Higgs?
+                    """)
+                    higgs_data_bkg_sig = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_backgrounds_signal_{theme['base']}"]
+                    st.image(higgs_data_bkg_sig, caption="Data with background and simulated Higgs signal")
+
+                    # Final quiz question
+                    quiz_signal = st.radio(
+                        "With the simulated Higgs signal added, what do you conclude?",
+                        options=["There’s a peak matching the Higgs signal", "Still unclear", "Background fits the data better"],
+                        index=None
+                    )
+                    if quiz_signal == "There’s a peak matching the Higgs signal":
+                        st.success("That's right! The alignment of the peak with the simulated Higgs signal provides evidence that we have indeed observed the Higgs boson.")
+
+                    if quiz_signal == "There’s a peak matching the Higgs signal":
+                        st.balloons()
+                        st.markdown("---")
+                        st.markdown("### Discussion")
+                        st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion or reset the analysis to try a new one.")
+    
 
     # Reset button to start the analysis again
     st.markdown('---')
@@ -502,9 +581,11 @@ The plots below show the p$_T$ distributions for the first, second, and third le
             st.session_state.nlepton_cut_applied = False
             st.session_state.leptontype_cut_applied = False
             st.session_state.leptoncharge_cut_applied = False
+            st.session_state.leptonpt_cut_applied = False
             st.session_state.invariant_mass_calculated = False
             st.session_state.mc_loaded = False
-            st.session_state['expand_all'] = False
+            st.session_state.expand_all = False
+            st.session_state.is_higgs = False
 
             # Delete the widget keys from session_state
             for key in ['n_leptons_selection', 'flavor_selection', 'charge_pair_selection']:
