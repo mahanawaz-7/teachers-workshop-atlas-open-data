@@ -1,0 +1,293 @@
+{
+    "12": {
+        "nEvents": 157584378,
+        "2leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 103935892,
+                    "plot_data_only_light": "12_2_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "12_2_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 105183657,
+                "chargeSame": {
+                    "nEvents": 1247765,
+                    "plot_data_only_light": "12_2_same_same__data_only_light.png",
+                    "plot_data_only_dark": "12_2_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 107729816,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 1961357,
+                    "plot_data_only_light": "12_2_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "12_2_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 2546159,
+                "chargeSame": {
+                    "nEvents": 584802,
+                    "plot_data_only_light": "12_2_different_same__data_only_light.png",
+                    "plot_data_only_dark": "12_2_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "3leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 145582,
+                    "plot_data_only_light": "12_3_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "12_3_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 172155,
+                "chargeSame": {
+                    "nEvents": 26573,
+                    "plot_data_only_light": "12_3_same_same__data_only_light.png",
+                    "plot_data_only_dark": "12_3_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 293952,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 61555,
+                    "plot_data_only_light": "12_3_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "12_3_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 121797,
+                "chargeSame": {
+                    "nEvents": 60242,
+                    "plot_data_only_light": "12_3_different_same__data_only_light.png",
+                    "plot_data_only_dark": "12_3_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "4leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "ptLeptons": {
+                        "nEvents": 2744,
+                        "plot_data_only_light": "12_Higgs__data_only_light.png",
+                        "plot_data_only_dark": "12_Higgs__data_only_dark.png",
+                        "plot_data_backgrounds_light": "12_Higgs__data_backgrounds_light.png",
+                        "plot_data_backgrounds_dark": "12_Higgs__data_backgrounds_dark.png",
+                        "plot_data_backgrounds_signal_light": "12_Higgs__data_backgrounds_signal_light.png",
+                        "plot_data_backgrounds_signal_dark": "12_Higgs__data_backgrounds_signal_dark.png"
+                    },
+                    "nEvents": 3712
+                },
+                "nEvents": 4516,
+                "chargeSame": {
+                    "nEvents": 609,
+                    "plot_data_only_light": "12_4_same_same__data_only_light.png",
+                    "plot_data_only_dark": "12_4_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 4821,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 2080,
+                    "plot_data_only_light": "12_4_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "12_4_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 2173,
+                "chargeSame": {
+                    "nEvents": 0,
+                    "plot_data_only_light": "12_4_different_same__data_only_light.png",
+                    "plot_data_only_dark": "12_4_different_same__data_only_dark.png"
+                }
+            }
+        }
+    },
+    "24": {
+        "nEvents": 315168791,
+        "2leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 208375355,
+                    "plot_data_only_light": "24_2_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "24_2_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 210847217,
+                "chargeSame": {
+                    "nEvents": 2471862,
+                    "plot_data_only_light": "24_2_same_same__data_only_light.png",
+                    "plot_data_only_dark": "24_2_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 215919809,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 3920880,
+                    "plot_data_only_light": "24_2_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "24_2_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 5072592,
+                "chargeSame": {
+                    "nEvents": 1151712,
+                    "plot_data_only_light": "24_2_different_same__data_only_light.png",
+                    "plot_data_only_dark": "24_2_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "3leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 288763,
+                    "plot_data_only_light": "24_3_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "24_3_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 341172,
+                "chargeSame": {
+                    "nEvents": 52409,
+                    "plot_data_only_light": "24_3_same_same__data_only_light.png",
+                    "plot_data_only_dark": "24_3_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 586064,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 123725,
+                    "plot_data_only_light": "24_3_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "24_3_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 244892,
+                "chargeSame": {
+                    "nEvents": 121167,
+                    "plot_data_only_light": "24_3_different_same__data_only_light.png",
+                    "plot_data_only_dark": "24_3_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "4leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "ptLeptons": {
+                        "nEvents": 4977,
+                        "plot_data_only_light": "24_Higgs__data_only_light.png",
+                        "plot_data_only_dark": "24_Higgs__data_only_dark.png",
+                        "plot_data_backgrounds_light": "24_Higgs__data_backgrounds_light.png",
+                        "plot_data_backgrounds_dark": "24_Higgs__data_backgrounds_dark.png",
+                        "plot_data_backgrounds_signal_light": "24_Higgs__data_backgrounds_signal_light.png",
+                        "plot_data_backgrounds_signal_dark": "24_Higgs__data_backgrounds_signal_dark.png"
+                    },
+                    "nEvents": 7138
+                },
+                "nEvents": 8876,
+                "chargeSame": {
+                    "nEvents": 1373,
+                    "plot_data_only_light": "24_4_same_same__data_only_light.png",
+                    "plot_data_only_dark": "24_4_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 9700,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 3971,
+                    "plot_data_only_light": "24_4_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "24_4_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 4106,
+                "chargeSame": {
+                    "nEvents": 0,
+                    "plot_data_only_light": "24_4_different_same__data_only_light.png",
+                    "plot_data_only_dark": "24_4_different_same__data_only_dark.png"
+                }
+            }
+        }
+    },
+    "36": {
+        "nEvents": 472753211,
+        "2leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 313288546,
+                    "plot_data_only_light": "36_2_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "36_2_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 316959847,
+                "chargeSame": {
+                    "nEvents": 3671301,
+                    "plot_data_only_light": "36_2_same_same__data_only_light.png",
+                    "plot_data_only_dark": "36_2_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 324509196,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 5858290,
+                    "plot_data_only_light": "36_2_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "36_2_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 7549349,
+                "chargeSame": {
+                    "nEvents": 1691059,
+                    "plot_data_only_light": "36_2_different_same__data_only_light.png",
+                    "plot_data_only_dark": "36_2_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "3leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "nEvents": 429754,
+                    "plot_data_only_light": "36_3_same_opposite__data_only_light.png",
+                    "plot_data_only_dark": "36_3_same_opposite__data_only_dark.png"
+                },
+                "nEvents": 508907,
+                "chargeSame": {
+                    "nEvents": 79153,
+                    "plot_data_only_light": "36_3_same_same__data_only_light.png",
+                    "plot_data_only_dark": "36_3_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 873050,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 184681,
+                    "plot_data_only_light": "36_3_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "36_3_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 364143,
+                "chargeSame": {
+                    "nEvents": 179462,
+                    "plot_data_only_light": "36_3_different_same__data_only_light.png",
+                    "plot_data_only_dark": "36_3_different_same__data_only_dark.png"
+                }
+            }
+        },
+        "4leptons": {
+            "flavorSame": {
+                "chargeOpposite": {
+                    "ptLeptons": {
+                        "nEvents": 7356,
+                        "plot_data_only_light": "36_Higgs__data_only_light.png",
+                        "plot_data_only_dark": "36_Higgs__data_only_dark.png",
+                        "plot_data_backgrounds_light": "36_Higgs__data_backgrounds_light.png",
+                        "plot_data_backgrounds_dark": "36_Higgs__data_backgrounds_dark.png",
+                        "plot_data_backgrounds_signal_light": "36_Higgs__data_backgrounds_signal_light.png",
+                        "plot_data_backgrounds_signal_dark": "36_Higgs__data_backgrounds_signal_dark.png"
+                    },
+                    "nEvents": 10663
+                },
+                "nEvents": 12798,
+                "chargeSame": {
+                    "nEvents": 1689,
+                    "plot_data_only_light": "36_4_same_same__data_only_light.png",
+                    "plot_data_only_dark": "36_4_same_same__data_only_dark.png"
+                }
+            },
+            "nEvents": 14037,
+            "flavorDifferent": {
+                "chargeOpposite": {
+                    "nEvents": 5880,
+                    "plot_data_only_light": "36_4_different_opposite__data_only_light.png",
+                    "plot_data_only_dark": "36_4_different_opposite__data_only_dark.png"
+                },
+                "nEvents": 6059,
+                "chargeSame": {
+                    "nEvents": 1,
+                    "plot_data_only_light": "36_4_different_same__data_only_light.png",
+                    "plot_data_only_dark": "36_4_different_same__data_only_dark.png"
+                }
+            }
+        }
+    }
+}
