@@ -180,7 +180,7 @@ The more data you analyze, the better chance you have of spotting rare events li
         
         st.markdown("Below you can see the count of number of leptons in the whole dataset. You can see that, in general, is more common to have fewer leptons in an event.")
         # Get the appropriate plot file based on the theme
-        st.image(f"images/lepton_plot_{theme['base']}.png")
+        st.image(f"images/lepton_plot_{theme['base']}_{lumi}.png")
 
         st.markdown("Study the diagrams and the data, and select how many leptons you expect to observe in your final state depending on the analysis you are doing – finding the Z boson or the Higgs boson..")
         
@@ -263,7 +263,7 @@ The more data you analyze, the better chance you have of spotting rare events li
         st.markdown("In your analysis, you can look at the flavor of the leptons (whether they are electrons or muons) and their charge (positive or negative). The particles with opposite charge are called antiparticles, a positive electron is called positron and a positive muon is called anti-muon. The plot below shows the distribution of lepton flavors, with one bar for positively charged and one for negatively charged leptons. This helps identify whether the final state obeys conservation laws.")
 
         # Display the pre-generated plot based on the theme
-        st.image(f"images/lepton_barplot_{theme['base']}.png")
+        st.image(f"images/lepton_barplot_{theme['base']}_{lumi}.png")
         
         st.markdown("With this in mind, let's apply our next selection. If unsure, scroll up to the Feynmann diagrams above. You may find helpful information there.")
 
