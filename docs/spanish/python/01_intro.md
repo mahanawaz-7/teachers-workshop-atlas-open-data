@@ -1,5 +1,5 @@
 # Conceptos Básicos de Python
-Ser capaz de programas es una habilidad esencial para un físico de partículas (o cualquier científico, de hecho). ¡Nuestros conjuntos de datos son simplemente demasiado grandes para procesarlos sin la ayuda de computadoras! Un físico de ATLAS generalmente usa una combinación de los lenguajes de programación C++ y Python para lograr todo, desde simular colisiones de protones hasta buscar bosones de Higgs.
+Ser capaz de programar es una habilidad esencial para un físico de partículas (o cualquier científico, de hecho). ¡Nuestros conjuntos de datos son simplemente demasiado grandes para procesarlos sin la ayuda de computadoras! Un físico de ATLAS generalmente usa una combinación de los lenguajes de programación C++ y Python para lograr todo, desde simular colisiones de protones hasta buscar bosones de Higgs.
 
 Aquí revisamos algunos de los conceptos básicos de programación en Python. Lo haremos presentando una versión diluida e interactiva del tutorial de la [documentación oficial de Python](https://docs.python.org/3/tutorial/index.html). Para obtener más información sobre cualquier tema, deje que la documentación oficial de Python sea su primer punto de contacto. Le proporcionaremos enlaces a partes específicas del tutorial a medida que avancemos.
 
@@ -85,7 +85,7 @@ print(word[1:5])
 ```
 
 ### Tipos de datos compuestos
-Una lista de Python es un tipo de datos compuesto (la lista en sí contiene valores de un tipo determinado) y mutable (es decir, se puede cambiar)para agrupar una secuencia de valores y ordenarlos de una determinada manera para que podamos encontrar cada entrada en la matriz por su "número de casa" o índice.
+Una lista de Python es un tipo de datos compuesto (la lista en sí contiene valores de un tipo determinado) y mutable (es decir, se puede cambiar)para agrupar una secuencia de valores y ordenarlos de una determinada manera para que podamos encontrar cada entrada en la matriz por su índice.
 
 ```python
 # A continuación se muestra una lista de ejemplo
