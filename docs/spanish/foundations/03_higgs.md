@@ -33,7 +33,7 @@ Una vez producido, el bosón de Higgs se desintegra casi inmediatamente. La form
 
 - **Higgs a dos bosones Z (H→ZZ)**: El bosón de Higgs se desintegra en un par de bosones Z, cada uno de los cuales puede desintegrarse aún más en pares de leptones, como electrones o muones. Esta cadena de desintegración permite la reconstrucción de la presencia del bosón de Higgs observando el estado final de cuatro leptones. ¡Esto es lo que estamos haciendo en el taller!
 
-![Imagen 5: Producción del bosón de Higgs a partir de la fusión del quark top.](images/HZZ_feynman.png)
+![Imagen 5: Decaimiento del bosón de Higgs en dos bosones Z.](images/HZZ_feynman.png)
 
 - **Higgs a dos bosones W (H→WW)**: En este modo de desintegración, el bosón de Higgs se desintegra en un par de bosones W, que a su vez se desintegran en leptones y neutrinos.
 
