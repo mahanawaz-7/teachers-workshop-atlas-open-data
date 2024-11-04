@@ -32,7 +32,7 @@ Once produced, the Higgs boson decays almost immediately. The specific way it de
 
 - **Higgs to two Z bosons (H→ZZ)**: The Higgs boson decays into a pair of Z bosons, each of which can decay further into pairs of leptons, such as electrons or muons. This decay chain allows the reconstruction of the Higgs boson’s presence by observing the four-lepton final state. This is what we are doing in the workshop!
 
-![Image 5: Production of the Higgs boson from top quark fusion.](images/HZZ_feynman.png)
+![Image 5: Decay of the Higgs boson into two Z bosons.](images/HZZ_feynman.png)
 
 - **Higgs to two W bosons (H→WW)**: In this decay mode, the Higgs boson decays into a pair of W bosons, which further decay into leptons and neutrinos.
 
