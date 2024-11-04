@@ -9,9 +9,9 @@ from matplotlib.ticker import AutoMinorLocator
 
 def get_darklight_plot(plot,theme):
     if theme and theme.get("base") == "dark":
-        return f"images/interactive/lepton_{plot}_dark.html"
+        return f"images/lepton_{plot}_dark.png"
     else:
-        return f"images/interactive/lepton_{plot}_light.html"
+        return f"images/lepton_{plot}_light.png"
 
 def load_mc_data():
     # Load MC mass and weights from pickle files
@@ -122,27 +122,14 @@ def lepton_charge_cut(lep_charge, n_leptons, cut):
 
 def invariant_mass(pt, eta, phi, E, n_leptons):
     p4 = vector.zip({"pt": pt, "eta": eta, "phi": phi, "E": E})
-    try:
-        if n_leptons == 2:
-            mass = (p4[:, 0] + p4[:, 1]).M
-        elif n_leptons == 3:
-            mass = (p4[:, 0] + p4[:, 1] + p4[:, 2]).M
-        elif n_leptons == 4:
-            mass = (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]).M
-        elif n_leptons == 5:
-            mass = (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]+ + p4[:, 4]).M
-
-    except IndexError as e:
-        # If there is an index error, print the event causing the issue
-        st.write(f"IndexError: {str(e)}")
-        st.write("Event causing the error:")
-        st.write("pt:", pt)
-        st.write("eta:", eta)
-        st.write("phi:", phi)
-        st.write("E:", E)
-        st.write(f"Number of leptons expected: {n_leptons}")
-        st.write(f"Lepton count in this event: {ak.num(pt)}")
-        raise  # Re-raise the exception so it still halts execution
+    if n_leptons == 2:
+        mass = (p4[:, 0] + p4[:, 1]).M
+    elif n_leptons == 3:
+        mass = (p4[:, 0] + p4[:, 1] + p4[:, 2]).M
+    elif n_leptons == 4:
+        mass = (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]).M
+    elif n_leptons == 5:
+        mass = (p4[:, 0] + p4[:, 1] + p4[:, 2] + p4[:, 3]+ + p4[:, 4]).M
 
     return mass
 
