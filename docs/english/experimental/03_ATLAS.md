@@ -20,8 +20,8 @@ Beyond the electromagnetic calorimeter lies the Hadronic Calorimeter, which meas
 ### Muon Spectrometer
 The outermost layer of the ATLAS detector, the Muon Spectrometer, is specifically designed to detect muons. Unlike other particles, muons can pass through the inner detector layers and the calorimeters without losing much energy. This layer allows ATLAS to track muons accurately.
 
-## Particle Signatures in ATLAS
-Different particles leave distinct signatures as they move through the ATLAS detector as shown in image 1:
+## Particle Signals in ATLAS
+Different particles leave distinct signals as they move through the ATLAS detector as shown in image 1:
 
 - *Electrons and Photons* produce electromagnetic showers in the **Electromagnetic Calorimeter**.
 - *Hadrons* such as protons and neutrons deposit energy in the **Hadronic Calorimeter**.
