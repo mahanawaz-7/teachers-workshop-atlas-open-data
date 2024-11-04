@@ -24,15 +24,14 @@ TUPLE_PATH = f'/eos/user/m/mvivasal/{SKIM}/'
     # Samples to use for the analysis
 SAMPLES = {
     'data': {
-        'list' : ['data15_periodD','data15_periodF',
-                'data15_periodH','data16_periodA',
-                'data16_periodC','data16_periodE',
-                'data16_periodG','data16_periodK',
-                'data15_periodE','data15_periodG',
-                'data15_periodJ','data16_periodB',
-                'data16_periodD','data16_periodF',
-                'data16_PeriodI','data16_periodL'],
-        #'list' : ['data15','data16'],
+        'list' : ['data15_periodD','data15_periodE',
+                'data15_periodF','data15_periodG',
+                'data15_periodH','data15_periodJ',
+                'data16_periodA','data16_periodB',
+                'data16_periodC','data16_periodD',
+                'data16_periodE','data16_periodF',
+                'data16_periodG','data16_PeriodI',
+                'data16_periodK','data16_periodL'],
     },
     
     r'Background $Z,t\bar{t},t\bar{t}+V,VVV$' : { # Z+t+vvv
@@ -199,10 +198,9 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
     with uproot.open(path + ":analysis") as tree:
         numevents = tree.num_entries # number of events
         #if 'data' not in sample: xsec_weight = get_xsec_weight(sample) # get cross-section weight
-        for data in tree.iterate(['lep_n','lep_pt','lep_eta','lep_phi','lep_z0','lep_d0',
-                                  'lep_e','lep_charge','lep_type', 'lep_isTightID','lep_topoetcone20',
-                                  'lep_ptvarcone30', 'lep_isLooseID','lep_isMediumID',
-                                  'lep_isLooseIso','lep_isTightIso',
+        for data in tree.iterate(['lep_n','lep_pt','lep_eta','lep_phi','lep_e','lep_charge','lep_type', 
+                                  'lep_isTightID', 'lep_isLooseID','lep_isMediumID','lep_isLooseIso',
+                                  'lep_isTightIso',
                                   #'lep_isLooseID','lep_isMediumID',
                                   # add more variables here if you make cuts on them 
                                   'mcWeight','ScaleFactor_PILEUP',
@@ -219,8 +217,7 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
             if 'data' in sample:
                 # Update the initial event count
                 event_counts['initial_events'] += nIn
-            
-            
+             
             # N_leptons cut
             data = data[data['lep_n'] == n_leptons]
             
@@ -230,16 +227,10 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
                 data[f'lep_looseID{i+1}'] = data['lep_isLooseID'][:,i]
                 data[f'lep_mediumID{i+1}'] = data['lep_isMediumID'][:,i]
                 data[f'lep_looseIso{i+1}'] = data['lep_isLooseIso'][:,i]
-                data[f'lep_topoetcone20{i+1}'] = data['lep_topoetcone20'][:,i]/data['lep_pt'][:,i]
-                data[f'lep_ptvarcone30{i+1}'] = data['lep_ptvarcone30'][:,i]/data['lep_pt'][:,i]
                 data[f'lep_type{i+1}'] = data['lep_type'][:,i]
-                data[f'lep_z0sintheta{i+1}'] = data['lep_z0'][:,i]*np.sin(2*np.arctan(np.exp(-1.0*data["lep_eta"][:,i])))
-                data[f'lep_d0{i+1}'] = data['lep_d0'][:,i]
             
             # Apply trigger
             data = data[data['trigE'] | data['trigM']]
-            
-            logging.info("Cut : After trg        : %i"%len(data['lep_n']))
             
             for i in range(0,n_leptons):
                 # Keep events where all four leptons pass the loose isolation criteria.
@@ -250,9 +241,9 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
             
             if 'data' in sample:
                 # Update the event count after cleaning leptons
-                event_counts['after_cleaning_leptons'] += len(data['lep_n'])
+                event_counts['after_cleaning_leptons'] += len(data)
             
-            logging.info("Cut : After cleaning leptons       : %i"%len(data['lep_n'])) ####----> Save this as the initial number of events
+            logging.info("Cut : After cleaning leptons       : %i"%len(data)) 
 
             # Cut on lepton charge using the function cut_lep_charge defined above
             mask_lep_type = lepton_type_cut(data.lep_type, n_leptons, flavor)
@@ -260,8 +251,8 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
             
             if 'data' in sample:
                 # Update the event count after lepton type cut
-                event_counts['after_lepton_type_cut'] += len(data['lep_n'])
-            logging.info(f"Cut : After lepton_type_cut : {len(data['lep_n'])}")
+                event_counts['after_lepton_type_cut'] += len(data)
+            logging.info(f"Cut : After lepton_type_cut : {len(data)}")
 
             # cut on lepton type using the function cut_lep_type defined above
             mask_lep_charge = lepton_charge_cut(data.lep_charge, n_leptons, charge_pair)
@@ -269,8 +260,8 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
             
             if 'data' in sample:
                 # Update the event count after lepton charge cut
-                event_counts['after_lepton_charge_cut'] += len(data['lep_n'])
-            logging.info(f"Cut : After lepton_charge_cut : {len(data['lep_n'])}")
+                event_counts['after_lepton_charge_cut'] += len(data)
+            logging.info(f"Cut : After lepton_charge_cut : {len(data)}")
             
             if lumi_weights: #mening it is higgs
                 # pT cuts
@@ -280,9 +271,9 @@ def read_file(path,sample, lumi_used, n_leptons, flavor, charge_pair, bin_edges,
 
                 if 'data' in sample:
                     # Update the event count after lepton charge cut
-                    event_counts['after_leptonpt_cut'] += len(data['lep_n'])
+                    event_counts['after_leptonpt_cut'] += len(data)
                 
-                logging.info(f"Cut : After lepton pT cut : {len(data['lep_n'])}")
+                logging.info(f"Cut : After lepton pT cut : {len(data)}")
 
             # calculation of 4-lepton invariant mass using the function calc_mllll defined above
             data['mass'] = invariant_mass(data.lep_pt, data.lep_eta, data.lep_phi, data.lep_e, n_leptons)
@@ -330,6 +321,12 @@ def get_data_from_files(lumi_data, lumi_mc, n_leptons, flavor, charge_pair, bin_
         hist_mass_weights_squared_total = np.zeros(len(bin_edges) - 1)
 
         for val in SAMPLES[s]['list']:
+            period_event_counts = {'initial_events':0,
+                   'after_cleaning_leptons':0,
+                   'after_lepton_type_cut':0,
+                   'after_lepton_charge_cut':0,
+                   'after_leptonpt_cut':0}
+            
             if s == 'data':
                 prefix = "Data/"
                 fileString = TUPLE_PATH + prefix + val + ".root"
@@ -343,27 +340,28 @@ def get_data_from_files(lumi_data, lumi_mc, n_leptons, flavor, charge_pair, bin_
                 
             if process_mc:
                 if s == 'data':
-                    hist_mass, hist_mass_weights_squared, batch_event_counts = read_file(fileString, val, lumi_data, 
+                    hist_mass, hist_mass_weights_squared, period_event_counts = read_file(fileString, val, lumi_data, 
                                                                                      n_leptons, flavor, charge_pair, 
                                                                                      bin_edges, lumi_weights=lumi_data)
                 else:
+                    # period_event_counts should be just zeros here
                     hist_mass, hist_mass_weights_squared, _ = read_file(fileString, val, lumi_mc, 
                                                                                      n_leptons, flavor, charge_pair, 
                                                                                      bin_edges, lumi_weights=lumi_data)
                     
             elif s == 'data':
-                hist_mass, hist_mass_weights_squared, batch_event_counts = read_file(fileString, val, lumi_data, 
+                hist_mass, hist_mass_weights_squared, period_event_counts = read_file(fileString, val, lumi_data, 
                                                                                      n_leptons, flavor, charge_pair, 
                                                                                      bin_edges)
 
             hist_mass_total += hist_mass
             hist_mass_weights_squared_total += hist_mass_weights_squared
-            
-            event_counts['initial_events'] += batch_event_counts['initial_events']
-            event_counts['after_cleaning_leptons'] += batch_event_counts['after_cleaning_leptons']
-            event_counts['after_lepton_type_cut'] += batch_event_counts['after_lepton_type_cut']
-            event_counts['after_lepton_charge_cut'] += batch_event_counts['after_lepton_charge_cut']
-            event_counts['after_leptonpt_cut'] += batch_event_counts['after_leptonpt_cut']
+
+            event_counts['initial_events'] += period_event_counts['initial_events']
+            event_counts['after_cleaning_leptons'] += period_event_counts['after_cleaning_leptons']
+            event_counts['after_lepton_type_cut'] += period_event_counts['after_lepton_type_cut']
+            event_counts['after_lepton_charge_cut'] += period_event_counts['after_lepton_charge_cut']
+            event_counts['after_leptonpt_cut'] += period_event_counts['after_leptonpt_cut']
 
         data[s] = hist_mass_total
         data_weights_squared[s] = hist_mass_weights_squared_total
@@ -481,7 +479,7 @@ def make_plot(data, data_weights_squared, lumi_used, bin_edges, background='ligh
 
     plt.tight_layout()
     filename = f'{lumi_used}_{filename_prefix}_{filename_suffix}_{background}.png'
-    plt.savefig(filename, transparent=True)
+    plt.savefig(filename, bbox_inches='tight', transparent=True)
     plt.close()
 
     return filename
@@ -657,7 +655,6 @@ def main():
                         else:
                             results_json[lumi_key][nlep_key][flavor_key][charge_key][f'plot_{filename_suffix}_light'] = plot_light
                             results_json[lumi_key][nlep_key][flavor_key][charge_key][f'plot_{filename_suffix}_dark'] = plot_dark
-
 
 
     # Save the results to a JSON file after all configurations are processed

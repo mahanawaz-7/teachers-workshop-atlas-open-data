@@ -1,30 +1,30 @@
 {
     "12": {
-        "nEvents": 157584378,
+        "nEvents": 28492674,
         "2leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 103935892,
+                    "nEvents": 18262164,
                     "plot_data_only_light": "12_2_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "12_2_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 105183657,
+                "nEvents": 18473005,
                 "chargeSame": {
-                    "nEvents": 1247765,
+                    "nEvents": 210841,
                     "plot_data_only_light": "12_2_same_same__data_only_light.png",
                     "plot_data_only_dark": "12_2_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 107729816,
+            "nEvents": 18910792,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 1961357,
+                    "nEvents": 342733,
                     "plot_data_only_light": "12_2_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "12_2_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 2546159,
+                "nEvents": 437787,
                 "chargeSame": {
-                    "nEvents": 584802,
+                    "nEvents": 95054,
                     "plot_data_only_light": "12_2_different_same__data_only_light.png",
                     "plot_data_only_dark": "12_2_different_same__data_only_dark.png"
                 }
@@ -33,27 +33,27 @@
         "3leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 145582,
+                    "nEvents": 24426,
                     "plot_data_only_light": "12_3_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "12_3_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 172155,
+                "nEvents": 29131,
                 "chargeSame": {
-                    "nEvents": 26573,
+                    "nEvents": 4705,
                     "plot_data_only_light": "12_3_same_same__data_only_light.png",
                     "plot_data_only_dark": "12_3_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 293952,
+            "nEvents": 48840,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 61555,
+                    "nEvents": 9979,
                     "plot_data_only_light": "12_3_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "12_3_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 121797,
+                "nEvents": 19709,
                 "chargeSame": {
-                    "nEvents": 60242,
+                    "nEvents": 9730,
                     "plot_data_only_light": "12_3_different_same__data_only_light.png",
                     "plot_data_only_dark": "12_3_different_same__data_only_dark.png"
                 }
@@ -63,7 +63,7 @@
             "flavorSame": {
                 "chargeOpposite": {
                     "ptLeptons": {
-                        "nEvents": 2744,
+                        "nEvents": 392,
                         "plot_data_only_light": "12_Higgs__data_only_light.png",
                         "plot_data_only_dark": "12_Higgs__data_only_dark.png",
                         "plot_data_backgrounds_light": "12_Higgs__data_backgrounds_light.png",
@@ -71,23 +71,23 @@
                         "plot_data_backgrounds_signal_light": "12_Higgs__data_backgrounds_signal_light.png",
                         "plot_data_backgrounds_signal_dark": "12_Higgs__data_backgrounds_signal_dark.png"
                     },
-                    "nEvents": 3712
+                    "nEvents": 548
                 },
-                "nEvents": 4516,
+                "nEvents": 680,
                 "chargeSame": {
-                    "nEvents": 609,
+                    "nEvents": 105,
                     "plot_data_only_light": "12_4_same_same__data_only_light.png",
                     "plot_data_only_dark": "12_4_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 4821,
+            "nEvents": 733,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 2080,
+                    "nEvents": 316,
                     "plot_data_only_light": "12_4_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "12_4_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 2173,
+                "nEvents": 325,
                 "chargeSame": {
                     "nEvents": 0,
                     "plot_data_only_light": "12_4_different_same__data_only_light.png",
@@ -97,31 +97,31 @@
         }
     },
     "24": {
-        "nEvents": 315168791,
+        "nEvents": 56985355,
         "2leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 208375355,
+                    "nEvents": 36552851,
                     "plot_data_only_light": "24_2_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "24_2_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 210847217,
+                "nEvents": 36971585,
                 "chargeSame": {
-                    "nEvents": 2471862,
+                    "nEvents": 418734,
                     "plot_data_only_light": "24_2_same_same__data_only_light.png",
                     "plot_data_only_dark": "24_2_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 215919809,
+            "nEvents": 37843841,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 3920880,
+                    "nEvents": 683940,
                     "plot_data_only_light": "24_2_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "24_2_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 5072592,
+                "nEvents": 872256,
                 "chargeSame": {
-                    "nEvents": 1151712,
+                    "nEvents": 188316,
                     "plot_data_only_light": "24_2_different_same__data_only_light.png",
                     "plot_data_only_dark": "24_2_different_same__data_only_dark.png"
                 }
@@ -130,27 +130,27 @@
         "3leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 288763,
+                    "nEvents": 48467,
                     "plot_data_only_light": "24_3_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "24_3_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 341172,
+                "nEvents": 57924,
                 "chargeSame": {
-                    "nEvents": 52409,
+                    "nEvents": 9457,
                     "plot_data_only_light": "24_3_same_same__data_only_light.png",
                     "plot_data_only_dark": "24_3_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 586064,
+            "nEvents": 97128,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 123725,
+                    "nEvents": 19873,
                     "plot_data_only_light": "24_3_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "24_3_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 244892,
+                "nEvents": 39204,
                 "chargeSame": {
-                    "nEvents": 121167,
+                    "nEvents": 19331,
                     "plot_data_only_light": "24_3_different_same__data_only_light.png",
                     "plot_data_only_dark": "24_3_different_same__data_only_dark.png"
                 }
@@ -160,7 +160,7 @@
             "flavorSame": {
                 "chargeOpposite": {
                     "ptLeptons": {
-                        "nEvents": 4977,
+                        "nEvents": 749,
                         "plot_data_only_light": "24_Higgs__data_only_light.png",
                         "plot_data_only_dark": "24_Higgs__data_only_dark.png",
                         "plot_data_backgrounds_light": "24_Higgs__data_backgrounds_light.png",
@@ -168,23 +168,23 @@
                         "plot_data_backgrounds_signal_light": "24_Higgs__data_backgrounds_signal_light.png",
                         "plot_data_backgrounds_signal_dark": "24_Higgs__data_backgrounds_signal_dark.png"
                     },
-                    "nEvents": 7138
+                    "nEvents": 1090
                 },
-                "nEvents": 8876,
+                "nEvents": 1372,
                 "chargeSame": {
-                    "nEvents": 1373,
+                    "nEvents": 225,
                     "plot_data_only_light": "24_4_same_same__data_only_light.png",
                     "plot_data_only_dark": "24_4_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 9700,
+            "nEvents": 1496,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 3971,
+                    "nEvents": 639,
                     "plot_data_only_light": "24_4_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "24_4_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 4106,
+                "nEvents": 662,
                 "chargeSame": {
                     "nEvents": 0,
                     "plot_data_only_light": "24_4_different_same__data_only_light.png",
@@ -194,31 +194,31 @@
         }
     },
     "36": {
-        "nEvents": 472753211,
+        "nEvents": 85478043,
         "2leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 313288546,
+                    "nEvents": 54842890,
                     "plot_data_only_light": "36_2_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "36_2_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 316959847,
+                "nEvents": 55468323,
                 "chargeSame": {
-                    "nEvents": 3671301,
+                    "nEvents": 625433,
                     "plot_data_only_light": "36_2_same_same__data_only_light.png",
                     "plot_data_only_dark": "36_2_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 324509196,
+            "nEvents": 56773140,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 5858290,
+                    "nEvents": 1024482,
                     "plot_data_only_light": "36_2_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "36_2_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 7549349,
+                "nEvents": 1304817,
                 "chargeSame": {
-                    "nEvents": 1691059,
+                    "nEvents": 280335,
                     "plot_data_only_light": "36_2_different_same__data_only_light.png",
                     "plot_data_only_dark": "36_2_different_same__data_only_dark.png"
                 }
@@ -227,27 +227,27 @@
         "3leptons": {
             "flavorSame": {
                 "chargeOpposite": {
-                    "nEvents": 429754,
+                    "nEvents": 72446,
                     "plot_data_only_light": "36_3_same_opposite__data_only_light.png",
                     "plot_data_only_dark": "36_3_same_opposite__data_only_dark.png"
                 },
-                "nEvents": 508907,
+                "nEvents": 86555,
                 "chargeSame": {
-                    "nEvents": 79153,
+                    "nEvents": 14109,
                     "plot_data_only_light": "36_3_same_same__data_only_light.png",
                     "plot_data_only_dark": "36_3_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 873050,
+            "nEvents": 145162,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 184681,
+                    "nEvents": 29673,
                     "plot_data_only_light": "36_3_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "36_3_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 364143,
+                "nEvents": 58607,
                 "chargeSame": {
-                    "nEvents": 179462,
+                    "nEvents": 28934,
                     "plot_data_only_light": "36_3_different_same__data_only_light.png",
                     "plot_data_only_dark": "36_3_different_same__data_only_dark.png"
                 }
@@ -257,7 +257,7 @@
             "flavorSame": {
                 "chargeOpposite": {
                     "ptLeptons": {
-                        "nEvents": 7356,
+                        "nEvents": 1112,
                         "plot_data_only_light": "36_Higgs__data_only_light.png",
                         "plot_data_only_dark": "36_Higgs__data_only_dark.png",
                         "plot_data_backgrounds_light": "36_Higgs__data_backgrounds_light.png",
@@ -265,23 +265,23 @@
                         "plot_data_backgrounds_signal_light": "36_Higgs__data_backgrounds_signal_light.png",
                         "plot_data_backgrounds_signal_dark": "36_Higgs__data_backgrounds_signal_dark.png"
                     },
-                    "nEvents": 10663
+                    "nEvents": 1647
                 },
-                "nEvents": 12798,
+                "nEvents": 2046,
                 "chargeSame": {
-                    "nEvents": 1689,
+                    "nEvents": 317,
                     "plot_data_only_light": "36_4_same_same__data_only_light.png",
                     "plot_data_only_dark": "36_4_same_same__data_only_dark.png"
                 }
             },
-            "nEvents": 14037,
+            "nEvents": 2221,
             "flavorDifferent": {
                 "chargeOpposite": {
-                    "nEvents": 5880,
+                    "nEvents": 952,
                     "plot_data_only_light": "36_4_different_opposite__data_only_light.png",
                     "plot_data_only_dark": "36_4_different_opposite__data_only_dark.png"
                 },
-                "nEvents": 6059,
+                "nEvents": 991,
                 "chargeSame": {
                     "nEvents": 1,
                     "plot_data_only_light": "36_4_different_same__data_only_light.png",
