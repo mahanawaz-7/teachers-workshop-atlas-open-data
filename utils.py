@@ -144,20 +144,6 @@ def get_first_level_headers(language, folder, filenames):
             print(f"File not found: {base_path}")
     return headers
 
-def load_sidebar_tabs(language, folder="docs"):
-    """Load tabs from the side_bar.md file based on the selected language."""
-    sidebar_file_path = f"{folder}/{language.lower()}/side_bar.md"
-
-    if os.path.exists(sidebar_file_path):
-        with open(sidebar_file_path, 'r', encoding='utf-8') as f:
-            content = f.read().strip().splitlines()
-
-        # Return the lines as the tabs list (assuming each line is a tab)
-        return [line.strip() for line in content if line.strip()]
-    else:
-        st.error(f"Sidebar file not found for language: {language}. Check the file path.")
-        return []  # Return an empty list if file not found
-
 def run_code_editor(default_code, global_namespace, height=[2,30], key=None):
     """
     Run the code editor in Streamlit with a shared global namespace.
