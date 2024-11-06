@@ -1,10 +1,18 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import importlib
-from utils import load_sidebar_tabs
-import json
-import os
 from st_social_media_links import SocialMediaIcons
+
+import importlib
+import json
+import importlib.util
+import os
+
+def load_module_from_path(module_name, file_path):
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 
 st.set_page_config(
     page_title="ATLAS for Teachers",
@@ -113,8 +121,10 @@ else:
         module.run(selected_language)
 
     elif selected_tab == tabs[3]:
-            module = importlib.import_module("03_analyses")
-            module.run(selected_language)
+        # Dynamically import 03_analysis.py from the language-specific folder
+        module_path = f"docs.{selected_language.lower()}.analyses.03_analyses"
+        module = importlib.import_module(module_path)
+        module.run(selected_language)
 
     elif selected_tab == tabs[4]:
         module = importlib.import_module("04_extrapython")
