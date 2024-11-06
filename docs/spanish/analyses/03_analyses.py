@@ -388,7 +388,7 @@ Los gráficos siguientes muestran la distribución de p$_T$ del primer, segundo 
         if not st.session_state['show_hint']:
             st.image(f"images/lepton_pt_{theme['base']}.png", caption="Distribución de pT de los tres leptones más energéticos en cada evento.")
         else:
-            st.image(f"images/lepton_pt_{theme['base']}_lines.png", caption="istribución de pT de los tres leptones más energéticos en cada evento con posibles cortes.")
+            st.image(f"images/lepton_pt_{theme['base']}_lines.png", caption="Distribución de pT de los tres leptones más energéticos en cada evento con posibles cortes.")
 
         st.markdown("Con esto en mente, consideremos los mejores cortes inferiores del p$_T$ que ayudarían a filtrar eventos de fondo mientras retenemos eventos que posiblmente son candidatos del Higgs.")
         with st.expander("🔍 Quiz", expanded=True):
