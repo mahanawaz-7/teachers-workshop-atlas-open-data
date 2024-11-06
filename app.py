@@ -7,13 +7,6 @@ import json
 import importlib.util
 import os
 
-def load_module_from_path(module_name, file_path):
-    spec = importlib.util.spec_from_file_location(module_name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
 st.set_page_config(
     page_title="ATLAS for Teachers",
     page_icon="💥",
