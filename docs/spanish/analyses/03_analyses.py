@@ -104,6 +104,7 @@ Cuantos más datos analice, más posibilidades tendrá de detectar eventos raros
             st.session_state.leptoncharge_cut_applied = False
             st.session_state.invariant_mass_calculated = False
             st.session_state.mc_loaded = False
+            st.session_state.is_z = False
             st.session_state.is_higgs = False
 
             # Delete the widget keys from session_state

@@ -55,6 +55,9 @@ def run(selected_language):
     def toggle_hint():
         st.session_state['show_hint'] = not st.session_state['show_hint']
 
+    if 'is_z' not in st.session_state:
+        st.session_state['is_z'] = False
+
     if 'is_higgs' not in st.session_state:
         st.session_state['is_higgs'] = False
 
@@ -103,6 +106,7 @@ The more data you analyze, the better chance you have of spotting rare events li
             st.session_state.invariant_mass_calculated = False
             st.session_state.mc_loaded = False
             st.session_state.is_higgs = False
+            st.session_state.is_z = False
 
             # Delete the widget keys from session_state
             for key in ['n_leptons_selection', 'flavor_selection', 'charge_pair_selection']:
@@ -361,10 +365,13 @@ The more data you analyze, the better chance you have of spotting rare events li
                 elif answer_charge:
                     st.error("Incorrect. Consider how charge conservation works in decays. Opposite-charge leptons are expected in many standard decays.")
 
-                # Step 4: Cuts on leptons pT only for Higgs
+                
+                if n_leptons==2 and flavor=='Same' and charge=='Opposite':
+                    st.session_state.is_z = True
                 if n_leptons==4 and flavor=='Same' and charge=='Opposite':
                     st.session_state.is_higgs = True
 
+    # Step 4: Cuts on leptons pT only for Higgs
     if st.session_state.leptoncharge_cut_applied and st.session_state.is_higgs:
         st.markdown("## Cuts on Leptons p$_T$")
         st.markdown("""In our search for the **Higgs boson**, we rely on applying **cuts** to help finding it amidst a large amount of data. One of the ways we can do this is by focusing on a variable called **transverse momentum** (p$_T$), which represents the momentum of particles perpendicular to the beamline.
@@ -481,7 +488,8 @@ The plots below show the p$_T$ distributions for the first, second, and third le
                     st.error("Incorrect. Peaks near 91 GeV usually indicate the presence of a Z boson, since 91 GeV is its mass")
         
             if answer_final == possible_final[1]:
-                st.balloons()
+                if st.session_state.is_z:
+                    st.balloons()
                 st.markdown("### Discussion")
                 st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion or reset the analysis to try a new one.")
 
@@ -565,6 +573,7 @@ The plots below show the p$_T$ distributions for the first, second, and third le
             st.session_state.invariant_mass_calculated = False
             st.session_state.mc_loaded = False
             st.session_state.expand_all = False
+            st.session_state.is_z = False
             st.session_state.is_higgs = False
 
             # Delete the widget keys from session_state
