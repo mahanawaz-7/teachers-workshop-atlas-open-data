@@ -411,7 +411,7 @@ The plots below show the p$_T$ distributions for the first, second, and third le
             if answer_cut == cut_options[0]:
                 st.success("Correct! Setting cuts of 20, 15, and 10 on the lepton p$_T$ values can help us focus on Higgs-like events by filtering out background.")
             elif answer_cut:
-                st.error("Not quite. Focus on values that effectively reduce background while keeping the Higgs events.")
+                st.error("Not quite. Focus on values that effectively reduce background noise while keeping the majority of the signal")
             
 
         st.markdown("Now, let's make the cut:")

@@ -412,7 +412,7 @@ Los gráficos siguientes muestran la distribución de p$_T$ del primer, segundo 
             if answer_cut == cut_options[0]:
                 st.success("¡Correcto! Establecer cortes en 20, 15, y 10 en los valores de p$_T$ de los leptones puede ayudar a enfocarnos en eventos similares a los del Higgs, filtrando eventos de fondo.")
             elif answer_cut:
-                st.error("No realmente. Enfocate en los valores que efectivamente eliminarían fonda, todavía manteniendo la mayoría de la señal.")
+                st.error("No realmente. Enfócate en los valores que efectivamente eliminarían ruido de fondo, manteniendo la mayoría de la señal.")
             
 
         st.markdown("Ahora, hagamos los cortes:")
