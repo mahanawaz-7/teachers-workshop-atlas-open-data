@@ -143,7 +143,7 @@ Cuantos más datos analice, más posibilidades tendrá de detectar eventos raros
         # Using a selectbox to let users choose between amounts of leptons
         st.markdown("## Número de leptones en el estado final")
         st.markdown("En los colisionadores de partículas, cuando se produce una partícula, puede decaer inmediatamente en otras partículas, que se detectan y analizan. Al identificar todas las partículas en el estado final, podemos inferir qué partículas se crearon inicialmente durante la colisión. Un ejemplo es el número de leptones en el estado final, ya que diferentes procesos producen diferentes cantidades de leptones.")
-        st.markdown("Below is a Feynman diagram showing a typical process that results in a final state with two leptons:")
+        st.markdown("A continuación se muestra un diagrama de Feynman que muestra un proceso típico que da como resultado un estado final con dos leptones:")
         # Diagram for Z decay
         image_zdecay = f"images/Z_decay_{theme['base']}.png"
         # Encode the image in base64
@@ -215,7 +215,7 @@ Cuantos más datos analice, más posibilidades tendrá de detectar eventos raros
                         Los pares de leptones son comunes en muchas interacciones de partículas, especialmente cuando se consideran intermediarios neutros""")
         elif n_leptons == 4:
             st.success("""Estás viendo **4 leptones** en el estado final.
-                        Esto a menudo indica una cadena de decaimientos, donde múltiples partículas intermedias decae a pares de leptones.
+                        Esto a menudo indica una cadena de decaimientos, donde múltiples partículas intermedias decaen a pares de leptones.
                         Estos escenarios son interesantes para estudiar interacciones complejas""")
         elif n_leptons != '--':
             st.warning("""Tener un número impar de leptones es inusual en procesos de desintegración simples, ya que los leptones suelen producirse en pares debido a las leyes de conservación.
@@ -259,7 +259,7 @@ Cuantos más datos analice, más posibilidades tendrá de detectar eventos raros
                 st.error("Incorrecto. Intenta pensar en cómo se producen los leptones en pares.")
 
         st.markdown("## Garanticemos la conservación")
-        st.markdown("En las interacciones entre partículas, ciertas propiedades siempre se conservan, como la *carga* y el *sabor* leptónico. Comprender estas leyes de conservación ayuda a reducir las posibilidades de las partículas que están involucradas en el estado final.")
+        st.markdown("En las interacciones entre partículas, [ciertas propiedades siempre se conservan](https://cds.cern.ch/record/2791335/files/Conservation%20Laws%20-%20ATLAS%20Physics%20Cheat%20Sheet%20in%20Spanish%20%7C%20Leyes%20de%20Conservación.pdf), como la *carga* y el *sabor* leptónico. Comprender estas leyes de conservación ayuda a reducir las posibilidades de las partículas que están involucradas en el estado final.")
         st.markdown("En tu análisis, puedes ver el 'sabor' de los leptones (es decir, si son electrones o muones) y su carga (positiva o negativa). Las partículas con carga opuesta se llaman antipartículas, un electron positivo se llama positron y un muón positivo, anti-muón. El plot siguiente muestra la distribución del sabor de los leptones, con una barra para leptones cargados positivamente y otra para leptones cargados negativamente. Esto ayuda a identificar si el estado final obedece reglas de conservación.")
         
         # Display the pre-generated plot based on the theme

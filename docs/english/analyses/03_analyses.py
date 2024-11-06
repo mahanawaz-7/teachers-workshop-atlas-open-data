@@ -146,7 +146,7 @@ The more data you analyze, the better chance you have of spotting rare events li
         # Using a selectbox to let users choose between amounts of leptons
         st.markdown("## Number of leptons in the final state")
         st.markdown("In particle colliders, when a particle is produced, it can decay immediately to other particles, which are detected and analyzed. By identifying all the particles in the final state, we can infer what particles were initially created during the collision. One example is the number of leptons in the final state, as different processes produce different numbers of leptons.")
-        st.markdown("Below is a Feynman diagram showing a typical process that results in a final state with two leptons:")
+        st.markdown("Below is a [Feynman diagram](https://cds.cern.ch/record/2791333/files/Feynman%20Diagrams%20-%20ATLAS%20Physics%20Cheat%20Sheet%20in%20Spanish%20%7C%20Diagramas%20de%20Feynman.pdf) showing a typical process that results in a final state with two leptons:")
         # Diagram for Z decay
         image_zdecay = f"images/Z_decay_{theme['base']}.png"
         # Encode the image in base64
@@ -263,7 +263,7 @@ The more data you analyze, the better chance you have of spotting rare events li
                 st.error("Incorrect. Try thinking about how leptons are produced in pairs.")
 
         st.markdown("## Let's ensure conservation")
-        st.markdown("In particle interactions, certain properties are always conserved, such as *charge* and lepton *flavor*. Understanding these conservation laws helps narrow down the possibilities for what particles are involved in the final state.")
+        st.markdown("In particle interactions, [certain properties are always conserved](https://cds.cern.ch/record/2759491/files/Conservation%20Laws%20-%20ATLAS%20Physics%20Cheat%20Sheet.pdf), such as *charge* and lepton *flavor*. Understanding these conservation laws helps narrow down the possibilities for what particles are involved in the final state.")
         st.markdown("In your analysis, you can look at the flavor of the leptons (whether they are electrons or muons) and their charge (positive or negative). The particles with opposite charge are called antiparticles, a positive electron is called positron and a positive muon is called anti-muon. The plot below shows the distribution of lepton flavors, with one bar for positively charged and one for negatively charged leptons. This helps identify whether the final state obeys conservation laws.")
 
         # Display the pre-generated plot based on the theme

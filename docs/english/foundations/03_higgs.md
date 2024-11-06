@@ -1,5 +1,5 @@
 # The Higgs Boson
-The Higgs boson is a fundamental particle that plays a crucial role in giving mass to other particles. Discovered in 2012 by the ATLAS and CMS experiments at CERN’s Large Hadron Collider (LHC), its existence confirmed a vital part of the Standard Model. But what exactly makes it so important?
+The [Higgs boson](http://cds.cern.ch/record/2775211/files/Higgs_Boson.pdf?version=1) is a fundamental particle that plays a crucial role in giving mass to other particles. Discovered in 2012 by the ATLAS and CMS experiments at CERN’s Large Hadron Collider (LHC), its existence confirmed a vital part of the Standard Model. But what exactly makes it so important?
 
 ## The Higgs Field and Mass
 To understand the Higgs boson, we first need to introduce the Higgs field. Imagine the Higgs field as an invisible energy field that fills the entire universe, similar to how water fills an ocean. Particles interact with this field as they move through it, and this interaction slows them down, giving them mass. The stronger a particle’s interaction with the Higgs field, the more mass it gains. Some particles, like photons, don’t interact with the Higgs field at all, which is why they remain massless and can travel at the speed of light.
