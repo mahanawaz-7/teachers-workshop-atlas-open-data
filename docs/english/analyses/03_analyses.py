@@ -399,8 +399,8 @@ The plots below show the p$_T$ distributions for the first, second, and third le
 
             cut_options = [
                 "20, 15, 10 ",
-                "25, 20, 15",
-                "10, 5, 2",
+                "50, 45, 40",
+                "2, 5, 10",
                 "No cuts are necessary"
             ]
 

@@ -400,8 +400,8 @@ Los gráficos siguientes muestran la distribución de p$_T$ del primer, segundo 
 
             cut_options = [
                 "20, 15, 10 ",
-                "25, 20, 15",
-                "10, 5, 2",
+                "50, 45, 40",
+                "2, 5, 10",
                 "Ningún corte es necesario"
             ]
 
