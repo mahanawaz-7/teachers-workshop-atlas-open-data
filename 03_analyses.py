@@ -133,7 +133,7 @@ def run(selected_language):
                     del st.session_state[key]
         
         # Reading the data
-        random_sleep = random.randint(1,round(lumi/3))
+        random_sleep = random.randint(1,int(round(lumi/3)))
         # Display a spinner with the loading message
         with st.spinner("Loading data... Please wait."):
             # Simulate a time-consuming process with a random sleep
