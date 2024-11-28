@@ -289,7 +289,7 @@ def run(selected_language):
         if charge == charge_pair_options[1]:
             st.warning(cuts['charge']['messages']['same'])
         elif charge != '--':
-            st.success(cuts['flavor']['messages']['opposite'])
+            st.success(cuts['charge']['messages']['opposite'])
 
             # Apply lepton type cut based on flavor selection
         if st.button(cuts['charge']['apply_button']):
