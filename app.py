@@ -114,10 +114,31 @@ else:
         module.run(selected_language)
 
     elif selected_tab == tabs[3]:
-        # Dynamically import 03_analysis.py from the language-specific folder
-        module_path = f"docs.{selected_language.lower()}.analyses.03_analyses"
-        module = importlib.import_module(module_path)
-        module.run(selected_language)
+        # Check if the tutorial has been completed
+        if "tutorial_completed" not in st.session_state:
+            st.session_state["tutorial_completed"] = False
+
+        if not st.session_state["tutorial_completed"]:
+            # Load the tutorial module
+            if st.button("Already completed the tutorial? Go to the analysis"):
+                st.session_state["tutorial_completed"] = True
+                st.rerun()
+            module = importlib.import_module("03_analyses_tutorial")
+            module.run(selected_language)
+
+            # Add a "Finish Tutorial" button
+            if st.button("Finish Tutorial", type='primary'):
+                st.session_state["tutorial_completed"] = True
+                st.rerun()
+        else:
+            # Add a "Finish Tutorial" button
+            if st.button("Back to Tutorial"):
+                st.session_state["tutorial_completed"] = False
+                st.rerun()
+            # Load the actual analyses module after completing the tutorial
+            module = importlib.import_module("03_analyses")
+            module.run(selected_language)
+        
 
     elif selected_tab == tabs[4]:
         module = importlib.import_module("04_extrapython")
