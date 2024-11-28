@@ -323,12 +323,11 @@ def run(selected_language):
                 # Display the options dynamically
                 options = charge_selection_quiz["options"]
                 answer_charge = st.radio("Choose your answer:", options, index=None, key="charge_selection_quiz")
-
+                # Get the correct option index
+                correct_option_index = charge_selection_quiz["correct_option_index"]
+                
                 # Check the selected answer and provide feedback
                 if answer_charge:
-                    # Get the correct option index
-                    correct_option_index = charge_selection_quiz["correct_option_index"]
-                    
                     # Compare the answer to the correct option
                     if answer_charge == options[correct_option_index]:
                         st.success(charge_selection_quiz["feedback"]["0"])
