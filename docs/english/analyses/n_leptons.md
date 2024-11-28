@@ -1,25 +1,24 @@
 ## Number of Leptons in the Final State
-In particle colliders, when a particle is produced, it can decay immediately to other particles, which are detected and analyzed. By identifying all the particles in the final state, we can infer what particles were initially created during the collision. One example is the number of leptons in the final state, as different processes produce different numbers of leptons.
+When particles are produced in a particle collider, they often decay immediately into other particles. These decay products are what we detect and analyze. By studying the particles in the final state (those visible after all decays), we can infer which particles were originally created in the collision.
 
-Below is a [Feynman diagram](https://cds.cern.ch/record/2791333/files/Feynman%20Diagrams%20-%20ATLAS%20Physics%20Cheat%20Sheet%20in%20Spanish%20%7C%20Diagramas%20de%20Feynman.pdf) showing a typical process that results in a final state with two leptons:
+To understand this better, let’s take a look at [Feynman diagrams](https://cds.cern.ch/record/2759490/files/Feynman%20Diagrams%20-%20ATLAS%20Cheat%20Sheet.pdf). These diagrams help visualize particle interactions. In the examples below, we are reading the diagrams **from left to right**: the particles on the left are produced in the collision, and the particles on the right are the final decay products that we detect.
+
+Here is a diagram showing a Z boson decaying into two leptons (either electrons or muons):
 
 ![Z boson decay into two leptons](images/Z_decay_{theme}.png)
 
-More complex decays may involve more leptons in the final state:
+More complex processes, such as Higgs boson decays, can result in more leptons in the final state. For example, here is a Higgs boson decaying into two Z bosons, each of which decays further into two leptons:
 
 ![Higgs boson decay into Z bosons and leptons](images/higgs4l_decay_{theme}.png)
 
-Below you can see the count of number of leptons in the whole dataset. You can see that, in general, it is more common to have fewer leptons in an event:
+In many processes, particles are produced in pairs due to the nature of particle interactions. For example, the Z boson decays symmetrically into two leptons because it interacts equally with matter and antimatter. Similarly, the Higgs boson produces multiple leptons when its decay involves intermediate particles like Z bosons, which themselves decay into lepton pairs.
 
-![Lepton counts](images/lepton_plot_{theme}_{lumi}.png)
+The dataset you are analyzing contains events with varying numbers of leptons. Below is a plot showing the distribution of lepton counts in the entire dataset. Events with fewer leptons are more common because simpler processes, like those involving W or Z bosons, occur more frequently than rarer, complex ones like Higgs boson decays.
 
-Study the diagrams and the data, and select how many leptons you expect to observe in your final state depending on the analysis you are doing – finding the Z boson or the Higgs boson.
+![Distribution of the number of leptons detected per event in the dataset](images/lepton_plot_{theme}_{lumi}.png)
+
+Study the Feynman diagrams and the data above. Depending on whether you're focusing on finding the Z boson or the Higgs boson, select the number of leptons you expect to observe in your final state.
 
 > [!CAUTION] 
-You are about to select the number of leptons you want in your data. However, it's important to note that we’ve added additional criteria to ensure the quality of these leptons:
-- **Isolation:** Each lepton must be isolated, meaning it isn’t clustered with other particles. This ensures that we're focusing on leptons that likely originated directly from the particle we’re interested in, rather than from background interactions.
-- **Identification Levels:** Leptons must meet specific identification criteria to confirm their type with high confidence. Particle reconstruction is complex, so we have different levels of identification for certainty. For example, muons must pass a medium ID level, while electrons only need to pass a loose ID level, as electrons are easier to detect.
-- **Trigger Conditions:** Triggers are criteria set to capture events with certain characteristics, allowing only saving events that we want to analyze. Here, we use electron and muon triggers to select events with significant signals, refining the dataset to increase the chances of observing particles that decay to leptons or muons.
-
-These criteria help "clean" the data, improving our chances of observing particles like the Z and Higgs bosons.
+When selecting the number of leptons, additional criteria are applied to ensure the quality of the data. Leptons must be well-separated from other particles (**isolated**) and **accurately identified** as electrons or muons. Since particles can sometimes be misidentified, we use identification levels to measure how confident we are in their type. Additionally, only events with signals strong enough to activate the detector's selection system (called triggers), specifically for identifying electrons or muons, are included.
 > [!END]

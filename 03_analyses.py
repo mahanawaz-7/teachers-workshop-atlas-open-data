@@ -107,14 +107,14 @@ def run(selected_language):
     # Luminosity
     load_markdown_file_with_dynamic_content_and_alerts("luminosity.md", "analyses", "english")
 
-    # Create a slider for luminosity
-    lumi = st.slider(
-        'Select luminosity (fb$^{-1}$):', 
-        min_value=12, 
-        max_value=36, 
-        step=12, 
-        value=12
+    # Create a dropdown for luminosity
+    lumi = st.selectbox(
+        'Select luminosity (fb$^{-1}$):',
+        options=[12, 24, 36],
+        index=0  # Default value (12 fb^-1)
     )
+
+
 
     if st.button("Open the data"):
         # Reset the steps, so that people cannot break it clicking again
@@ -145,7 +145,7 @@ def run(selected_language):
         st.toast('Data loaded successfully!', icon='📈')
         
     if st.session_state.data_loaded:
-        st.info(f" Initial number of events: {analyses[f'{lumi}']['nEvents']}")
+        st.info(f" Initial number of events: {analyses[f'{lumi}']['nEvents']:,}")
 
         with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
             # Retrieve the quiz data from the JSON
@@ -178,7 +178,6 @@ def run(selected_language):
             theme=theme["base"],
             lumi=lumi)
         
-
         # Define the options
         n_leptons_options = cuts["n_leptons"]["selectbox_options"]
 
@@ -218,7 +217,7 @@ def run(selected_language):
 
     # Step 2: Dynamically generate selection for lepton flavors
     if st.session_state.nlepton_cut_applied:
-        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons']['nEvents']}")
+        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons']['nEvents']:,}")
 
         with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
             # Retrieve the quiz data from the JSON
@@ -281,7 +280,7 @@ def run(selected_language):
 
     # Step 3: Dynamically generate selection for lepton charges
     if st.session_state.leptontype_cut_applied:
-        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}']['nEvents']}")
+        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}']['nEvents']:,}")
 
         # Offer options for charge pairing: Same charge or Opposite charge
         charge_pair_options = cuts['charge']['selectbox_options']
@@ -312,7 +311,7 @@ def run(selected_language):
                 st.error(cuts['charge']['error'])
 
         if st.session_state.leptoncharge_cut_applied:
-            st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['nEvents']}")
+            st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['nEvents']:,}")
 
         
             with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
