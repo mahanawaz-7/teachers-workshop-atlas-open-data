@@ -1,7 +1,16 @@
-# Discover the Z and the Higgs Bosons by Yourself!
- With this interactive app you can discover the Z and the Higgs bosons. By understanding and making a selection of events you will discover the particles yourself!
+# Explore the Z and Higgs Bosons Through Data from the ATLAS Experiment!
+Dive into experimental data with this interactive app! By applying your own selection criteria to filter events, you'll uncover the signatures of the Z and Higgs bosons in the resulting plots. Experience the thrill of discovery just like a particle physicist!
 
-## How much data do you want to use?
-Begin your analysis by choosing how much data you'd like to work with. Use the slider below to select the **integrated luminosity**, which is a measure of how much data the ATLAS detector has collected.
+## Objectives
+In this analysis, you will:
 
-The more data you analyze, the better chance you have of spotting rare events like the Higgs boson! But keep in mind, *more data can also mean more processing time*.
+- Identify the Z boson: By examining the invariant mass of particle pairs, you'll reveal a sharp peak at the Z boson's mass.
+- Uncover the Higgs boson decaying to ZZ: You'll produce a plot of the invariant mass of four leptons, showcasing the signature of the Higgs boson in the Higgs to ZZ channel.
+
+Below are the plots we’re aiming for in this analysis:
+
+![Invariant mass of the Z boson.](images/Z-boson-invariant-mass-distribution.png)
+
+![Invariant mass of the Higgs boson](images/Higss_invariant_mass_distribution.png)
+
+As you progress, we’ll explain how these plots are created and what they reveal about these fundamental particles.

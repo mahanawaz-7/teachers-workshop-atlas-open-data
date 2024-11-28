@@ -104,6 +104,9 @@ def run(selected_language):
     # Introduction
     load_markdown_file_with_dynamic_content_and_alerts("introduction.md", "analyses", "english")
 
+    # Luminosity
+    load_markdown_file_with_dynamic_content_and_alerts("luminosity.md", "analyses", "english")
+
     # Create a slider for luminosity
     lumi = st.slider(
         'Select luminosity (fb$^{-1}$):', 

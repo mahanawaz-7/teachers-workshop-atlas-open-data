@@ -46,7 +46,7 @@ def reset_language():
 # Main page (landing page with language selection)
 if not st.session_state["language_selected"]:
     st.title("Welcome to the ATLAS Open Data Teachers Workshop")
-    st.image('https://cds.cern.ch/record/1459481/files/run203602_evt82614360_ATLANTISBase.png?subformat=icon-1440', width=630)
+    st.image('https://atlas.cern/sites/default/files/2024-07/ATLAS-open-data.jpg', width=630)
     st.write("Please select your language to continue:")
     
     # Dropdown for language selection
@@ -55,7 +55,6 @@ if not st.session_state["language_selected"]:
     # Proceed button with a callback function
     st.button("Proceed", on_click=proceed, args=(language,))
 
-    st.markdown("---")
     social_media_links = [
     "https://x.com/ATLASexperiment",
     "https://www.facebook.com/ATLASexperiment",
@@ -67,7 +66,6 @@ if not st.session_state["language_selected"]:
     ]
 
     social_media_icons = SocialMediaIcons(social_media_links)
-    st.write(f'Follow ATLAS in social media.')
     social_media_icons.render()
 
 # # Check if English is selected
