@@ -128,7 +128,7 @@ Python has two types of control flow statements - conditional statements and loo
 ### `if` Statements
 
 ```python
-x = 12 #You can change the integer here
+x = 12
 # Example conditional 'if' block
 if x < 0: #Python checks if this is a true statement
     print('You entered a negative number!')
@@ -234,9 +234,6 @@ print(result)
 # Reverse the result and print it, just for fun...
 reversed_result = list(reversed(result))
 print(reversed_result)
-
-# Do anything you like with the Fibonacci series here!
-# . . .
 ```
 
 When we printed the Fibonacci series in a `for` loop, we ended up printing each new series many times.  By using the returned list of the updated Fibonacci function, we could now print the series only if it differs from the previous series! The next example illustrates how to implement this:

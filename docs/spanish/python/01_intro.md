@@ -126,7 +126,7 @@ Python tiene dos tipos de declaraciones de control de flujo: declaraciones condi
 ### Sentencias `if`
 
 ```python
-x = 12 # Puedes cambiar el número
+x = 12
 # Ejemplo de bloque condicional 'if'
 if x < 0: #Python comprueba si esta es una declaración verdadera
     print('Introdujiste un número negativo')
@@ -233,9 +233,6 @@ print(result)
 # Invertir el resultado e imprimirlo, sólo por diversión...
 reversed_result = list(reversed(result))
 print(reversed_result)
-
-# ¡Haz lo que quieras con la serie de Fibonacci aquí!
-# . . .
 ```
 
 Cuando imprimimos la serie de Fibonacci en un bucle `for`, terminamos imprimiendo cada nueva serie muchas veces. Al utilizar la lista devuelta de la función de Fibonacci actualizada, ¡ahora podemos imprimir la serie sólo si difiere de la serie anterior! El siguiente ejemplo ilustra cómo implementar esto:
