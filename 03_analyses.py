@@ -99,6 +99,34 @@ def run(selected_language):
         st.error("Failed to decode the cuts JSON file. Please check its format.")
         st.stop()  # Stop the app if the JSON is malformed
 
+    # Opening the file with the messages 
+    messages_file_path = os.path.join('docs', selected_language.lower(), 'analyses', 'messages.json')
+
+    # Load the messages JSON file
+    try:
+        with open(messages_file_path, 'r', encoding='utf-8') as cuts_file:
+            messages = json.load(cuts_file)
+    except FileNotFoundError:
+        st.error(f"Messages file not found for language: {selected_language}. Check the file path.")
+        st.stop()  # Stop the app if the file is missing
+    except json.JSONDecodeError:
+        st.error("Failed to decode the messages JSON file. Please check its format.")
+        st.stop()  # Stop the app if the JSON is malformed
+
+    # Opening the file with the higgs analysis part 
+    higgs_file_path = os.path.join('docs', selected_language.lower(), 'analyses', 'higgs.json')
+
+    # Load the higgs JSON file
+    try:
+        with open(higgs_file_path, 'r', encoding='utf-8') as cuts_file:
+            higgs = json.load(cuts_file)
+    except FileNotFoundError:
+        st.error(f"Higgs file not found for language: {selected_language}. Check the file path.")
+        st.stop()  # Stop the app if the file is missing
+    except json.JSONDecodeError:
+        st.error("Failed to decode the higgs JSON file. Please check its format.")
+        st.stop()  # Stop the app if the JSON is malformed
+
     ###################################### HERE IS WERE THE APP STARTS #################################################
 
     # Introduction
@@ -109,12 +137,12 @@ def run(selected_language):
 
     # Create a dropdown for luminosity
     lumi = st.selectbox(
-        'Select luminosity (fb$^{-1}$):',
-        options=[12, 24, 36],
-        index=0  # Default value (12 fb^-1)
+        cuts['lumi']['selectbox_label'],
+        options=cuts['lumi']['selectbox_options'],
+        index=cuts['lumi']['default']  # Default value (12 fb^-1)
     )
 
-    if st.button("Open the data"):
+    if st.button(cuts['lumi']['apply_button']):
         # Reset the steps, so that people cannot break it clicking again
         # Reset info for the events
         if st.session_state.nlepton_cut_applied:
@@ -135,15 +163,15 @@ def run(selected_language):
         # Reading the data
         random_sleep = random.randint(1,int(round(lumi/3)))
         # Display a spinner with the loading message
-        with st.spinner("Loading data... Please wait."):
+        with st.spinner(messages['load_data']):
             # Simulate a time-consuming process with a random sleep
             time.sleep(random_sleep)
 
         st.session_state.data_loaded = True
-        st.toast('Data loaded successfully!', icon='📈')
+        st.toast(messages['load_data_success'], icon='📈')
         
     if st.session_state.data_loaded:
-        st.info(f" Initial number of events: {analyses[f'{lumi}']['nEvents']:,}")
+        st.info(f" {messages['initial_nevents']}: {analyses[f'{lumi}']['nEvents']:,}")
 
         with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
             # Retrieve the quiz data from the JSON
@@ -155,7 +183,7 @@ def run(selected_language):
 
             # Display the options dynamically
             options = luminosity_quiz["options"]
-            answer = st.radio("Choose your answer:", options, index=None, key="luminosity_quiz")
+            answer = st.radio(f"{messages['choose_answer']}:", options, index=None, key="luminosity_quiz")
 
             # Check the selected answer and provide feedback
             if answer:
@@ -201,21 +229,21 @@ def run(selected_language):
         # We define a variable to avoid the page breaking when clicked more than once
         if st.button(cuts["n_leptons"]["apply_button"]):
             if st.session_state.nlepton_cut_applied:
-                st.toast("You already applied a selection. To reset the analysis go to the end of the page.", icon='❌')
+                st.toast(messages['already_cutted'], icon='❌')
             elif n_leptons != '--':
                 random_sleep = random.randint(1, round(lumi/6))
                 # Display a spinner with the loading message
-                with st.spinner("Making selection... Please wait."):
+                with st.spinner(messages['making_selection']):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
                 st.session_state.nlepton_cut_applied = True
-                st.toast("Selection applied successfully.", icon='✂️')
+                st.toast(messages['selection_success'], icon='✂️')
             else:
                 st.error(cuts["n_leptons"]["error"])
 
     # Step 2: Dynamically generate selection for lepton flavors
     if st.session_state.nlepton_cut_applied:
-        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons']['nEvents']:,}")
+        st.info(f"{messages['after_nevents']}: {analyses[f'{lumi}'][f'{n_leptons}leptons']['nEvents']:,}")
 
         with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
             # Retrieve the quiz data from the JSON
@@ -227,7 +255,7 @@ def run(selected_language):
 
             # Display the options dynamically
             options = lepton_selection_quiz["options"]
-            answer_lepton = st.radio("Choose your answer:", options, index=None, key="lepton_selection_quiz")
+            answer_lepton = st.radio(f"{messages['choose_answer']}:", options, index=None, key="lepton_selection_quiz")
 
             # Check the selected answer and provide feedback
             if answer_lepton:
@@ -261,24 +289,24 @@ def run(selected_language):
         # Apply lepton type cut based on flavor selection
         if st.button(cuts['flavor']['apply_button']):
             if st.session_state.leptontype_cut_applied:
-                st.toast("You already applied a selection. To reset the analysis go to the end of the page.", icon='❌')
+                st.toast(messages['already_cutted'], icon='❌')
             elif flavor != flavor_options[0]:    
                 # Display a spinner with the loading message
                 random_sleep = random.randint(1, round(lumi/6))
-                with st.spinner("Making selection... Please wait."):
+                with st.spinner(messages['making_selection']):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
 
                 # Display the cut result
                 st.session_state.leptontype_cut_applied = True
-                st.toast("Selection applied successfully.", icon='✂️')
+                st.toast(messages['selection_success'], icon='✂️')
 
             else:
                 st.error(cuts['flavor']['error'])
 
     # Step 3: Dynamically generate selection for lepton charges
     if st.session_state.leptontype_cut_applied:
-        st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}']['nEvents']:,}")
+        st.info(f"{messages['after_nevents']}: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}']['nEvents']:,}")
 
         # Offer options for charge pairing: Same charge or Opposite charge
         charge_pair_options = cuts['charge']['selectbox_options']
@@ -294,22 +322,22 @@ def run(selected_language):
             # Apply lepton type cut based on flavor selection
         if st.button(cuts['charge']['apply_button']):
             if st.session_state.leptoncharge_cut_applied:
-                st.toast("You already applied a selection. To reset the analysis go to the end of the page.", icon='❌')
+                st.toast(messages['already_cutted'], icon='❌')
             elif charge != '--':
                 # Display a spinner with the loading message
                 random_sleep = random.randint(1, round(lumi/6))
-                with st.spinner("Making selection... Please wait."):
+                with st.spinner(messages['making_selection']):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
                     st.session_state.leptoncharge_cut_applied = True
 
                     # Provide feedback to the user
-                    st.toast("Selection applied successfully.", icon='✂️')
+                    st.toast(messages['selection_success'], icon='✂️')
             else:
                 st.error(cuts['charge']['error'])
 
         if st.session_state.leptoncharge_cut_applied:
-            st.info(f"Events after the selection: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['nEvents']:,}")
+            st.info(f"{messages['after_nevents']}: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['nEvents']:,}")
 
         
             with st.expander("🔍 Quiz", expanded=st.session_state['expand_all']):
@@ -387,18 +415,18 @@ def run(selected_language):
 
         if st.button("Cut on leptons p$_T$"):
             if st.session_state.leptonpt_cut_applied:
-                st.toast("You already applied a cut. To reset the analysis go to the end of the page.", icon='❌')
+                st.toast(messages['already_cutted'], icon='❌')
             else:
                 st.session_state.leptonpt_cut_applied = True
                 # Display a spinner with the loading message
                 random_sleep = random.randint(1, round(lumi/3))
-                with st.spinner("Making cut... Please wait."):
+                with st.spinner(messages['making_selection']):
                     # Simulate a time-consuming process with a random sleep
                     time.sleep(random_sleep)
                     st.session_state.leptoncharge_cut_applied = True
 
                     # Provide feedback to the user
-                    st.toast("Cut applied successfully.", icon='✂️')
+                    st.toast(messages['selection_success'], icon='✂️')
     
     if st.session_state.leptonpt_cut_applied:
         st.info(f"Events after the cut: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons']['nEvents']}")
@@ -420,7 +448,7 @@ def run(selected_language):
 
             # Display the options dynamically
             options = invariant_mass_quiz["options"]
-            answer_mass = st.radio("Choose your answer:", options, index=None, key="invariant_mass_selection_quiz")
+            answer_mass = st.radio(f"{messages['choose_answer']}:", options, index=None, key="invariant_mass_selection_quiz")
 
             # Check the selected answer and provide feedback
             if answer_mass:
@@ -475,17 +503,15 @@ def run(selected_language):
                 folder="analyses",
                 language="english")
         else:
-            st.markdown("## How do we know we found the Higgs?")
+            st.markdown(f"## {higgs['intro']['title']}")
 
-            st.markdown("""
-            To determine if we've observed the Higgs boson, we compare our real data with simulations of known background processes and simulated signals. This approach helps us see if a peak stands out in our data where we expect the Higgs boson to appear.
-            """)
+            st.markdown(higgs['intro']['docs'])
 
             # Step 1: Show data only
-            st.markdown("### Step 1: Observing the Data")
-            st.markdown("Let's start by looking at the data alone. Look carefully: do you notice any specific features? Without additional information, it can be challenging to tell whether any peaks are due to background processes or signal events.")
+            st.markdown(f"### {higgs['data_only']['title']}")
+            st.markdown(higgs['data_only']['docs'])
             higgs_data_only = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_only_{theme['base']}"]
-            st.image(higgs_data_only, caption="Observed data alone")
+            st.image(higgs_data_only, caption=higgs['data_only']['caption'])
 
             # Retrieve the quiz data from the JSON
             data_only_plot_quiz = quizzes["data_only_plot_quiz"]
@@ -508,10 +534,10 @@ def run(selected_language):
             
             if quiz_data:
                 # Step 2: Show data with background simulation
-                st.markdown("### Step 2: Adding Background Simulation")
-                st.markdown("Now, we add a simulation of the background processes (without any signal). This shows us what we’d expect to see from other particles and interactions in the absence of the Higgs boson. Look closely: do any peaks in the data appear in addition to the background?")
+                st.markdown(f"### {higgs['data_bkg']['title']}")
+                st.markdown(higgs['data_bkg']['docs'])
                 higgs_data_bkg = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_backgrounds_{theme['base']}"]
-                st.image(higgs_data_bkg, caption="Data with background simulation")
+                st.image(higgs_data_bkg, caption=higgs['data_bkg']['caption'])
 
                 # Quiz question for data with background
                 # Retrieve the quiz data from the JSON
@@ -532,12 +558,10 @@ def run(selected_language):
             
                 if quiz_background:
                     # Step 3: Show data with background and simulated Higgs signal
-                    st.markdown("### Step 3: Adding the Simulated Higgs Signal")
-                    st.markdown("""
-                    Finally, we add the simulation of the Higgs signal to see how well it matches with the data. If the data aligns with the background plus the Higgs signal simulation, we have strong evidence of the Higgs boson. Can you spot a clear peak where we expect the Higgs?
-                    """)
+                    st.markdown(f"### {higgs['data_bkg_sig']['title']}")
+                    st.markdown(higgs['data_bkg_sig']['docs'])
                     higgs_data_bkg_sig = 'analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_backgrounds_signal_{theme['base']}"]
-                    st.image(higgs_data_bkg_sig, caption="Data with background and simulated Higgs signal")
+                    st.image(higgs_data_bkg_sig, caption=higgs['data_bkg_sig']['caption'])
 
                     # Final quiz question
                     # Retrieve the quiz data from the JSON
@@ -555,18 +579,20 @@ def run(selected_language):
                     if quiz_signal == simulated_higgs_signal_quiz["options"][0]:  # "There’s a peak matching the Higgs signal"
                         st.success(simulated_higgs_signal_quiz["feedback"]["0"])
 
-                    if quiz_signal == "There’s a peak matching the Higgs signal":
+                    if quiz_signal == simulated_higgs_signal_quiz["options"][0]:
                         st.balloons()
                         st.markdown("---")
-                        st.markdown("### Discussion")
-                        st.markdown("You reached the end of the analysis, once you are happy with the result wait for the discussion or reset the analysis to try a new one.")
-    
+                        load_markdown_file_with_dynamic_content_and_alerts(
+                        filename="discussion.md",
+                        folder="analyses",
+                        language="english")
+            
 
     # Reset button to start the analysis again
     if st.session_state.data_loaded:
         st.markdown('---')
-        st.write("""If you want to reaply cuts click the `Restart Analysis` button.""")
-        if st.button("Restart Analysis"):
+        st.write(messages['restart'])
+        if st.button(messages['restart_button']):
                 # Reset flags
                 st.session_state.data_loaded = False
                 st.session_state.nlepton_cut_applied = False
@@ -585,4 +611,4 @@ def run(selected_language):
                         del st.session_state[key]
 
                 st.rerun()
-                st.toast("The analysis has been restarted.")
+                st.toast(messages['restarted'])

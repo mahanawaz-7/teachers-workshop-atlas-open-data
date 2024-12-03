@@ -1,4 +1,10 @@
 {
+  "lumi" : {
+        "selectbox_label": "Select luminosity (fb$^{-1}$):",
+        "selectbox_options": [12, 24, 36],
+        "default": 0,
+        "apply_button": "Open the data"
+  },
   "n_leptons" : {
     "selectbox_label": "How many leptons do you expect in the final state?",
     "selectbox_options": ["--", 2, 3, 4],
