@@ -1,0 +1,4 @@
+### What Dataset Are We Using?
+For this example, we are using a dataset derived from experimental data collected at the ATLAS detector at CERN . It represents a subset of 500 events from the data that we will use for analysis, with each event or row corresponding to a collision recorded during the experiment. Each row in the dataset provides properties of an event, such as the number of detected particles and the energy of the leading lepton (the highest-energy lepton in the event).
+
+Below is the dataset. Each row represents an event, and the columns provide information about its properties. We'll apply cuts to refine this dataset and focus on events of interest.
