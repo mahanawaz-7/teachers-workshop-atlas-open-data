@@ -35,5 +35,12 @@
     },
     "apply_button": "Apply lepton charge selection",
     "error": "Please select an option for the lepton charge."
+  },
+  "mass": { 
+    "apply_button": "Get invariant mass"
+  }, 
+  "lepton_pt": {
+    "selectbox_label": "Now, let's make the cut:",
+    "apply_button": "Cut on leptons p$_T$"
   }
 }

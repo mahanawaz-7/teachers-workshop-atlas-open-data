@@ -10,5 +10,7 @@
     "restart": "If you want to reaply cuts click the `Restart Analysis` button.",
     "restart_button": "Restart Analysis",
     "restarted": "The analysis has been restarted.",
-    "start": "Start!"
+    "start": "Start!",
+    "hint": "Want a hint? Click here and check the image above",
+    "hide_hint": "Hide Hint"
 }

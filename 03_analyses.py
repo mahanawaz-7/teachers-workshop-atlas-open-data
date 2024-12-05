@@ -412,7 +412,7 @@ def run(selected_language):
 
                 # Display the hint toggle button
                 st.button(
-                    "Want a hint? Click here and check the image above" if not st.session_state['show_hint'] else "Hide Hint", 
+                    messages['hint'] if not st.session_state['show_hint'] else messages['hide_hint'], 
                     on_click=toggle_hint
                 )
 
@@ -428,9 +428,9 @@ def run(selected_language):
                         st.error(pt_cut_quiz["feedback"]["1"])
                 
 
-            st.markdown("Now, let's make the cut:")
+            st.markdown(cuts['lepton_pt']['selectbox_label'])
 
-            if st.button("Cut on leptons p$_T$"):
+            if st.button(cuts['lepton_pt']['apply_button']):
                 if st.session_state.leptonpt_cut_applied:
                     st.toast(messages['already_cutted'], icon='❌')
                 else:
@@ -478,12 +478,11 @@ def run(selected_language):
                     else:
                         st.error(invariant_mass_quiz["feedback"]["1"])
 
-            if st.button("Get invariant mass"):
+            if st.button(cuts['mass']['apply_button']):
                 st.session_state.invariant_mass_calculated = True
         # Step 6: Discussion
         if st.session_state.invariant_mass_calculated:
             if st.session_state.is_higgs:
-                    #st.info(f"Events after the cut: {analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons']['nEvents']}")
                     st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}']['ptLeptons'][f"plot_data_only_{theme['base']}"])
             else:
                 st.image('analyses/'+analyses[f'{lumi}'][f'{n_leptons}leptons'][f'flavor{flavor}'][f'charge{charge}'][f"plot_data_only_{theme['base']}"])
@@ -595,14 +594,24 @@ def run(selected_language):
                         # Provide feedback based on the selected answer
                         if quiz_signal == simulated_higgs_signal_quiz["options"][0]:  # "There’s a peak matching the Higgs signal"
                             st.success(simulated_higgs_signal_quiz["feedback"]["0"])
-
-                        if quiz_signal == simulated_higgs_signal_quiz["options"][0]:
                             st.balloons()
+
+                        if quiz_signal:
+                            load_markdown_file_with_dynamic_content_and_alerts(
+                                filename="extra_higgs.md",
+                                folder="analyses",
+                                language=selected_language)
+
                             st.markdown("---")
                             load_markdown_file_with_dynamic_content_and_alerts(
-                            filename="discussion.md",
-                            folder="analyses",
-                            language=selected_language)
+                                filename="discussion.md",
+                                folder="analyses",
+                                language=selected_language)
+                            
+
+
+                            
+
                 
 
         # Reset button to start the analysis again
