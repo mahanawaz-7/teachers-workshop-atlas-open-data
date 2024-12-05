@@ -1,5 +1,5 @@
 ### ¿Qué es la selección de eventos?
-En el análisis de datos, la **selección de eventos** se refiere al proceso de aplicar filtros para identificar filas específicas de datos que cumplen con ciertos criterios. La selección de eventos nos permite centrarnos en eventos significativos y excluir datos irrelevantes o ruidosos.
+En el análisis de datos, la **selección de eventos** se refiere al proceso de aplicar filtros para identificar filas específicas de datos que cumplen con ciertos criterios. La selección de eventos nos permite centrarnos en eventos significativos y excluir datos irrelevantes o ruidosos,a menudo denominados colectivamente como "fondos".
 
 > [!NOTE]
 ##### ¿Por qué es importante la selección de eventos?

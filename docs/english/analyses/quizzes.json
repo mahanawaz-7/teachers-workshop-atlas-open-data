@@ -5,7 +5,7 @@
         "options": [
             "The amount of time the detector is active",
             "The number of collisions per second",
-            "A measure of the total number of collisions over a period of time",
+            "The total number of collisions over a period of time",
             "The energy at which the collisions happen"
         ],
         "correct_option_index": 2,

@@ -5,7 +5,7 @@
         "options": [
             "La cantidad de tiempo que el detector está activo",
             "La cantidad de colisiones por segundo",
-            "Una medida de la cantidad total de colisiones durante un período de tiempo",
+            "La cantidad total de colisiones durante un período de tiempo",
             "La energía a la que ocurren las colisiones"
         ],
         "correct_option_index": 2,

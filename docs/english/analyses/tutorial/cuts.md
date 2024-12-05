@@ -1,5 +1,5 @@
 ### What is Event Selection?
-In data analysis, **event selection** refers to the process of applying filters to identify specific rows of data that meet certain criteria. Event selection allows us to focus on meaningful events while excluding irrelevant or noisy data.
+In data analysis, **event selection** refers to the process of applying filters to identify specific rows of data that meet certain criteria. Event selection allows us to focus on meaningful events while excluding irrelevant or noisy data, often collectively referred to as “backgrounds”.
 
 > [!NOTE]
 ##### Why Does Event Selection Matter?

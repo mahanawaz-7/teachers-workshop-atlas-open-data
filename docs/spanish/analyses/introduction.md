@@ -14,6 +14,6 @@ A continuación se muestran los gráficos que buscamos en este análisis:
 
 ![Masa invariante del bosón de Higgs](images/Higss_invariant_mass_distribution.png)
 
-A medida que avance, le explicaremos cómo se crean estos gráficos y qué revelan sobre estas partículas fundamentales.
+Estos gráficos de ejemplo no son solo ejemplos de simulación; representan resultados de análisis reales realizados en el experimento ATLAS, utilizando datos recopilados a partir de colisiones de partículas de alta energía. A medida que avance, le explicaremos cómo se crean estos gráficos y qué revelan sobre estas partículas fundamentales.
 
 ---
