@@ -7,11 +7,15 @@ Here is a diagram showing a Z boson decaying into two leptons (either electrons 
 
 ![Z boson decay into two leptons](images/Z_decay_{theme}.png)
 
+In the previous diagram, the wiggly line on the left represents the Z boson, produced in the collision. As we move to the right, the Z boson reaches a vertex, where it decays into two leptons. These leptons are shown as straight lines, labeled ℓ, which could be either electrons or muons. The arrows on the lines indicate whether each lepton is a particle or an antiparticle: arrows pointing to the right show particles, while arrows pointing to the left show antiparticles. This diagram illustrates how a Z boson decays into a pair of leptons with opposite charges, which we detect in our experiment .
+
 More complex processes, such as Higgs boson decays, can result in more leptons in the final state. For example, here is a Higgs boson decaying into two Z bosons, each of which decays further into two leptons:
 
 ![Higgs boson decay into Z bosons and leptons](images/higgs4l_decay_{theme}.png)
 
-In many processes, particles are produced in pairs due to the nature of particle interactions. For example, the Z boson decays symmetrically into two leptons because it interacts equally with matter and antimatter. Similarly, the Higgs boson produces multiple leptons when its decay involves intermediate particles like Z bosons, which themselves decay into lepton pairs.
+A dashed line on the left represents the Higgs boson (H). The Higgs boson decays at a vertex into two Z bosons, shown as wiggly lines labeled Z. Each Z boson then decays further into two leptons, just like in the first diagram. Again, the straight lines with arrows represent the leptons, with the direction of the arrow indicating whether they are particles or antiparticles. In total, this process results in four leptons, which are the final particles we detect. This diagram demonstrates how a Higgs boson decay can lead to multiple particles through a cascade of interactions.
+
+In many particle processes, particles are often produced in pairs. For example, the Z boson decays into two leptons—a particle and its antiparticle—because it interacts equally with both matter and antimatter. Similarly, the Higgs boson produces multiple leptons when its decay involves intermediate particles like Z bosons, which themselves decay into lepton pairs.
 
 The dataset you are analyzing contains events with varying numbers of leptons. Below is a plot showing the distribution of lepton counts in the entire dataset. Events with fewer leptons are more common because simpler processes, like those involving W or Z bosons, occur more frequently than rarer, complex ones like Higgs boson decays.
 

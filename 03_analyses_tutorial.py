@@ -49,11 +49,11 @@ def run(selected_language):
     
     load_markdown_file_with_dynamic_content_and_alerts(filename='cuts.md', 
                                                        folder='analyses/tutorial', 
-                                                       language='english')
+                                                       language=selected_language)
     
     load_markdown_file_with_dynamic_content_and_alerts(filename='dataset.md', 
                                                        folder='analyses/tutorial', 
-                                                       language='english')
+                                                       language=selected_language)
 
     st.dataframe(data)
 
@@ -77,7 +77,7 @@ def run(selected_language):
     # Selection: Filter by number of particles
     load_markdown_file_with_dynamic_content_and_alerts(filename='selection_cut.md', 
                                                        folder='analyses/tutorial', 
-                                                       language='english')
+                                                       language=selected_language)
 
     selected_nParticles = st.multiselect(
         "Choose the number of particles to include:",
@@ -107,7 +107,7 @@ def run(selected_language):
     # Range: Filter by energy range
     load_markdown_file_with_dynamic_content_and_alerts(filename='range_cut.md', 
                                                        folder='analyses/tutorial', 
-                                                       language='english',
+                                                       language=selected_language,
                                                        filtered_data_size=len(filtered_data),
                                                        filtered_data=filtered_data)
     

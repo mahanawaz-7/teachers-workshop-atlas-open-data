@@ -11,6 +11,10 @@
     "start_done": [
         "Empieza!",
         "Terminado"
-    ]
-
+    ],
+    "tutorial": {
+        "already_done": "¿Ya has completado el tutorial? Pasa al análisis",
+        "finish": "Finalizar el tutorial",
+        "back": "Volver al tutorial"
+    }
 }
