@@ -67,7 +67,7 @@ def run(selected_language):
     col1, col2 = st.columns(2)
     with col1:
         fig, ax = plt.subplots()
-        plot_barplot(data, "nParticles", ax, extras['distribution'], extras['count'])
+        plot_barplot(data, "nLeptons", ax, extras['distribution'], extras['count'])
         st.pyplot(fig)
     with col2:
         fig, ax = plt.subplots()
@@ -79,13 +79,13 @@ def run(selected_language):
                                                        folder='analyses/tutorial', 
                                                        language=selected_language)
 
-    selected_nParticles = st.multiselect(
+    selected_nLeptons = st.multiselect(
         "Choose the number of particles to include:",
         options=[2, 3, 4],
         default=[]
     )
 
-    filtered_data = data[data["nParticles"].isin(selected_nParticles)]
+    filtered_data = data[data["nLeptons"].isin(selected_nLeptons)]
     filtered_data.reset_index(inplace=True, drop=True)
 
     load_markdown_file_with_dynamic_content_and_alerts(filename='visualization.md', 
@@ -97,7 +97,7 @@ def run(selected_language):
     col1, col2 = st.columns(2)
     with col1:
         fig, ax = plt.subplots()
-        plot_barplot(filtered_data, "nParticles", ax, extras['distribution'], extras['count'])
+        plot_barplot(filtered_data, "nLeptons", ax, extras['distribution'], extras['count'])
         st.pyplot(fig)
     with col2:
         fig, ax = plt.subplots()
@@ -113,9 +113,9 @@ def run(selected_language):
     
     min_energy, max_energy = st.slider(
         "Select energy range (GeV):",
-        min_value=float(data["LeadingLeptonEnergy"].min()),
-        max_value=float(data["LeadingLeptonEnergy"].max()),
-        value=(20.0, 150.0)
+        min_value=int(data["LeadingLeptonEnergy"].min()),
+        max_value=int(data["LeadingLeptonEnergy"].max()),
+        value=(20, 150)
     )
     filtered_data = filtered_data[
         (filtered_data["LeadingLeptonEnergy"] >= min_energy) & (filtered_data["LeadingLeptonEnergy"] <= max_energy)
@@ -131,7 +131,7 @@ def run(selected_language):
     col1, col2 = st.columns(2)
     with col1:
         fig, ax = plt.subplots()
-        plot_barplot(filtered_data, "nParticles", ax, extras['distribution'], extras['count'])
+        plot_barplot(filtered_data, "nLeptons", ax, extras['distribution'], extras['count'])
         st.pyplot(fig)
     with col2:
         fig, ax = plt.subplots()
