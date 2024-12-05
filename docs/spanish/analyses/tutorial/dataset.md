@@ -1,0 +1,4 @@
+### ¿Qué conjunto de datos estamos utilizando?
+Para este ejemplo, estamos utilizando un conjunto de datos derivado de datos experimentales recopilados en el detector ATLAS del CERN. Representa un subconjunto de 500 eventos de los datos que utilizaremos para el análisis, y cada evento o fila corresponde a una colisión registrada durante el experimento. Cada fila del conjunto de datos proporciona propiedades de un evento, como la cantidad de partículas detectadas y la energía del leptón líder (el leptón de mayor energía en el evento).
+
+A continuación se muestra el conjunto de datos. Cada fila representa un evento y las columnas brindan información sobre sus propiedades. Aplicaremos cortes para refinar este conjunto de datos y centrarnos en los eventos de interés.

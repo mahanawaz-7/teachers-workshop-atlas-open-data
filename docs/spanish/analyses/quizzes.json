@@ -1,0 +1,131 @@
+{
+    "luminosity_quiz": {
+        "title": " Entendiendo la luminosidad",
+        "question": "Seleccionaste una luminosidad de **{lumi} fb⁻¹**. Pero, ¿qué representa realmente la luminosidad integrada en un experimento de física de partículas?",
+        "options": [
+            "La cantidad de tiempo que el detector está activo",
+            "La cantidad de colisiones por segundo",
+            "Una medida de la cantidad total de colisiones durante un período de tiempo",
+            "La energía a la que ocurren las colisiones"
+        ],
+        "correct_option_index": 2,
+        "feedback": {
+            "0": "¡Correcto! La luminosidad representa la cantidad total de colisiones en el conjunto de datos. Cuanto mayor sea la luminosidad, mayor será la probabilidad de ver eventos raros como el bosón de Higgs.",
+            "1": "Incorrecto. ¡Inténtalo de nuevo o lee más sobre luminosidad!"
+        }
+    },
+
+    "lepton_selection_quiz": {
+        "title": "Estado final del leptón",
+        "question": "¿Qué puede indicar la cantidad de leptones?",
+        "options": [
+            "Dos leptones indican una desintegración simple de una partícula neutra, como un bosón Z",
+            "Cuatro leptones indican una cadena de desintegración más compleja, que posiblemente involucre a un bosón de Higgs",
+            "Una cantidad impar de leptones sugiere un proceso exótico",
+            "Todas las anteriores"
+        ],
+        "correct_option_index": 3,
+        "feedback": {
+            "0": "¡Correcto! Cada opción representa una posibilidad basada en tu selección.",
+            "1": "Incorrecto. Intenta pensar en cómo se producen los leptones en pares."
+        }
+    },
+
+    "charge_selection_quiz": {
+        "title": "Entender la selección de carga",
+        "question": "Seleccionaste pares de leptones con carga **{charge}**. ¿Por qué es importante la carga de los pares de leptones en la física de partículas?",
+        "options": [
+            "La conservación de la carga es un principio fundamental y los productos de desintegración deberían conservar la carga",
+            "Los leptones con la misma carga son más comunes en desintegraciones de partículas como la desintegración del bosón Z",
+            "La carga no juega un papel significativo en las interacciones de partículas",
+            "Los pares de leptones con la misma carga indican una colisión de alta energía"
+        ],
+        "correct_option_index": 0,
+        "feedback": {
+            "0": "¡Correcto! La conservación de la carga es fundamental en la física de partículas y los leptones con cargas opuestas son típicos en desintegraciones como la desintegración del bosón Z.",
+            "1": "Incorrecto. Considere cómo funciona la conservación de la carga en las desintegraciones. Se esperan leptones con cargas opuestas en muchas desintegraciones estándar."
+        }
+    },
+
+    "pt_cut_quiz": {
+        "title": "Elegir cortes apropiados para el p$_T$ de los leptones",
+        "question": "Basándonos en lo que hemos discutido, ¿cuál de los siguientes valores de corte nos ayudaría a centrarnos en eventos similares al Higgs al reducir el fondo?",
+        "options": [
+            "20, 15, 10",
+            "50, 45, 40",
+            "2, 5, 10",
+            "No son necesarios cortes"
+        ],
+        "correct_option_index": 0,
+        "feedback": {
+            "0": "¡Correcto! Establecer cortes de 20, 15 y 10 en los valores p$_T$ de los leptones puede ayudarnos a centrarnos en eventos similares al Higgs al filtrar el fondo.",
+            "1": "No exactamente. Centrarnos en valores que reduzcan eficazmente el ruido de fondo manteniendo la mayor parte de la señal."
+        }
+    },
+
+   "invariant_mass_selection_quiz": {
+        "title": "Masa invariante",
+        "question": "La masa invariante es una cantidad crucial en la física de partículas. ¿Qué nos puede decir sobre una partícula?",
+        "options": [
+            "La energía de la partícula",
+            "El momento de la partícula",
+            "La masa en reposo de la partícula que produjo los leptones",
+            "El tipo de partícula que se desintegró"
+        ],
+        "correct_option_index": 2,
+        "feedback": {
+            "0": "¡Correcto! La masa invariante nos dice la masa de la partícula que se desintegró en leptones.",
+            "1": "Incorrecto. Recuerde, la masa invariante se relaciona con la masa en reposo de la partícula."
+        }
+    },
+   "invariant_mass_Z": {
+        "title": "Interpretación del gráfico de masa invariante",
+        "question": "Generaste un gráfico de masa invariante. Si aparece un pico alrededor de 91 GeV, ¿a qué partícula podría corresponder?",
+        "options": [
+            "Bosón de Higgs",
+            "Bosón Z",
+            "Fotón",
+            "Quark top"
+        ],
+        "correct_option_index": 1,
+        "feedback": {
+            "0": "¡Correcto! Un pico alrededor de 91 GeV normalmente corresponde al bosón Z.",
+            "1": "Incorrecto. Los picos cerca de 91 GeV normalmente indican la presencia de un bosón Z, ya que 91 GeV es su masa."
+        }
+    },
+    "data_only_plot_quiz": {
+        "question": "¿Qué observas en el gráfico de solo datos?",
+        "options": [
+            "Un pico claro",
+            "Algunas fluctuaciones, pero es difícil decirlo",
+            "Sin características específicas"
+        ],
+        "feedback": {
+            "1": "¡Exactamente! Sin contexto, es difícil decir qué fluctuaciones podrían ser una señal.",
+            "0": "¿Ya estás mirando el Higgs? Sigamos para ver si lo entendiste.",
+            "2": "¡Hagámoslo más claro con una simulación!"
+        }
+    },
+    "background_simulation_quiz": {
+        "question": "Con la simulación de fondo, ¿observas picos adicionales?",
+        "options": [
+            "Sí, parece que hay un pico adicional",
+            "No, todo parece un fondo",
+            "No estoy seguro"
+        ],
+        "feedback": {
+            "0": "¡Buena observación! Es posible que estemos viendo algo más allá del fondo"
+        }
+    },
+    "simulated_higgs_signal_quiz": {
+        "question": "Con la señal simulada de Higgs añadida, ¿qué conclusión sacas?",
+        "options": [
+            "Hay un pico que coincide con la señal de Higgs",
+            "Aún no está claro",
+            "El fondo se ajusta mejor a los datos"
+        ],
+        "feedback": {
+            "0": "¡Así es! La alineación del pico con la señal simulada de Higgs proporciona evidencia de que efectivamente hemos observado el bosón de Higgs"
+        }
+    }
+}

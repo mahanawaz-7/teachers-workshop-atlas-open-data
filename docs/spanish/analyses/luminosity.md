@@ -1,0 +1,6 @@
+## ¿Cuántos datos quieres utilizar?
+Comienza tu análisis eligiendo con cuántos datos quieres trabajar. Utiliza el menú desplegable que aparece a continuación para seleccionar la luminosidad integrada, que es una medida de la cantidad de datos que el detector ATLAS ha recopilado durante sus operaciones. En este caso, estamos utilizando datos registrados en 2015 y 2016.
+
+En física de partículas, la **luminosidad** se refiere a la cantidad de colisiones de partículas que ocurren en el detector a lo largo del tiempo. La **luminosidad integrada** es la cantidad total de colisiones registradas, expresada en unidades llamadas femtobarns inversos (fb⁻¹). Como referencia, 1 fb⁻¹ corresponde aproximadamente a 100 billones de colisiones de partículas.
+
+Cuantos más datos (o colisiones) analices, mayores serán tus posibilidades de observar eventos raros. Los procesos raros, como el decaimiento de un bosón de Higgs, ocurren con muy poca frecuencia en comparación con otros eventos. Al analizar más colisiones, se crean más oportunidades para que estos eventos raros ocurran y se capturen en los datos. Ten en cuenta que, si bien más datos aumentan sus posibilidades de encontrar partículas raras, también puede llevar más tiempo procesarlos, porque la computadora necesita procesar una mayor cantidad de eventos registrados para encontrar los que coinciden con su selección.

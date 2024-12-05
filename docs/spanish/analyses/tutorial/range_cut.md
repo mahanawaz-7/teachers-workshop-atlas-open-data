@@ -1,0 +1,8 @@
+## Recorte de rango: selección de eventos según la energía del leptón principal
+En física de partículas, la energía del **leptón principal** (el leptón con la energía más alta en un evento) es una propiedad importante. Proporciona información sobre las interacciones y decaimientos que ocurren en los eventos analizados. Los leptones principales de mayor energía pueden indicar la presencia de partículas más pesadas, como el bosón de Higgs, y su comportamiento ayuda a identificar la naturaleza del evento. Al seleccionar eventos según la energía del leptón principal, podemos reducir el ruido de fondo y centrarnos en señales significativas.
+
+En este paso, aplicará un recorte de rango para filtrar el conjunto de datos según la energía del leptón principal. Esto implica seleccionar un valor de energía mínimo y máximo (medido en gigaelectronvoltios o GeV) para aislar eventos en los que la energía del leptón principal se encuentre dentro de este rango.
+
+Utilice el control deslizante a continuación para especificar el rango de energía. Por ejemplo: un rango de 20 a 150 GeV conserva los eventos en los que la energía leptónica principal es mayor que 20 GeV y menor que 150 GeV.
+
+El conjunto de datos se actualizará dinámicamente a medida que ajuste el rango, lo que proporciona una visión clara de cómo este filtro refina el conjunto de datos. Para verificar el corte del rango, inspeccione la columna `LeadingLeptonEnergy` en el conjunto de datos para asegurarse de que todos los valores estén dentro del rango seleccionado.

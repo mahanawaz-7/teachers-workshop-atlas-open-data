@@ -1,0 +1,46 @@
+{
+  "lumi" : {
+    "selectbox_label": "Selecciona luminosidad (fb$^{-1}$):",
+    "selectbox_options": [12, 24, 36],
+    "default": 0,
+    "apply_button": "Cargar los datos"
+  },
+  "n_leptons" : {
+    "selectbox_label": "¿Cuántos leptones esperas en el estado final?",
+    "selectbox_options": ["--", 2, 3, 4],
+    "messages": {
+      "2": "Has elegido un estado final con **2 leptones**.\nEsto sugiere que estás interesado en un proceso en el que una única partícula intermedia decae en un par de leptones.\nLos pares de leptones son comunes en muchas interacciones de partículas, especialmente cuando se consideran intermediarios neutros.",
+      "4": "Estás viendo **4 leptones** en el estado final.\nEsto suele indicar una cadena de decaimientos, donde múltiples partículas intermedias decae en pares de leptones.\nEstos escenarios son interesantes para estudiar interacciones complejas.",
+      "3": "Tener un número impar de leptones es inusual en procesos de decaimientos simples, ya que los leptones se producen generalmente en pares debido a las leyes de conservación.\nSin embargo, esto podría sugerir que estás explorando modos de decaimientos más exóticos. ¿Está buscando materia oscura?"
+    },
+    "apply_button": "Aplicar selección de número de leptones",
+    "error": "Seleccione un número válido de leptones"
+  },
+  "flavor": {
+    "selectbox_label": "¿Los pares de leptones deberían tener el mismo sabor o un sabor diferente?",
+    "selectbox_options": ["--", "Igual", "Diferente"],
+    "messages": {
+      "same": "Seleccionar leptones del mismo sabor significa que está considerando un escenario donde las propiedades de los leptones son idénticas, como dos electrones o dos muones. Los pares del mismo sabor a menudo surgen en decaimientos donde la interacción de partículas respeta la conservación del sabor.",
+      "different": "Elegir leptones de diferentes sabores indica que está examinando una situación donde los leptones no son idénticos, como un electrón y un muón. Si bien esto puede ocurrir en algunos procesos, es menos común en decaimientos simples debido a las leyes de conservación del sabor"
+    },
+    "apply_button": "Aplicar selección de tipo de leptón",
+    "error": "Seleccione una opción para el sabor de los leptones"
+  },
+  "charge": {
+    "selectbox_label": "¿Los pares de leptones deberían tener la misma carga u opuesta?",
+    "selectbox_options": ["--", "Igual", "Opuesto"],
+    "messages": {
+      "same": "Los pares de leptones con la misma carga son inusuales porque la carga generalmente se conserva en las interacciones. Sin embargo, algunos procesos más exóticos o identificaciones erróneas podrían dar como resultado pares con la misma carga",
+      "opposite": "Ha elegido leptones con carga opuesta. Muchas interacciones conservan la carga, por lo que es típico ver un leptón y su antipartícula producidos juntos, lo que da como resultado cargas opuestas"
+    },
+    "apply_button": "Aplicar selección de carga del leptón",
+    "error": "Seleccione una opción para la carga del leptón"
+  },
+  "mass": { 
+    "apply_button": "Obten masa invariante"
+  }, 
+  "lepton_pt": {
+    "selectbox_label": "Ahora, hagamos el corte:",
+    "apply_button": "Corte en p$_T$ de los leptones"
+  }
+}

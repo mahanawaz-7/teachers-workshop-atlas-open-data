@@ -1,0 +1,16 @@
+{
+    "load_data": "Cargando datos... Por favor espera.",
+    "load_data_success": "¡Datos cargados exitosamente!",
+    "initial_nevents": "Número inicial de eventos",
+    "choose_answer": "Selecciona su respuesta",
+    "already_cutted": "Ya aplicaste una selección. Para reiniciar el análisis, ve al final de la página.",
+    "making_selection": "Realizando selección... Por favor espera.",
+    "selection_success": "Selección aplicada exitosamente.",
+    "after_nevents": "Eventos luego de la selección",
+    "restart": "Si deseas volver a aplicar cortes, haga clic en el botón 'Reiniciar análisis'",
+    "restart_button": "Reiniciar análisis",
+    "restarted": "El análisis se ha reiniciado.",
+    "start": "Empieza!",
+    "hint": "¿Quieres una pista? Haz clic aquí y mira la imagen de arriba",
+    "hide_hint": "Ocultar pista"
+}

@@ -1,0 +1,21 @@
+{
+    "intro": {
+        "title": "¿Cómo sabemos que hemos encontrado el bosón de Higgs?",
+        "docs": "Para determinar si hemos observado el bosón de Higgs, comparamos nuestros datos reales con simulaciones de procesos de fondo conocidos y señales simuladas. Este enfoque nos ayuda a ver si hay un pico que sobresale en nuestros datos donde esperamos que aparezca el bosón de Higgs"
+    },
+    "data_only": {
+        "title": "Paso 1: Observar los datos",
+        "docs": "Comencemos por observar los datos solos. Observe con atención: ¿nota alguna característica específica? Sin información adicional, puede ser difícil determinar si los picos se deben a procesos de fondo o eventos de señal.",
+        "caption": "Solo datos observados"
+    },
+    "data_bkg": {
+        "title": "Paso 2: Agregar simulación de fondo",
+        "docs": "Ahora, añadimos una simulación de los procesos de fondo (sin ninguna señal). Esto nos muestra lo que esperaríamos ver de otras partículas e interacciones en ausencia del bosón de Higgs, como el pico Z a 91 GeV que obtuvimos anteriormente. Observa con atención: ¿aparece algún pico en los datos además del fondo?",
+        "caption": "Datos con simulación de fondo"
+    },
+    "data_bkg_sig": {
+        "title": "Paso 3: Agregar la señal de Higgs simulada",
+        "docs": "Finalmente, agregamos la simulación de la Señal de Higgs para ver qué tan bien coincide con los datos. Si los datos se alinean con el fondo más la simulación de la señal de Higgs, tenemos evidencia sólida del bosón de Higgs. ¿Puedes detectar un pico claro donde esperamos que esté el bosón de Higgs?",
+        "caption": "Datos con fondo y señal de Higgs simulada"
+    }
+}

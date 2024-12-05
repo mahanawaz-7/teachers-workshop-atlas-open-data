@@ -1,0 +1,4 @@
+# Tutorial: Entendiendo la selección de eventos
+El análisis de datos es la base de la investigación en física. En experimentos como los que se llevan a cabo en el detector ATLAS del CERN, analizamos grandes cantidades de datos para buscar evidencia de partículas. Este proceso implica aislar colisiones o eventos significativos, un paso esencial para realizar descubrimientos científicos.
+
+Este tutorial presenta el concepto de **selección de eventos**, o cortes, en el análisis de datos. Aprenderás cómo y por qué aplicar reglas de selección de eventos, que son filtros que refinan el conjunto de datos para centrarse en los eventos de interés. Utilizando un conjunto de datos extraído de datos experimentales reales, explorará un proceso para analizar datos y descubrir patrones. Al final, comprenderás mejor cómo se aplican los cortes, para usarlos más adelante para revelar la física oculta dentro del conjunto de datos completo.
