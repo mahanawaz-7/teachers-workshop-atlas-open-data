@@ -45,7 +45,7 @@ def reset_language():
 
 # Main page (landing page with language selection)
 if not st.session_state["language_selected"]:
-    st.title("Welcome to the ATLAS Open Data Teachers Workshop")
+    st.title("Welcome to the ATLAS Open Data in the Classroom")
     st.image('https://atlas.cern/sites/default/files/2024-07/ATLAS-open-data.jpg', width=630)
     st.write("Please select your language to continue:")
     
